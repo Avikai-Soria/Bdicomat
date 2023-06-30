@@ -1,19 +1,71 @@
 -- Populating Users table
-INSERT INTO Users (name, username, email, address)
+INSERT INTO
+    Users (name, username, email, address)
 VALUES
-    ('John Doe', 'johndoe', 'johndoe@example.com', '123 Main St'),
-    ('Jane Smith', 'janesmith', 'janesmith@example.com', '456 Elm St'),
-    ('Michael Johnson', 'michaelj', 'michaelj@example.com', '789 Oak St'),
-    ('Sarah Wilson', 'sarahw', 'sarahw@example.com', '321 Maple Ave'),
-    ('David Brown', 'davidb', 'davidb@example.com', '987 Pine St'),
-    ('Emily Davis', 'emilyd', 'emilyd@example.com', '654 Cedar Rd'),
-    ('James Lee', 'jamesl', 'jamesl@example.com', '788 Pine St'),
-    ('Jessica Thomas', 'jessicat', 'jessicat@example.com', '457 Elm St'),
-    ('Daniel Clark', 'danielc', 'danielc@example.com', '124 Main St'),
-    ('Olivia Anderson', 'oliviaa', 'oliviaa@example.com', '988 Pine St');
+    (
+        'John Doe',
+        'johndoe',
+        'johndoe@example.com',
+        '123 Main St'
+    ),
+    (
+        'Jane Smith',
+        'janesmith',
+        'janesmith@example.com',
+        '456 Elm St'
+    ),
+    (
+        'Michael Johnson',
+        'michaelj',
+        'michaelj@example.com',
+        '789 Oak St'
+    ),
+    (
+        'Sarah Wilson',
+        'sarahw',
+        'sarahw@example.com',
+        '321 Maple Ave'
+    ),
+    (
+        'David Brown',
+        'davidb',
+        'davidb@example.com',
+        '987 Pine St'
+    ),
+    (
+        'Emily Davis',
+        'emilyd',
+        'emilyd@example.com',
+        '654 Cedar Rd'
+    ),
+    (
+        'James Lee',
+        'jamesl',
+        'jamesl@example.com',
+        '788 Pine St'
+    ),
+    (
+        'Jessica Thomas',
+        'jessicat',
+        'jessicat@example.com',
+        '457 Elm St'
+    ),
+    (
+        'Daniel Clark',
+        'danielc',
+        'danielc@example.com',
+        '124 Main St'
+    ),
+    (
+        'Olivia Anderson',
+        'oliviaa',
+        'oliviaa@example.com',
+        '988 Pine St'
+    );
 
 -- Populating Passwords table
-INSERT INTO Passwords (userId, password)
+INSERT INTO
+    Passwords (userId, password)
 VALUES
     (1, 'password1'),
     (2, 'password2'),
@@ -26,109 +78,149 @@ VALUES
     (9, 'password9'),
     (10, 'password10');
 
--- Creating Posts for each user
-INSERT INTO Posts (userId, title, body)
-    SELECT id, 'Introduction to SQL' AS title, 'SQL is a powerful language used for managing and manipulating relational databases.' AS body FROM Users;
-INSERT INTO Posts (userId, title, body)
-    SELECT id, 'Understanding SQL Joins' AS title, 'SQL joins are fundamental for combining data from multiple tables in a database.' AS body FROM Users;
-INSERT INTO Posts (userId, title, body)
-    SELECT id, 'Advanced SQL Techniques' AS title, 'Explore advanced SQL techniques such as subqueries, window functions, and stored procedures.' AS body FROM Users;
+-- Populating Tests table
+INSERT INTO
+    Tests (name, description, expectedResult, configuration)
+VALUES
+    (
+        'Login Test',
+        'Test the functionality of the login system',
+        'Successful login with correct credentials',
+        'Login configuration 1'
+    ),
+    (
+        'Search Test',
+        'Test the search functionality',
+        'Correct items returned from search',
+        'Search configuration 1'
+    ),
+    (
+        'Logout Test',
+        'Test the functionality of the logout system',
+        'Successful logout',
+        'Logout configuration 1'
+    ),
+    (
+        'Navigation Test',
+        'Test the navigation bar',
+        'Correct page loaded on click',
+        'Navigation configuration 1'
+    ),
+    (
+        'Form Submission Test',
+        'Test the functionality of form submission',
+        'Form data saved correctly',
+        'Form configuration 1'
+    );
 
--- Creating Comments for each post
-INSERT INTO Comments (postId, body, userId)
-    SELECT p.id, "Great introduction to SQL! It's an essential skill for working with databases." AS body, u.id AS userId
-    FROM Posts p
-    INNER JOIN Users u ON u.id = p.userId;
-    
-INSERT INTO Comments (postId, body, userId)
-    SELECT p.id, "Understanding SQL joins is crucial for querying data from multiple tables. Thanks for explaining it!" AS body, u.id AS userId
-    FROM Posts p
-    INNER JOIN Users u ON u.id = p.userId;
-    
-INSERT INTO Comments (postId, body, userId)
-    SELECT p.id, "I'm eager to learn advanced SQL techniques like subqueries and window functions. Any recommendations?" AS body, u.id AS userId
-    FROM Posts p
-    INNER JOIN Users u ON u.id = p.userId;
-    
-INSERT INTO Comments (postId, body, userId)
-    SELECT p.id, "I found your post on SQL joins really helpful. Can you provide examples of different join types?" AS body, u.id AS userId
-    FROM Posts p
-    INNER JOIN Users u ON u.id = p.userId;
-    
-INSERT INTO Comments (postId, body, userId)
-    SELECT p.id, "The advanced SQL techniques you mentioned are quite powerful. I'm excited to explore them in more detail." AS body, u.id AS userId
-    FROM Posts p
-    INNER JOIN Users u ON u.id = p.userId;
-    
-INSERT INTO Comments (postId, body, userId)
-    SELECT p.id, "Do you have any recommendations for resources to learn advanced SQL techniques? I'm really interested!" AS body, u.id AS userId
-    FROM Posts p
-    INNER JOIN Users u ON u.id = p.userId;
-    
-INSERT INTO Comments (postId, body, userId)
-    SELECT p.id, "I appreciate your post on SQL. It has helped me gain a better understanding of database management." AS body, u.id AS userId
-    FROM Posts p
-    INNER JOIN Users u ON u.id = p.userId;
-    
-INSERT INTO Comments (postId, body, userId)
-    SELECT p.id, "Thanks for explaining SQL joins. They were a bit confusing for me, but now it's much clearer." AS body, u.id AS userId
-    FROM Posts p
-    INNER JOIN Users u ON u.id = p.userId;
-    
-INSERT INTO Comments (postId, body, userId)
-    SELECT p.id, "I've been using subqueries in my SQL queries, but I'm still trying to grasp the concept fully. Any tips?" AS body, u.id AS userId
-    FROM Posts p
-    INNER JOIN Users u ON u.id = p.userId;
-    
-INSERT INTO Comments (postId, body, userId)
-    SELECT p.id, "Your post on advanced SQL techniques inspired me to dive deeper into SQL. Looking forward to your future posts!" AS body, u.id AS userId
-    FROM Posts p
-    INNER JOIN Users u ON u.id = p.userId;
+-- Populating TestRuns table
+INSERT INTO
+    TestRuns (testId, userId, result, details, duration)
+VALUES
+    (1, 1, 'pass', 'Login test ran successfully', 10),
+    (
+        2,
+        1,
+        'fail',
+        'Search test failed with error: null pointer exception',
+        15
+    ),
+    (
+        3,
+        2,
+        'running',
+        'Logout test is currently running',
+        0
+    ),
+    (
+        4,
+        2,
+        'pass',
+        'Navigation test ran successfully',
+        12
+    ),
+    (
+        5,
+        3,
+        'fail',
+        'Form Submission test failed with error: 500 internal server error',
+        25
+    ),
+    (1, 3, 'pass', 'Login test ran successfully', 9),
+    (
+        2,
+        4,
+        'running',
+        'Search test is currently running',
+        0
+    ),
+    (3, 4, 'pass', 'Logout test ran successfully', 8),
+    (
+        4,
+        5,
+        'fail',
+        'Navigation test failed with error: element not found',
+        20
+    ),
+    (
+        5,
+        5,
+        'pass',
+        'Form Submission test ran successfully',
+        30
+    );
 
--- Creating Todos for each user
-INSERT INTO Todos (userId, title, completed)
-    SELECT id, 'Learn SQL basic syntax' AS title, 0 AS completed FROM Users;
-INSERT INTO Todos (userId, title, completed)
-    SELECT id, 'Practice SQL queries with sample databases' AS title, 0 AS completed FROM Users;
-INSERT INTO Todos (userId, title, completed)
-    SELECT id, 'Build a simple CRUD application using SQL and a backend language' AS title, 0 AS completed FROM Users;
-INSERT INTO Todos (userId, title, completed)
-    SELECT id, 'Explore different types of SQL joins and their use cases' AS title, 0 AS completed FROM Users;
-INSERT INTO Todos (userId, title, completed)
-    SELECT id, 'Implement user authentication and authorization in a full-stack web application' AS title, 0 AS completed FROM Users;
-INSERT INTO Todos (userId, title, completed)
-    SELECT id, 'Create a database schema for a complex web application' AS title, 0 AS completed FROM Users;
-INSERT INTO Todos (userId, title, completed)
-    SELECT id, 'Optimize SQL queries for improved performance' AS title, 0 AS completed FROM Users;
-INSERT INTO Todos (userId, title, completed)
-    SELECT id, 'Learn a front-end framework (e.g., React, Vue, Angular) to complement SQL skills' AS title, 0 AS completed FROM Users;
-INSERT INTO Todos (userId, title, completed)
-    SELECT id, 'Master SQL subqueries and their various use cases' AS title, 0 AS completed FROM Users;
-INSERT INTO Todos (userId, title, completed)
-    SELECT id, 'Build a RESTful API using SQL and a backend framework' AS title, 0 AS completed FROM Users;
+-- Populating ScheduledTests table
+INSERT INTO
+    ScheduledTests (testId, userId, scheduledTime)
+VALUES
+    (1, 6, '2023-07-01 12:00:00'),
+    (2, 6, '2023-07-02 12:00:00'),
+    (3, 7, '2023-07-03 12:00:00'),
+    (4, 7, '2023-07-04 12:00:00'),
+    (5, 8, '2023-07-05 12:00:00');
 
--- Creating Albums for each user
-INSERT INTO Albums (userId, title)
-SELECT u.id, CONCAT('Cat Album Number ', a.albumNum) AS title
-FROM Users u
-CROSS JOIN (
-    SELECT ROW_NUMBER() OVER (ORDER BY t) AS albumNum
-    FROM (
-        SELECT 1 AS t UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5
-    ) tmp
-) a
-ORDER BY u.id, a.albumNum;
+-- Populating UserNotifications table
+INSERT INTO
+    UserNotifications (userId, type, details)
+VALUES
+    (
+        9,
+        'email',
+        'Your Login Test scheduled for 2023-07-01 12:00:00 has passed'
+    ),
+    (
+        9,
+        'sms',
+        'Your Search Test scheduled for 2023-07-02 12:00:00 has failed'
+    ),
+    (
+        10,
+        'email',
+        'Your Logout Test scheduled for 2023-07-03 12:00:00 is currently running'
+    ),
+    (
+        10,
+        'sms',
+        'Your Navigation Test scheduled for 2023-07-04 12:00:00 has passed'
+    ),
+    (
+        1,
+        'email',
+        'Your Form Submission Test scheduled for 2023-07-05 12:00:00 has failed'
+    );
 
--- Creating Photos for each album
-INSERT INTO Photos (albumId, title, url, thumbnailUrl)
-SELECT a.id, CONCAT('Photo ', p.photoNum) AS title, CONCAT('https://placekitten.com/500/500?image=', p.photoNum) AS url, CONCAT('https://placekitten.com/500/500?image=', p.photoNum) AS thumbnailUrl
-FROM Albums a
-CROSS JOIN (
-    SELECT ROW_NUMBER() OVER (ORDER BY t) AS photoNum
-    FROM (
-        SELECT 1 AS t UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL
-        SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9 UNION ALL SELECT 10 UNION ALL
-        SELECT 11 UNION ALL SELECT 12 UNION ALL SELECT 13 UNION ALL SELECT 14 UNION ALL SELECT 15 UNION ALL SELECT 16
-    ) tmp
-) p
-ORDER BY a.id, p.photoNum;
+-- Populating UserRoles table
+INSERT INTO
+    UserRoles (userId, role)
+VALUES
+    (1, 'admin'),
+    (2, 'tester'),
+    (3, 'tester'),
+    (4, 'admin'),
+    (5, 'tester'),
+    (6, 'admin'),
+    (7, 'tester'),
+    (8, 'admin'),
+    (9, 'tester'),
+    (10, 'admin');

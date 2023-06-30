@@ -1,67 +1,67 @@
-CREATE TABLE `Passwords`(
-    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `userId` BIGINT UNSIGNED NOT NULL,
-    `password` VARCHAR(255) NOT NULL
-);
-CREATE TABLE `ApiKeys`(
-    `apiKey` BINARY(16) NOT NULL PRIMARY KEY,
-    `userId` BIGINT UNSIGNED NOT NULL,
-    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
 CREATE TABLE `Users`(
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(255) NOT NULL,
     `username` VARCHAR(255) NOT NULL,
     `email` VARCHAR(255) NOT NULL,
-    `address` VARCHAR(255) NULL
+    `address` VARCHAR(255) NULL,
+    UNIQUE `users_username_unique`(`username`),
+    UNIQUE `users_email_unique`(`email`)
 );
-ALTER TABLE
-    `Users` ADD UNIQUE `users_username_unique`(`username`);
-ALTER TABLE
-    `Users` ADD UNIQUE `users_email_unique`(`email`);
-CREATE TABLE `Photos`(
-    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `albumId` BIGINT UNSIGNED NOT NULL,
-    `title` VARCHAR(255) NOT NULL,
-    `url` VARCHAR(255) NOT NULL,
-    `thumbnailUrl` VARCHAR(255) NOT NULL
-);
-CREATE TABLE `Posts`(
+
+CREATE TABLE `Passwords`(
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `userId` BIGINT UNSIGNED NOT NULL,
-    `title` VARCHAR(255) NOT NULL,
-    `body` VARCHAR(255) NOT NULL
+    `password` VARCHAR(255) NOT NULL,
+    FOREIGN KEY(`userId`) REFERENCES `Users`(`id`)
 );
-CREATE TABLE `Comments`(
+
+CREATE TABLE `ApiKeys`(
+    `apiKey` BINARY(16) NOT NULL PRIMARY KEY,
+    `userId` BIGINT UNSIGNED NOT NULL,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY(`userId`) REFERENCES `Users`(`id`)
+);
+
+CREATE TABLE `Tests`(
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `postId` BIGINT UNSIGNED NOT NULL,
-    `body` VARCHAR(255) NOT NULL,
-    `userId` BIGINT UNSIGNED NOT NULL
+    `name` VARCHAR(255) NOT NULL,
+    `description` TEXT NOT NULL,
+    `expectedResult` TEXT NOT NULL,
+    `configuration` TEXT NOT NULL
 );
-CREATE TABLE `Todos`(
+
+CREATE TABLE `TestRuns`(
+    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `testId` BIGINT UNSIGNED NOT NULL,
+    `userId` BIGINT UNSIGNED NOT NULL,
+    `timestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `result` ENUM('pass', 'fail', 'running') NOT NULL,
+    `details` TEXT,
+    `duration` INT NOT NULL,
+    FOREIGN KEY(`testId`) REFERENCES `Tests`(`id`),
+    FOREIGN KEY(`userId`) REFERENCES `Users`(`id`)
+);
+
+CREATE TABLE `ScheduledTests`(
+    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `testId` BIGINT UNSIGNED NOT NULL,
+    `userId` BIGINT UNSIGNED NOT NULL,
+    `scheduledTime` TIMESTAMP NOT NULL,
+    FOREIGN KEY(`testId`) REFERENCES `Tests`(`id`),
+    FOREIGN KEY(`userId`) REFERENCES `Users`(`id`)
+);
+
+CREATE TABLE `UserNotifications`(
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `userId` BIGINT UNSIGNED NOT NULL,
-    `title` VARCHAR(255) NOT NULL,
-    `completed` TINYINT(1) NOT NULL
+    `type` ENUM('email', 'sms') NOT NULL,
+    `details` TEXT NOT NULL,
+    FOREIGN KEY(`userId`) REFERENCES `Users`(`id`)
 );
-CREATE TABLE `Albums`(
-    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+CREATE TABLE `UserRoles`(
     `userId` BIGINT UNSIGNED NOT NULL,
-    `title` VARCHAR(255) NOT NULL
+    `role` ENUM('tester', 'admin') NOT NULL,
+    FOREIGN KEY(`userId`) REFERENCES `Users`(`id`),
+    PRIMARY KEY(`userId`, `role`)
 );
-ALTER TABLE
-    `Albums` ADD CONSTRAINT `albums_userid_foreign` FOREIGN KEY(`userId`) REFERENCES `Users`(`id`);
-ALTER TABLE
-    `Comments` ADD CONSTRAINT `comments_userid_foreign` FOREIGN KEY(`userId`) REFERENCES `Users`(`id`);
-ALTER TABLE
-    `Comments` ADD CONSTRAINT `comments_postid_foreign` FOREIGN KEY(`postId`) REFERENCES `Posts`(`id`);
-ALTER TABLE
-    `Posts` ADD CONSTRAINT `posts_userid_foreign` FOREIGN KEY(`userId`) REFERENCES `Users`(`id`);
-ALTER TABLE
-    `Passwords` ADD CONSTRAINT `passwords_userid_foreign` FOREIGN KEY(`userId`) REFERENCES `Users`(`id`);
-ALTER TABLE
-    `ApiKeys` ADD CONSTRAINT `apikeys_userid_foreign` FOREIGN KEY(`userId`) REFERENCES `Users`(`id`);
-ALTER TABLE
-    `Photos` ADD CONSTRAINT `photos_albumid_foreign` FOREIGN KEY(`albumId`) REFERENCES `Albums`(`id`);
-ALTER TABLE
-    `Todos` ADD CONSTRAINT `todos_userid_foreign` FOREIGN KEY(`userId`) REFERENCES `Users`(`id`);
