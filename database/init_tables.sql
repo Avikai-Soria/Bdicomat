@@ -34,7 +34,7 @@ CREATE TABLE `TestRuns`(
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `testId` BIGINT UNSIGNED NOT NULL,
     `userId` BIGINT UNSIGNED NOT NULL,
-    `timestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `startTest` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `result` ENUM('pass', 'fail', 'running') NOT NULL,
     `details` TEXT,
     `duration` INT NOT NULL,
