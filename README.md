@@ -1,4 +1,4 @@
-# full-stack-06
+# full-stack-07
 docker-compose up -d
 docker-compose down
 docker exec -it mysqlcontainer mysql -u admin -p
