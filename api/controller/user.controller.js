@@ -84,45 +84,44 @@ export const createUser = async (req, res) => {
   try {
     const { name, username, email, address, password } = req.body;
 
-    // Check if a user with the username already exists
-    const conflictingUser = await databasePr.query(
-      QUERY.SELECT_USER_BY_USERNAME_OR_EMAIL,
-      [username, email]
-    );
-    if (conflictingUser[0].length !== 0) {
-      console.error("Found duplicate username:", conflictingUser[0]);
-      return res
-        .status(HttpStatus.CONFLICT.code)
-        .send(
-          new Response(
-            HttpStatus.CONFLICT.code,
-            HttpStatus.CONFLICT.status,
-            "A user with the given username or email already exists."
-          )
-        );
-    }
-
-    const userCreation = await databasePr.query(QUERY.CREATE_USER, [
-      name,
-      username,
-      email,
-      address,
-    ]);
-    const userId = userCreation[0].insertId;
-
-    const user = {
-      id: userId,
-      name,
-      username,
-      email,
-      address: address || null,
-    };
+    // Get a connection from the pool
+    const connection = await databasePr.getConnection();
 
     try {
-      const passwordCreation = await databasePr.query(QUERY.CREATE_PASSWORD, [
+      // Start a database transaction
+      await connection.beginTransaction();
+
+      // Create the user
+      const userCreation = await connection.query(QUERY.CREATE_USER, [
+        name,
+        username,
+        email,
+        address,
+      ]);
+      const userId = userCreation[0].insertId;
+
+      // Create the password
+      const passwordCreation = await connection.query(QUERY.CREATE_PASSWORD, [
         userId,
         password,
       ]);
+
+      // Add user role to UserRoles table
+      const userRoleCreation = await connection.query(QUERY.ADD_USER_ROLE, [
+        userId,
+        "tester",
+      ]);
+
+      // Commit the transaction
+      await connection.commit();
+
+      const user = {
+        id: userId,
+        name,
+        username,
+        email,
+        address: address || null,
+      };
 
       res
         .status(HttpStatus.CREATED.code)
@@ -135,36 +134,17 @@ export const createUser = async (req, res) => {
           )
         );
     } catch (error) {
-      // Password creation error.
-      // Deleting the created user because the password is missing...
-      console.error("Error creating password:", error.message);
-      console.error("Trying to delete the created user from the database...");
-      await databasePr.query(QUERY.DELETE_USER, [userId]);
-      console.error("Successfully deleted the created user.");
+      // Rollback the transaction
+      await connection.rollback();
+
+      console.error("Error creating user:", error.message);
       return handleInternalError(res);
+    } finally {
+      // Release the connection back to the pool
+      connection.release();
     }
   } catch (error) {
     console.error("Error creating user:", error.message);
-    return handleInternalError(res);
-  }
-};
-
-export const deleteUserSelf = async (req, res) => {
-  console.log(`${req.method} ${req.originalUrl}, deleting user...`);
-
-  try {
-    // TODO: Create a sql procedure for this.
-    await databasePr.query(QUERY.DELETE_APIKEYS, [res.locals.userId]);
-    await databasePr.query(QUERY.DELETE_PASSWORD, [res.locals.userId]);
-    await databasePr.query(QUERY.DELETE_USER, [res.locals.userId]);
-
-    res
-      .status(HttpStatus.OK.code)
-      .send(
-        new Response(HttpStatus.OK.code, HttpStatus.OK.status, "User deleted")
-      );
-  } catch (error) {
-    console.error("Error fetching user:", error.message);
     return handleInternalError(res);
   }
 };
@@ -180,9 +160,35 @@ const userUpdateSchema = Joi.object({
   .and("newPassword", "oldPassword")
   .min(1);
 
+export const updateUser = async (req, res) => {
+  const { id } = req.params;
+  console.log(
+    `${req.method} ${req.originalUrl}, updating user with ID: ${id}...`
+  );
+  await updateUserById(req, res, id);
+};
+
 export const updateUserSelf = async (req, res) => {
   console.log(`${req.method} ${req.originalUrl}, updating user...`);
+  const { userId } = res.locals;
+  await updateUserById(req, res, userId);
+};
 
+export const deleteUser = async (req, res) => {
+  const { id } = req.params;
+  console.log(
+    `${req.method} ${req.originalUrl}, deleting user with ID: ${id}...`
+  );
+  await deleteUserById(req, res, id);
+};
+
+export const deleteUserSelf = async (req, res) => {
+  console.log(`${req.method} ${req.originalUrl}, deleting user...`);
+  const { userId } = res.locals;
+  await deleteUserById(req, res, userId);
+};
+
+const updateUserById = async (req, res, id) => {
   const { error } = userUpdateSchema.validate(req.body);
 
   if (error) {
@@ -190,51 +196,108 @@ export const updateUserSelf = async (req, res) => {
   }
 
   try {
-    const { userId } = res.locals;
-    const { name, username, email, address, newPassword, oldPassword } =
-      req.body;
+    // Get a connection from the pool
+    const connection = await database.promise().getConnection();
 
-    const userResult = await databasePr.query(QUERY.SELECT_USER_BY_ID, [
-      userId,
-    ]);
+    try {
+      // Start a database transaction
+      await connection.beginTransaction();
 
-    const user = {
-      id: userId,
-      name: name || userResult[0][0].name,
-      username: username || userResult[0][0].username,
-      email: email || userResult[0][0].email,
-      address: address !== undefined ? address : userResult[0][0].address,
-    };
+      // Fetch the user's current data
+      const userResult = await connection.query(QUERY.SELECT_USER_BY_ID, [id]);
 
-    if (name || username || email || address !== undefined) {
-      await databasePr.query(QUERY.UPDATE_USER, [
-        user.name,
-        user.username,
-        user.email,
-        user.address,
-        user.id,
-      ]);
-    }
+      if (userResult[0].length === 0) {
+        // Rollback the transaction
+        await connection.rollback();
 
-    if (newPassword) {
-      const passwordUpdate = await databasePr.query(QUERY.UPDATE_PASSWORD, [
-        newPassword,
-        userId,
-        oldPassword,
-      ]);
-
-      if (passwordUpdate[0].affectedRows === 0) {
-        return handleBadRequest(res, "Wrong password");
+        return handleNotFound(res, `User with ID ${id} not found`);
       }
-    }
 
-    res.status(HttpStatus.OK.code).send(
-      new Response(HttpStatus.OK.code, HttpStatus.OK.status, "User updated", {
-        user,
-      })
-    );
+      // Create an object with updated user data
+      const updatedUser = {
+        id,
+        name: req.body.name || userResult[0][0].name,
+        username: req.body.username || userResult[0][0].username,
+        email: req.body.email || userResult[0][0].email,
+        address:
+          req.body.address !== undefined
+            ? req.body.address
+            : userResult[0][0].address,
+      };
+
+      // Update the user's data in the database
+      if (
+        req.body.name ||
+        req.body.username ||
+        req.body.email ||
+        req.body.address !== undefined
+      ) {
+        await connection.query(QUERY.UPDATE_USER, [
+          updatedUser.name,
+          updatedUser.username,
+          updatedUser.email,
+          updatedUser.address,
+          updatedUser.id,
+        ]);
+      }
+
+      // Update the user's password if provided
+      if (req.body.newPassword) {
+        const passwordUpdate = await connection.query(QUERY.UPDATE_PASSWORD, [
+          req.body.newPassword,
+          id,
+          req.body.oldPassword,
+        ]);
+
+        if (passwordUpdate[0].affectedRows === 0) {
+          // Rollback the transaction
+          await connection.rollback();
+
+          return handleBadRequest(res, "Wrong password");
+        }
+      }
+
+      // Commit the transaction
+      await connection.commit();
+
+      res.status(HttpStatus.OK.code).send(
+        new Response(HttpStatus.OK.code, HttpStatus.OK.status, "User updated", {
+          user: updatedUser,
+        })
+      );
+    } catch (error) {
+      // Rollback the transaction
+      await connection.rollback();
+
+      console.error("Error updating user:", error.message);
+      return handleInternalError(res);
+    } finally {
+      // Release the connection back to the pool
+      connection.release();
+    }
   } catch (error) {
-    console.error("Error creating user:", error.message);
+    console.error("Error updating user:", error.message);
+    return handleInternalError(res);
+  }
+};
+
+const deleteUserById = async (req, res, id) => {
+  try {
+    console.log(QUERY.DELETE_USER, [id]);
+    const result = await databasePr.query(QUERY.DELETE_USER, [id]);
+
+    if (result[0].affectedRows === 1) {
+      res
+        .status(HttpStatus.OK.code)
+        .send(
+          new Response(HttpStatus.OK.code, HttpStatus.OK.status, "User deleted")
+        );
+    } else {
+      // User with the given id was not found
+      return handleNotFound(res, `User with ID ${id} not found`);
+    }
+  } catch (error) {
+    console.error("Error deleting user:", error.message);
     return handleInternalError(res);
   }
 };

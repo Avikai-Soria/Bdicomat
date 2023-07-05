@@ -11,6 +11,8 @@ import todoRoutes from "./route/todo.route.js";
 import albumRoutes from "./route/album.route.js";
 import photoRoutes from "./route/photo.route.js";
 
+import testRoutes from "./route/test.route.js";
+
 const PORT = process.env.PORT || 2999;
 const app = express();
 app.use(express.json());
@@ -19,6 +21,7 @@ app.use(cors());
 app.use("/apikeys", apikeyRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
+app.use("/tests", testRoutes);
 app.use("/comments", commentRoutes);
 app.use("/todos", todoRoutes);
 app.use("/albums", albumRoutes);

@@ -12,14 +12,14 @@ CREATE TABLE `Passwords`(
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `userId` BIGINT UNSIGNED NOT NULL,
     `password` VARCHAR(255) NOT NULL,
-    FOREIGN KEY(`userId`) REFERENCES `Users`(`id`)
+    FOREIGN KEY(`userId`) REFERENCES `Users`(`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE `ApiKeys`(
     `apiKey` BINARY(16) NOT NULL PRIMARY KEY,
     `userId` BIGINT UNSIGNED NOT NULL,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY(`userId`) REFERENCES `Users`(`id`)
+    FOREIGN KEY(`userId`) REFERENCES `Users`(`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE `Tests`(
@@ -39,7 +39,7 @@ CREATE TABLE `TestRuns`(
     `details` TEXT,
     `duration` INT NOT NULL,
     FOREIGN KEY(`testId`) REFERENCES `Tests`(`id`),
-    FOREIGN KEY(`userId`) REFERENCES `Users`(`id`)
+    FOREIGN KEY(`userId`) REFERENCES `Users`(`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE `ScheduledTests`(
@@ -48,7 +48,7 @@ CREATE TABLE `ScheduledTests`(
     `userId` BIGINT UNSIGNED NOT NULL,
     `scheduledTime` TIMESTAMP NOT NULL,
     FOREIGN KEY(`testId`) REFERENCES `Tests`(`id`),
-    FOREIGN KEY(`userId`) REFERENCES `Users`(`id`)
+    FOREIGN KEY(`userId`) REFERENCES `Users`(`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE `UserNotifications`(
@@ -56,12 +56,12 @@ CREATE TABLE `UserNotifications`(
     `userId` BIGINT UNSIGNED NOT NULL,
     `type` ENUM('email', 'sms') NOT NULL,
     `details` TEXT NOT NULL,
-    FOREIGN KEY(`userId`) REFERENCES `Users`(`id`)
+    FOREIGN KEY(`userId`) REFERENCES `Users`(`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE `UserRoles`(
     `userId` BIGINT UNSIGNED NOT NULL,
     `role` ENUM('tester', 'admin') NOT NULL,
-    FOREIGN KEY(`userId`) REFERENCES `Users`(`id`),
+    FOREIGN KEY(`userId`) REFERENCES `Users`(`id`) ON DELETE CASCADE,
     PRIMARY KEY(`userId`, `role`)
 );
