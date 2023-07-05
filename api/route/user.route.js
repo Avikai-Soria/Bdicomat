@@ -4,9 +4,11 @@ import {
   createUser,
   deleteUserSelf,
   updateUserSelf,
+  deleteUser,
+  updateUser
 } from "../controller/user.controller.js";
 
-import { authenticate } from "../controller/apikey.controller.js";
+import { authenticate, authorizeAdmin } from "../controller/apikey.controller.js";
 
 const userRoutes = express.Router();
 
@@ -14,7 +16,13 @@ userRoutes.post("/", createUser);
 
 userRoutes.use(authenticate);
 
-userRoutes.get("/:id", getUser);
-userRoutes.route("/").delete(deleteUserSelf).put(updateUserSelf);
+userRoutes.route("/")
+  .delete(deleteUserSelf)
+  .put(updateUserSelf);
+
+  userRoutes.route("/:id")
+  .get(getUser)
+  .delete(authorizeAdmin, deleteUser)
+  .put(authorizeAdmin, updateUser);
 
 export default userRoutes;

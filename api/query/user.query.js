@@ -10,6 +10,9 @@ const QUERY = {
     "UPDATE Users SET name = ?, username = ?, email = ?, address = ? WHERE id = ?",
   DELETE_USER: "DELETE FROM Users WHERE id = ?",
   CREATE_PASSWORD: "INSERT INTO Passwords(userId, password) VALUES (?, ?)",
+  ADD_USER_ROLE: `
+  INSERT INTO UserRoles (userId, role)
+  VALUES (?, ?)`,
   UPDATE_PASSWORD:
     "UPDATE Passwords SET password = ? WHERE userId = ? AND password = ?",
   DELETE_PASSWORD: "DELETE FROM Passwords WHERE userId = ?",
