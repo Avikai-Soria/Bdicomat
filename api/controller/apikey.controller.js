@@ -16,14 +16,14 @@ const loginScheme = Joi.object({
 });
 
 export const authenticate = (req, res, next) => {
-  console.log("User try to authenticate");
+  console.log("User trying to authenticate");
   const authHeader = req.headers["authorization"];
   if (!authHeader || !authHeader.toLowerCase().startsWith("apikey ")) {
     console.log("No proper authorization header or bad value");
     return handleUnauthorized(res);
   }
-  const apikey = authHeader.split(" ")[1];
-  database.query(QUERY.SELECT_APIKEY, [apikey], (error, results) => {
+  const apiKey = authHeader.split(" ")[1];
+  database.query(QUERY.SELECT_APIKEY, [apiKey], (error, results) => {
     if (error) {
       return handleInternalError(res);
     }
@@ -33,12 +33,31 @@ export const authenticate = (req, res, next) => {
       return handleUnauthorized(res);
     }
 
-    res.locals.userId = results[0].userId;
+    const userId = results[0].userId;
+    const role = results[0].role;
+    const isAdmin = role === "admin";
+
+    res.locals.userId = userId;
     res.locals.apiKey = results[0].apiKey;
-    console.log("Authorized user with id: " + results[0].userId);
+    res.locals.isAdmin = isAdmin;
+    console.log("Authorized user with id:", userId, "and role:", role);
     next();
   });
 };
+
+// Authorization middleware
+export const authorizeAdmin = (req, res, next) => {
+  const { isAdmin } = res.locals;
+
+  if (!isAdmin) {
+    console.log("Admin access required");
+    return handleUnauthorized(res);
+  }
+
+  // User is authorized as admin
+  next();
+};
+
 
 export const createApiKey = (req, res) => {
   console.log(`${req.method} ${req.originalUrl}, creating apikey...`);
