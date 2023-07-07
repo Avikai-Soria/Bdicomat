@@ -1,11 +1,10 @@
-import { useState } from "react";
-
 import "./App.css";
+import SignInSignUpContainer from "./components/signIn_signUp/SignInSignUpContainer";
 
 function App() {
   return (
     <>
-      <dev>hello</dev>
+      <SignInSignUpContainer />
     </>
   );
 }
