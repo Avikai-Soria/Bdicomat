@@ -1,6 +1,15 @@
 import { useState } from "react";
-import computerImg from "../../assets/img/computer.svg";
-import pyTestImg from "../../assets/img/pyTest.svg";
+
+import testLogo from "../../assets/img/test_logo.svg";
+import jenkinsLogo from "../../assets/img/jenkins_logo.svg";
+import playWrightLogo from "../../assets/img/playwright_logo.svg";
+import pyTestLogo from "../../assets/img/Pytest_logo.svg";
+import seleniumLogo from "../../assets/img/selenium_logo.svg";
+import sing_in_main_logo from "../../assets/img/sing_in_main_logo.svg";
+import sing_up_main_logo from "../../assets/img/sing_up_main_logo.svg";
+import test_logo from "../../assets/img/test_logo.svg";
+
+
 import "../../style_files/SignInSignUpContainer.css";
 
 export default function SignInSignUpContainer() {
@@ -83,7 +92,7 @@ export default function SignInSignUpContainer() {
                 Sign up
               </button>
             </div>
-            <img src={computerImg} className="image" alt="" />
+            <img src={sing_in_main_logo} className="image" alt="" />
           </div>
           <div className="panel right-panel">
             <div className="content">
@@ -96,7 +105,7 @@ export default function SignInSignUpContainer() {
                 Sign in
               </button>
             </div>
-            <img src={pyTestImg} className="image" alt="" />
+            <img src={sing_up_main_logo} className="image" alt="" />
           </div>
         </div>
       </div>
