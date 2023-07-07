@@ -9,10 +9,21 @@ import sing_in_main_logo from "../../assets/img/sing_in_main_logo.svg";
 import sing_up_main_logo from "../../assets/img/sing_up_main_logo.svg";
 import test_logo from "../../assets/img/test_logo.svg";
 
-
 import "../../style_files/SignInSignUpContainer.css";
 
 export default function SignInSignUpContainer() {
+  const sign_in_btn = document.querySelector("#sign-in-btn");
+  const sign_up_btn = document.querySelector("#sign-up-btn");
+  const container = document.querySelector(".container");
+
+  sign_up_btn.addEventListener("click", () => {
+    container.classList.add("sign-up-mode");
+  });
+
+  sign_in_btn.addEventListener("click", () => {
+    container.classList.remove("sign-up-mode");
+  });
+
   const [signIn, toggle] = useState(true);
   return (
     <>
