@@ -11,17 +11,15 @@ import sing_up_main_logo from "../../assets/img/sing_up_main_logo.svg";
 import "../../style_files/SignInSignUpContainer.css";
 
 export default function SignInSignUpContainer() {
-  const sign_in_btn = document.querySelector("#sign-in-btn");
-  const sign_up_btn = document.querySelector("#sign-up-btn");
-  const container = document.querySelector(".container");
-
-  sign_up_btn.addEventListener("click", () => {
+  function transparentSignUp() {
+    const container = document.querySelector(".container");
     container.classList.add("sign-up-mode");
-  });
+  }
 
-  sign_in_btn.addEventListener("click", () => {
+  function transparentSignIn() {
+    const container = document.querySelector(".container");
     container.classList.remove("sign-up-mode");
-  });
+  }
 
   const [signIn, toggle] = useState(true);
   return (
@@ -40,7 +38,9 @@ export default function SignInSignUpContainer() {
                 <input type="password" placeholder="Password" />
               </div>
               <input type="submit" value="Login" className="btn solid" />
-              <p className="testing-text">New! integration with the most powerfully testing frameworks:</p>
+              <p className="testing-text">
+                New! integration with the most powerfully testing frameworks:
+              </p>
               <div className="testing-media">
                 <img src={jenkinsLogo} className="testing-icon" alt="" />
                 <img src={playWrightLogo} className="testing-icon" alt="" />
@@ -90,7 +90,11 @@ export default function SignInSignUpContainer() {
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                 Debitis, ex ratione. Aliquid!
               </p>
-              <button className="btn transparent" id="sign-up-btn">
+              <button
+                onClick={() => transparentSignUp()}
+                className="btn transparent"
+                id="sign-up-btn"
+              >
                 Sign up
               </button>
             </div>
@@ -108,7 +112,11 @@ export default function SignInSignUpContainer() {
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
                 laboriosam ad deleniti.
               </p>
-              <button className="btn transparent" id="sign-in-btn">
+              <button
+                onClick={() => transparentSignIn()}
+                className="btn transparent"
+                id="sign-in-btn"
+              >
                 Sign in
               </button>
             </div>
