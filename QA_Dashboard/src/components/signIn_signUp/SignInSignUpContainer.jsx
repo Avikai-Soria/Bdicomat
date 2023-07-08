@@ -41,12 +41,12 @@ export default function SignInSignUpContainer() {
               </div>
               <input type="submit" value="Login" className="btn solid" />
               <p className="testing-text">New! integration with the most powerfully testing frameworks:</p>
-              <dev className="testing-media">
+              <div className="testing-media">
                 <img src={jenkinsLogo} className="testing-icon" alt="" />
                 <img src={playWrightLogo} className="testing-icon" alt="" />
                 <img src={pyTestLogo} className="testing-icon" alt="" />
                 <img src={seleniumLogo} className="testing-icon" alt="" />
-              </dev>
+              </div>
             </form>
             <form action="#" className="sign-up-form">
               <h2 className="title">Sign up</h2>
