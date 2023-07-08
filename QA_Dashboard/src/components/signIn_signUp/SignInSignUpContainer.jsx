@@ -1,10 +1,5 @@
 import { useState } from "react";
 
-import testLogo from "../../assets/img/test_logo.svg";
-import jenkinsLogo from "../../assets/img/jenkins_logo.svg";
-import playWrightLogo from "../../assets/img/playwright_logo.svg";
-import pyTestLogo from "../../assets/img/Pytest_logo.svg";
-import seleniumLogo from "../../assets/img/selenium_logo.svg";
 import sing_in_main_logo from "../../assets/img/sing_in_main_logo.svg";
 import sing_up_main_logo from "../../assets/img/sing_up_main_logo.svg";
 
@@ -42,10 +37,12 @@ export default function SignInSignUpContainer() {
                 New! integration with the most powerfully testing frameworks:
               </p>
               <div className="testing-media">
-                <img src={jenkinsLogo} className="testing-icon" alt="" />
-                <img src={playWrightLogo} className="testing-icon" alt="" />
-                <img src={pyTestLogo} className="testing-icon" alt="" />
-                <img src={seleniumLogo} className="testing-icon" alt="" />
+                <img className="playWrightLogo testing-icon" alt="" />
+                <img className="pyTestLogo testing-icon" alt="" />
+                <img className="seleniumLogo testing-icon" alt="" />
+                <img className="cypressLogo testing-icon" alt="" />
+                <img className="testCafeLogo testing-icon" alt="" />
+                <img className="junitLogo testing-icon" alt="" />
               </div>
             </form>
             <form action="#" className="sign-up-form">

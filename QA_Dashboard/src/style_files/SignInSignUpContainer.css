@@ -131,6 +131,59 @@ form.sign-in-form {
     transition: 0.3s;
 }
 
+.jenkinsLogo{
+  background-image: url(../assets/img/Jenkins_logo.svg);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.playWrightLogo{
+  background-image: url(../assets/img/playwright_logo.svg);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.pyTestLogo{
+  background-image: url(../assets/img/Pytest_logo.svg);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.seleniumLogo{
+  background-image: url(../assets/img/selenium_logo.svg);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.cypressLogo{
+  background-image: url(../assets/img/cypress.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.junitLogo{
+  background-image: url(../assets/img/junit.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.testCafeLogo{
+  background-image: url(../assets/img/TestCafe.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.testing-icon:hover{
+  background-color: #5793fa;
+}
+
 
 .btn {
   width: 150px;
