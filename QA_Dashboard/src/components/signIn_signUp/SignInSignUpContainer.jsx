@@ -45,11 +45,11 @@ function SignInSignUpContainer() {
               We are trusted by the most famous companies:
             </p>
             <div className="testing-media">
-              <img className="pyTestLogo testing-icon" alt="" />
-              <img className="seleniumLogo testing-icon" alt="" />
-              <img className="cypressLogo testing-icon" alt="" />
-              <img className="testCafeLogo testing-icon" alt="" />
-              <img className="junitLogo testing-icon" alt="" />
+              <img className="metaLogo testing-icon" alt="" />
+              <img className="googleLogo testing-icon" alt="" />
+              <img className="amazonLogo testing-icon" alt="" />
+              <img className="appleLogo testing-icon" alt="" />
+              <img className="microsoftLogo testing-icon" alt="" />
             </div>
           </form>
         </div>

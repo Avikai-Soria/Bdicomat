@@ -176,6 +176,41 @@ form.sign-in-form {
   background-repeat: no-repeat;
 }
 
+.metaLogo{
+  background-image: url(../assets/img/meta.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.googleLogo{
+  background-image: url(../assets/img/google.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.amazonLogo{
+  background-image: url(../assets/img/amazon.jpg);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.appleLogo{
+  background-image: url(../assets/img/apple.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.microsoftLogo{
+  background-image: url(../assets/img/microsoft.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
 .testing-icon:hover{
   background-color: #5793fa;
 }
