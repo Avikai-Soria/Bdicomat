@@ -1,10 +1,10 @@
 import "./App.css";
-import SignInSignUpContainer from "./components/signIn_signUp/SignInSignUpContainer";
+import SignInSignUpComponent from "./components/signIn_signUp/SignInSignUpComponent";
 
 function App() {
   return (
     <>
-      <SignInSignUpContainer />
+      <SignInSignUpComponent />
     </>
   );
 }
