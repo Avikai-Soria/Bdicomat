@@ -6,7 +6,9 @@ import MainPageContainer from "./components/main_page/MainPageContainer";
 function App() {
   return (
     <>
-      <MainPageContainer />
+      <BrowserRouter>
+        <MainPageContainer />
+      </BrowserRouter>
     </>
   );
 }
