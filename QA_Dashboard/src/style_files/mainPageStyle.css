@@ -7,15 +7,7 @@ body,
 .content{
     height: 100%;
     width: 100%;
-    margin: 0;
-    padding: 0;
     font-family: 'Source Sans 3', sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #212529;
-    text-align: left;
-    background-color: #f8f9fa;
 }
 
 ::-webkit-scrollbar {
