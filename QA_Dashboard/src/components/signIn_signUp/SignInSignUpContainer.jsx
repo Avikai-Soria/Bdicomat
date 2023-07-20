@@ -3,8 +3,14 @@ import { useState } from "react";
 function SignInSignUpContainer({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [newUsername, setNewUsername] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [newName, setNewName] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+  const [newAddress, setNewAddress] = useState("");
 
-  const handleLogin = async function () {
+  const handleLogin = async function (event) {
+    event.preventDefault();
     const user = { username, password };
     try {
       const response = await fetch("http://localhost:2999/apikeys", {
@@ -33,11 +39,68 @@ function SignInSignUpContainer({ onLogin }) {
     }
   };
 
+  const handleSignUp = async function (event) {
+    event.preventDefault();
+
+    // Perform validations
+    if (!newUsername || !newPassword || !newName || !newEmail) {
+      alert("All fields except address are required.");
+      return;
+    }
+
+    if (/^\d/.test(newUsername)) {
+      alert("Username should not start with a number.");
+      return;
+    }
+
+    if (newPassword.length < 4) {
+      alert("Password should be at least 4 characters long.");
+      return;
+    }
+
+    // Create a user object with the gathered attributes
+    const user = {
+      username: newUsername,
+      password: newPassword,
+      name: newName,
+      email: newEmail,
+      address: newAddress,
+    };
+
+    // Make the POST request to localhost:2999/users
+    fetch("http://localhost:2999/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Username or email already exists");
+        }
+      })
+      .then((data) => {
+        // Handle the response data
+        console.log("User created:", data);
+
+        alert("User was created successfully");
+      })
+      .catch((error) => {
+        // Handle any errors
+        console.error("Error creating user:", error);
+        // Display an error message to the user
+        alert(error.message);
+      });
+  };
+
   return (
     <>
       <div className="forms-container">
         <div className="signin-signup">
-          <form action="#" className="sign-in-form">
+          <form action="#" className="sign-in-form" onSubmit={handleLogin}>
             <h2 className="title">Sign in</h2>
             <div className="input-field">
               <i className="fas fa-user"></i>
@@ -55,9 +118,7 @@ function SignInSignUpContainer({ onLogin }) {
                 onChange={(event) => setPassword(event.target.value)}
               />
             </div>
-            <button onClick={handleLogin} className="btn solid">
-              Login
-            </button>
+            <button className="btn solid">Login</button>
             <p className="testing-text">
               New! integration with the most powerfully testing frameworks:
             </p>
@@ -70,21 +131,51 @@ function SignInSignUpContainer({ onLogin }) {
               <img className="junitLogo testing-icon" alt="" />
             </div>
           </form>
-          <form action="#" className="sign-up-form">
+          <form action="#" className="sign-up-form" onSubmit={handleSignUp}>
             <h2 className="title">Sign up</h2>
             <div className="input-field">
               <i className="fas fa-user"></i>
-              <input type="text" placeholder="Username" />
+              <input
+                type="text"
+                placeholder="Username"
+                onChange={(event) => setNewUsername(event.target.value)}
+              />
+            </div>
+            <div className="input-field">
+              <i className="fas fa-user"></i>
+              <input
+                type="text"
+                placeholder="Full Name"
+                onChange={(event) => setNewName(event.target.value)}
+              />
             </div>
             <div className="input-field">
               <i className="fas fa-envelope"></i>
-              <input type="email" placeholder="Email" />
+              <input
+                type="email"
+                placeholder="Email"
+                onChange={(event) => setNewEmail(event.target.value)}
+              />
             </div>
             <div className="input-field">
               <i className="fas fa-lock"></i>
-              <input type="password" placeholder="Password" />
+              <input
+                type="password"
+                placeholder="Password"
+                onChange={(event) => setNewPassword(event.target.value)}
+              />
             </div>
-            <button onClick={handleLogin} className="btn" value="Sign up" />
+            <div className="input-field">
+              <i className="fas fa-lock"></i>
+              <input
+                type="text"
+                placeholder="Address"
+                onChange={(event) => setNewAddress(event.target.value)}
+              />
+            </div>
+            <button type="submit" className="btn">
+              Sign up
+            </button>
             <p className="testing-text">
               We are trusted by the most famous companies:
             </p>

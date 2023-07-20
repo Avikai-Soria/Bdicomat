@@ -7,7 +7,7 @@ import SignInSignUpPanel from "./SignInSignUpPanel";
 
 import "../../style_files/SignInSignUpContainer.css";
 
-export default function SignInSignUpComponent() {
+export default function SignInSignUpComponent({onLogin}) {
 
   function transparentSignUp() {
     const container = document.querySelector(".container");
@@ -23,7 +23,7 @@ export default function SignInSignUpComponent() {
   return (
     <>
       <div className="container">
-        <SignInSignUpContainer />
+        <SignInSignUpContainer onLogin={onLogin} />
         <SignInSignUpPanel
           transparentSignIn={transparentSignIn}
           transparentSignUp={transparentSignUp}

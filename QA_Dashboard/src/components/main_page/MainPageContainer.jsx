@@ -20,7 +20,7 @@ import NotFound from "./layout/NotFound";
 
 import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import { useState } from "react";
-import SignInSignUpContainer from "../signIn_signUp/SignInSignUpContainer";
+import SignInSignUpComponent from "../signIn_signUp/SignInSignUpComponent";
 
 function MainPageContainer() {
   const [theme, colorMode] = useMode();
@@ -80,7 +80,7 @@ function MainPageContainer() {
         <Routes>
           <Route
             path="/"
-            element={<SignInSignUpContainer onLogin={handleLogin} />}
+            element={<SignInSignUpComponent onLogin={handleLogin} />}
           />
           <Route path="*" element={<NotFound />} />
         </Routes>
