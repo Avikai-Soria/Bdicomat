@@ -1,4 +1,38 @@
-function SignInSignUpContainer() {
+import { useState } from "react";
+
+function SignInSignUpContainer({ onLogin }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async function () {
+    const user = { username, password };
+    try {
+      const response = await fetch("http://localhost:2999/apikeys", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      if (response.ok) {
+        // Handle the successful response here
+        console.log("POST request successful");
+        const responseData = await response.json(); // Parse the response body as JSON
+        const apiKey = responseData.data.apiKey; // Retrieve the API key
+        const userId = responseData.data.userId; // Retrieve the user
+        alert("Login successful");
+        onLogin(userId, apiKey);
+      } else {
+        console.error("POST request failed");
+        alert("Password is incorrect");
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+      alert("Error getting info from server");
+    }
+  };
+
   return (
     <>
       <div className="forms-container">
@@ -7,13 +41,23 @@ function SignInSignUpContainer() {
             <h2 className="title">Sign in</h2>
             <div className="input-field">
               <i className="fas fa-user"></i>
-              <input type="text" placeholder="Username" />
+              <input
+                type="text"
+                placeholder="Username"
+                onChange={(event) => setUsername(event.target.value)}
+              />
             </div>
             <div className="input-field">
               <i className="fas fa-lock"></i>
-              <input type="password" placeholder="Password" />
+              <input
+                type="password"
+                placeholder="Password"
+                onChange={(event) => setPassword(event.target.value)}
+              />
             </div>
-            <input type="submit" value="Login" className="btn solid" />
+            <button onClick={handleLogin} className="btn solid">
+              Login
+            </button>
             <p className="testing-text">
               New! integration with the most powerfully testing frameworks:
             </p>
@@ -40,7 +84,7 @@ function SignInSignUpContainer() {
               <i className="fas fa-lock"></i>
               <input type="password" placeholder="Password" />
             </div>
-            <input type="submit" className="btn" value="Sign up" />
+            <button onClick={handleLogin} className="btn" value="Sign up" />
             <p className="testing-text">
               We are trusted by the most famous companies:
             </p>
