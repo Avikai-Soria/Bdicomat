@@ -1,12 +1,16 @@
-function Bar() {
-  return (
-    <>
-      <div>
-        <h1>Bar</h1>
-      </div>
-    </>
-  );
-}
+import { Box } from "@mui/material";
+import Header from "../../../reusable_component/Header.jsx";
+import BarChart from "../../../reusable_component/BarChart.jsx";
 
+const Bar = () => {
+  return (
+    <Box m="20px">
+      <Header title="Bar Chart" subtitle="Simple Bar Chart" />
+      <Box height="75vh">
+        <BarChart />
+      </Box>
+    </Box>
+  );
+};
 
 export default Bar;
