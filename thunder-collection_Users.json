@@ -1,0 +1,90 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Users",
+    "dateExported": "2023-07-09T06:55:37.058Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "3c09de77-3988-429f-b418-f71b465b929c",
+            "colId": "40284a22-45ac-43ab-a422-38e7360f23e2",
+            "containerId": "",
+            "name": "Get User",
+            "url": "localhost:2999/users/johndoe",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-06-21T09:14:46.747Z",
+            "modified": "2023-06-21T09:14:46.747Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "apikey da4df899-0fb5-11ee-8c28-0242ac130002"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "4676b050-01e3-4c7e-8fbb-945a40143a0f",
+            "colId": "40284a22-45ac-43ab-a422-38e7360f23e2",
+            "containerId": "",
+            "name": "Get All Users",
+            "url": "localhost:2999/users/11",
+            "method": "GET",
+            "sortNum": 15000,
+            "created": "2023-07-05T13:35:47.760Z",
+            "modified": "2023-07-05T13:37:14.832Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "apikey f8d8d7fc-1b11-11ee-9fef-0242ac120002"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "d1ccc9b9-2c4c-4d61-8d0e-d38d7c3d5781",
+            "colId": "40284a22-45ac-43ab-a422-38e7360f23e2",
+            "containerId": "",
+            "name": "Delete User",
+            "url": "localhost:2999/users/9",
+            "method": "DELETE",
+            "sortNum": 17500,
+            "created": "2023-07-05T13:37:24.864Z",
+            "modified": "2023-07-05T13:56:45.762Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "apikey 0b677769-1b3b-11ee-ae30-0242ac130002"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "3deb7d8d-702c-465c-b747-de30861b7b1c",
+            "colId": "40284a22-45ac-43ab-a422-38e7360f23e2",
+            "containerId": "",
+            "name": "Create User",
+            "url": "localhost:2999/users",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-07-05T11:18:09.421Z",
+            "modified": "2023-07-05T13:51:43.948Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "apikey 0b677769-1b3b-11ee-ae30-0242ac130002"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\" : \"Avikai Soria\",\n  \"username\": \"Avikaielef\",\n  \"email\": \"a@a.com\",\n  \"password\": \"1234\"\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}

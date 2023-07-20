@@ -1,0 +1,181 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Tests",
+    "dateExported": "2023-07-09T06:55:48.396Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "dfc7988d-6f17-460e-9f07-0fada4257cce",
+            "colId": "b8be40ca-2276-4804-8d5c-4c80822e9336",
+            "containerId": "",
+            "name": "Get All Tests",
+            "url": "localhost:2999/tests",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-06-13T08:18:27.098Z",
+            "modified": "2023-07-05T08:57:56.366Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "apikey f8d8d7fc-1b11-11ee-9fef-0242ac120002"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "9df8e775-1e88-4692-9eab-e90873b5353a",
+            "colId": "b8be40ca-2276-4804-8d5c-4c80822e9336",
+            "containerId": "",
+            "name": "Get One Post",
+            "url": "localhost:2999/tests/5",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-06-13T08:20:16.500Z",
+            "modified": "2023-07-05T08:58:35.570Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "apikey f8d8d7fc-1b11-11ee-9fef-0242ac120002"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "28a84727-54ca-4ea9-858e-7b1fac4d26f5",
+            "colId": "b8be40ca-2276-4804-8d5c-4c80822e9336",
+            "containerId": "",
+            "name": "Edit Test Not Admin",
+            "url": "localhost:2999/tests/5",
+            "method": "PUT",
+            "sortNum": 30000,
+            "created": "2023-06-13T08:22:23.917Z",
+            "modified": "2023-07-05T09:01:23.215Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "apikey f8d8d7fc-1b11-11ee-9fef-0242ac120002"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\" : \"Edited test\",\n  \"description\": \"Edited description\",\n  \"expectedResult\": \"None\",\n  \"configuration\": \"?\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "2e1a8479-69dc-4f5f-ac5e-1293207102a5",
+            "colId": "b8be40ca-2276-4804-8d5c-4c80822e9336",
+            "containerId": "",
+            "name": "Edit Test Admin",
+            "url": "localhost:2999/posts/24",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2023-06-13T08:22:47.547Z",
+            "modified": "2023-06-13T08:22:47.547Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "apikey ac2ac59d-09c1-11ee-bd07-0242ac170002"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\" : \"New title\",\n  \"body\": \"New Body\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "2332fdd0-c49b-4171-afae-3320d4c9910c",
+            "colId": "b8be40ca-2276-4804-8d5c-4c80822e9336",
+            "containerId": "",
+            "name": "Delete Test Not Admin",
+            "url": "localhost:2999/tests/6",
+            "method": "DELETE",
+            "sortNum": 45000,
+            "created": "2023-06-13T08:28:03.184Z",
+            "modified": "2023-07-05T09:26:24.540Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "apikey f20e2693-1b15-11ee-9fef-0242ac120002"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "cad82063-3214-437f-9cc6-5ffe75dc3ae4",
+            "colId": "b8be40ca-2276-4804-8d5c-4c80822e9336",
+            "containerId": "",
+            "name": "Delete Test Admin",
+            "url": "localhost:2999/posts/25",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2023-06-13T08:23:31.939Z",
+            "modified": "2023-06-13T08:23:31.940Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "apikey ac2ac59d-09c1-11ee-bd07-0242ac170002"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "9e163bbd-3272-46d8-af3b-6e270580bef0",
+            "colId": "b8be40ca-2276-4804-8d5c-4c80822e9336",
+            "containerId": "",
+            "name": "Create New Test Not Admin",
+            "url": "localhost:2999/tests",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2023-06-13T08:27:29.052Z",
+            "modified": "2023-07-05T09:31:08.386Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "apikey f20e2693-1b15-11ee-9fef-0242ac120002 "
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\" : \"New test\",\n  \"description\": \"New description\",\n  \"expectedResult\": \"None\",\n  \"configuration\": \"?\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "fc6a980f-e448-43ff-a04a-1325acffdf2d",
+            "colId": "b8be40ca-2276-4804-8d5c-4c80822e9336",
+            "containerId": "",
+            "name": "Create New Test Admin",
+            "url": "localhost:2999/tests",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2023-07-05T08:54:23.983Z",
+            "modified": "2023-07-05T09:04:15.889Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "apikey f8d8d7fc-1b11-11ee-9fef-0242ac120002"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\" : \"New test\",\n  \"description\": \"New description\",\n  \"expectedResult\": \"None\",\n  \"configuration\": \"?\"\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}
