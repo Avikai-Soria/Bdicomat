@@ -11,53 +11,55 @@ const Contacts = () => {
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "registrarId", headerName: "Registrar ID" },
+    { field: "userId", headerName: "User ID" },
     {
-      field: "name",
-      headerName: "Name",
+      field: "userName",
+      headerName: "User Name",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "age",
-      headerName: "Age",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
+      field: "testDescription",
+      headerName: "Test Discretion",
+      flex: 1,
+      cellClassName: "name-column--cell",
     },
     {
-      field: "phone",
-      headerName: "Phone Number",
+      field: "domain",
+      headerName: "Domain",
       flex: 1,
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: "startRunningTime",
+      headerName: "Start Running Time",
       flex: 1,
     },
     {
-      field: "address",
-      headerName: "Address",
+      field: "exceptedResult",
+      headerName: "Excepted Result",
+      flex: 1,
+    },
+
+    {
+      field: "result",
+      headerName: "Result",
       flex: 1,
     },
     {
-      field: "city",
-      headerName: "City",
+      field: "resultDetails",
+      headerName: "resultDetails",
       flex: 1,
     },
     {
-      field: "zipCode",
-      headerName: "Zip Code",
+      field: "duration",
+      headerName: "Duration",
       flex: 1,
     },
   ];
 
   return (
     <Box m="20px">
-      <Header
-        title="CONTACTS"
-        subtitle="List of Contacts for Future Reference"
-      />
+      <Header title="Test Reports" subtitle="List of All Test Reports" />
       <Box
         m="40px 0 0 0"
         height="75vh"
