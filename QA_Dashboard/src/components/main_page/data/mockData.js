@@ -75,7 +75,7 @@ export const mockDataTeam = [
   },
 ];
 
-export const mockDataContacts = [
+export const mockDataTestReports = [
   {
     "id": 1,
     "userId": 5,

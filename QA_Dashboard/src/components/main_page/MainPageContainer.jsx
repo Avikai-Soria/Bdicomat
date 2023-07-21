@@ -8,7 +8,7 @@ import Sidebar from "./layout/Sidebar";
 import Dashboard from "./layout/dashboard";
 import Team from "./layout/team";
 import Invoices from "./layout/invoices";
-import Contacts from "./layout/contacts";
+import TestReports from "./layout/testReports";
 import Bar from "./layout/bar";
 import Form from "./layout/form";
 import Line from "./layout/line";
@@ -62,7 +62,7 @@ function MainPageContainer() {
                   <Route path="/" element={<Dashboard />} />
                   <Route path="/team" element={<Team />} />
                   <Route path="/invoices" element={<Invoices />} />
-                  <Route path="/contacts" element={<Contacts />} />
+                  <Route path="/testReports" element={<TestReports />} />
                   <Route path="/bar" element={<Bar />} />
                   <Route path="/form" element={<Form />} />
                   <Route path="/line" element={<Line />} />

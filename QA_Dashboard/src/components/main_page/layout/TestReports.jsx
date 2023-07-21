@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../../hooks/theme";
-import { mockDataContacts } from "../data/mockData";
+import { mockDataTestReports } from "../data/mockData";
 import Header from "../../../reusable_component/Header.jsx";
 import { useTheme } from "@mui/material";
 
-const Contacts = () => {
+const TestReports = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -93,7 +93,7 @@ const Contacts = () => {
         }}
       >
         <DataGrid
-          rows={mockDataContacts}
+          rows={mockDataTestReports}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
         />
@@ -102,4 +102,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default TestReports;

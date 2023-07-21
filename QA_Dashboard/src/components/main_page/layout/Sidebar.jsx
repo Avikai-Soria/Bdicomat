@@ -6,7 +6,6 @@ import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../../hooks/theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
-import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
@@ -16,9 +15,9 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
-import BugReportIcon from '@mui/icons-material/BugReport';
-import TerminalIcon from '@mui/icons-material/Terminal';
-import GradingIcon from '@mui/icons-material/Grading';
+import BugReportIcon from "@mui/icons-material/BugReport";
+import TerminalIcon from "@mui/icons-material/Terminal";
+import GradingIcon from "@mui/icons-material/Grading";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -128,7 +127,7 @@ const Sidebar = () => {
             </Typography>
             <Item
               title="Test Reports"
-              to="/contacts"
+              to="/TestReports"
               icon={<GradingIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -147,7 +146,7 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-             <Typography
+            <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
@@ -210,8 +209,6 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-
-           
           </Box>
         </Menu>
       </ProSidebar>
