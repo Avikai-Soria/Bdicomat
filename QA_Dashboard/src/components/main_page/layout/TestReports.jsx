@@ -1,33 +1,36 @@
-import { Box } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../../hooks/theme";
 import { mockDataTestReports } from "../data/mockData";
 import Header from "../../../reusable_component/Header.jsx";
-import { useTheme } from "@mui/material";
 
 const TestReports = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "userId", headerName: "User ID" },
+    { field: "id", headerName: "Test ID", flex: 0.1 },
     {
       field: "userName",
       headerName: "User Name",
-      flex: 1,
+      flex: 0.5,
       cellClassName: "name-column--cell",
     },
     {
       field: "testDescription",
       headerName: "Test Discretion",
-      flex: 1,
+      flex: 1.5,
       cellClassName: "name-column--cell",
     },
     {
       field: "domain",
       headerName: "Domain",
-      flex: 1,
+      flex: 0.5,
+    },
+    {
+      field: "version",
+      headerName: "Version",
+      flex: 0.5,
     },
     {
       field: "startRunningTime",
@@ -43,7 +46,18 @@ const TestReports = () => {
     {
       field: "result",
       headerName: "Result",
-      flex: 1,
+      flex: 0.5,
+      renderCell: (params) => (
+        <Typography
+          color={
+            params.row.result === "pass"
+              ? colors.greenAccent[500]
+              : colors.redAccent[500]
+          }
+        >
+          {params.row.result}
+        </Typography>
+      ),
     },
     {
       field: "resultDetails",
@@ -59,7 +73,7 @@ const TestReports = () => {
 
   return (
     <Box m="20px">
-      <Header title="Test Reports" subtitle="List of All Test Reports" />
+      <Header title="Test Reports" subtitle="List of All <Username> Test Reports" />
       <Box
         m="40px 0 0 0"
         height="75vh"

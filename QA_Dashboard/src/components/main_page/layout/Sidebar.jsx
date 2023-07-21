@@ -134,7 +134,7 @@ const Sidebar = () => {
             />
             <Item
               title="Bug Reports"
-              to="/invoices"
+              to="/BugReports"
               icon={<BugReportIcon />}
               selected={selected}
               setSelected={setSelected}

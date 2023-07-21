@@ -1,50 +1,61 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../../hooks/theme";
-import { mockDataInvoices } from "../data/mockData";
+import { mockDataBugReports } from "../data/mockData";
 import Header from "../../../reusable_component/Header.jsx";
 
-const Invoices = () => {
+const BugReports = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
-    { field: "id", headerName: "ID" },
+    { field: "id", headerName: "Bug ID", flex: 0.5 },
     {
-      field: "name",
-      headerName: "Name",
+      field: "testId",
+      headerName: "Test ID",
+      flex: 0.5,
+    },
+    {
+      field: "userName",
+      headerName: "User Name",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "phone",
-      headerName: "Phone Number",
+      field: "bugDescription",
+      headerName: "Bug Description",
+      flex: 3,
+    },
+    {
+      field: "version",
+      headerName: "Version",
       flex: 1,
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: "status",
+      headerName: "Status",
       flex: 1,
     },
     {
-      field: "cost",
-      headerName: "Cost",
+      field: "isExcepted",
+      headerName: "Is Excepted?",
       flex: 1,
       renderCell: (params) => (
-        <Typography color={colors.greenAccent[500]}>
-          ${params.row.cost}
+        <Typography
+          color={
+            params.row.isExcepted === "yes"
+              ? colors.greenAccent[500]
+              : colors.redAccent[500]
+          }
+        >
+          {params.row.isExcepted}
         </Typography>
       ),
-    },
-    {
-      field: "date",
-      headerName: "Date",
-      flex: 1,
     },
   ];
 
   return (
     <Box m="20px">
-      <Header title="INVOICES" subtitle="List of Invoice Balances" />
+      <Header title="BugReports" subtitle="List of All <Username> Bug Reports" />
       <Box
         m="40px 0 0 0"
         height="75vh"
@@ -74,10 +85,10 @@ const Invoices = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataInvoices} columns={columns} />
+        <DataGrid rows={mockDataBugReports} columns={columns} />
       </Box>
     </Box>
   );
 };
 
-export default Invoices;
+export default BugReports;
