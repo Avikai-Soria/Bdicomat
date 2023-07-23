@@ -5,7 +5,7 @@ import LineChart from "../../../reusable_component/LineChart.jsx";
 const Line = () => {
   return (
     <Box m="20px">
-      <Header title="Line Chart" subtitle="Simple Line Chart" />
+      <Header title="Bugs & Tests Timeline" subtitle="Simple visualization of the amount of bugs and tests per each sprints (month)" />
       <Box height="75vh">
         <LineChart />
       </Box>
