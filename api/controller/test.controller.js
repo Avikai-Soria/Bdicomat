@@ -11,12 +11,14 @@ import {
 } from "../util/handles.js";
 import generateQuery from "../query/queryUtils.js";
 
-// Expecting to get object of [name, description, expectedResult, configuration]
+// Expecting to get object of [name, description, expectedResult, configuration, domain, version]
 const testSchema = Joi.object({
   name: Joi.string().min(1).required(),
   description: Joi.string().required(),
   expectedResult: Joi.string().required(),
   configuration: Joi.string().required(),
+  domain: Joi.string().required(),
+  version: Joi.string().required(),
 });
 
 export const getTests = (req, res) => {
@@ -32,22 +34,17 @@ export const getTests = (req, res) => {
 
   const query = generateQuery(QUERY.SELECT_TESTS, conditions, limit, page);
 
-  database.query(query, (error, results) => {
+  database.query(query, async (error, results) => {
     if (error) {
       console.error("Error getting tests:", error.message);
       return handleInternalError(res);
     }
 
-    res
-      .status(HttpStatus.OK.code)
-      .send(
-        new Response(
-          HttpStatus.OK.code,
-          HttpStatus.OK.status,
-          "Tests retrieved",
-          { tests: results }
-        )
-      );
+    res.status(HttpStatus.OK.code).send(
+      new Response(HttpStatus.OK.code, HttpStatus.OK.status, "Tests retrieved", {
+        tests: results,
+      })
+    );
   });
 };
 
@@ -61,11 +58,11 @@ export const createTest = (req, res) => {
     return handleBadRequest(res, error.details[0].message);
   }
 
-  const { name, description, expectedResult, configuration } = req.body;
+  const { name, description, expectedResult, configuration, domain, version } = req.body;
 
   database.query(
     QUERY.CREATE_TEST,
-    [name, description, expectedResult, configuration],
+    [name, description, expectedResult, configuration, domain, version],
     (error, results) => {
       if (error) {
         console.error("Error creating test:", error.message);
@@ -80,6 +77,8 @@ export const createTest = (req, res) => {
         description,
         expectedResult,
         configuration,
+        domain,
+        version,
       };
 
       res
@@ -132,11 +131,11 @@ export const updateTest = (req, res) => {
   }
 
   const { id } = req.params;
-  const { name, description, expectedResult, configuration } = req.body;
+  const { name, description, expectedResult, configuration, domain, version } = req.body;
 
   database.query(
     QUERY.UPDATE_TEST,
-    [name, description, expectedResult, configuration, id],
+    [name, description, expectedResult, configuration, domain, version, id],
     (error, results) => {
       if (error) {
         console.error("Error updating test:", error.message);
@@ -150,6 +149,8 @@ export const updateTest = (req, res) => {
           description,
           expectedResult,
           configuration,
+          domain,
+          version,
         })
       );
     }
