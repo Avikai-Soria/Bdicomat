@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import Header from "../../../reusable_component/Header.jsx";
-import BarChart from "../../../reusable_component/BarChart.jsx";
+import BarChart from "../../../reusable_component/DomainChart.jsx";
 
 const DomainChart = () => {
   return (
