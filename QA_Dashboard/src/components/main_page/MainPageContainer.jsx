@@ -9,7 +9,7 @@ import Dashboard from "./layout/dashboard";
 import Team from "./layout/team";
 import BugReports from "./layout/BugReports";
 import TestReports from "./layout/TestReports";
-import Bar from "./layout/bar";
+import DomainChart from "./layout/bar";
 import Form from "./layout/form";
 import Line from "./layout/line";
 import Pie from "./layout/pie";
@@ -63,7 +63,7 @@ function MainPageContainer() {
                   <Route path="/team" element={<Team />} />
                   <Route path="/bugReports" element={<BugReports />} />
                   <Route path="/testReports" element={<TestReports />} />
-                  <Route path="/bar" element={<Bar />} />
+                  <Route path="/domain" element={<DomainChart />} />
                   <Route path="/form" element={<Form />} />
                   <Route path="/line" element={<Line />} />
                   <Route path="/pie" element={<Pie />} />

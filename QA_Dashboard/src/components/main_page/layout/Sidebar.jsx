@@ -154,8 +154,8 @@ const Sidebar = () => {
               Control center
             </Typography>
             <Item
-              title="Bar Chart"
-              to="/bar"
+              title="Domain Chart"
+              to="/domain"
               icon={<BarChartOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

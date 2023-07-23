@@ -44,18 +44,20 @@ const TestReports = () => {
     },
 
     {
-      field: "result",
-      headerName: "Result",
+      field: "status",
+      headerName: "status",
       flex: 0.5,
       renderCell: (params) => (
         <Typography
           color={
-            params.row.result === "pass"
+            params.row.status === "pass"
               ? colors.greenAccent[500]
-              : colors.redAccent[500]
+              : params.row.status === "fail"
+              ? colors.redAccent[500]
+              : colors.grey[500]
           }
         >
-          {params.row.result}
+          {params.row.status}
         </Typography>
       ),
     },
@@ -73,7 +75,10 @@ const TestReports = () => {
 
   return (
     <Box m="20px">
-      <Header title="Test Reports" subtitle="List of All <Username> Test Reports" />
+      <Header
+        title="Test Reports"
+        subtitle="List of All <Username> Test Reports"
+      />
       <Box
         m="40px 0 0 0"
         height="75vh"
