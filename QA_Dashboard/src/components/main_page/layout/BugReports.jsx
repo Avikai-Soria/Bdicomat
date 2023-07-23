@@ -26,8 +26,18 @@ const BugReports = () => {
       flex: 3,
     },
     {
+      field: "domain",
+      headerName: "Domain",
+      flex: 1,
+    },
+    {
       field: "version",
       headerName: "Version",
+      flex: 1,
+    },
+    {
+      field: "location",
+      headerName: "Location",
       flex: 1,
     },
     {
@@ -55,7 +65,7 @@ const BugReports = () => {
 
   return (
     <Box m="20px">
-      <Header title="BugReports" subtitle="List of All <Username> Bug Reports" />
+      <Header title="Bug Reports" subtitle="List of All <Username> Bug Reports" />
       <Box
         m="40px 0 0 0"
         height="75vh"

@@ -11,34 +11,90 @@ const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
-    { field: "id", headerName: "ID" },
+    { field: "id", headerName: "User ID", flex: 0.1,},
     {
       field: "name",
-      headerName: "Name",
-      flex: 1,
+      headerName: "User Name",
+      flex: 0.5,
       cellClassName: "name-column--cell",
     },
     {
-      field: "age",
-      headerName: "Age",
+      field: "testCurrentSprint",
+      headerName: "Tests Current Sprint",
       type: "number",
       headerAlign: "left",
       align: "left",
+      flex: 0.75,
     },
     {
-      field: "phone",
-      headerName: "Phone Number",
-      flex: 1,
+      field: "testLastSprint",
+      headerName: "Tests Last Sprint",
+      type: "number",
+      headerAlign: "left",
+      align: "left",
+      flex: 0.6,
     },
     {
-      field: "email",
-      headerName: "Email",
-      flex: 1,
+      field: "testBeforeLastSprint",
+      headerName: "Tests Before Last Sprint",
+      type: "number",
+      headerAlign: "left",
+      align: "left",
+      flex: 0.8,
+    },
+    {
+      field: "bugCurrentSprint",
+      headerName: "Bugs Current Sprint",
+      type: "number",
+      headerAlign: "left",
+      align: "left",
+      flex: 0.7,
+    },
+    {
+      field: "bugLastSprint",
+      headerName: "Bugs Last Sprint",
+      type: "number",
+      headerAlign: "left",
+      align: "left",
+      flex: 0.5,
+    },
+    {
+      field: "bugBeforeLastSprint",
+      headerName: "Bugs Before Last Sprint",
+      type: "number",
+      headerAlign: "left",
+      align: "left",
+      flex: 0.7,
+    },
+    {
+      field: "exceptedBugCurrentSprint",
+      headerName: "Excepted Bugs Current Sprint",
+      type: "number",
+      headerAlign: "left",
+      align: "left",
+      flex: 0.85,
+    },
+    {
+      field: "exceptedBugLastSprint",
+      headerName: "Excepted Bugs Last Sprint",
+      type: "number",
+      headerAlign: "left",
+      align: "left",
+      flex: 0.7,
+    },
+    {
+      field: "exceptedBugBeforeLastSprint",
+      headerName: "Excepted Bugs Before Last Sprint",
+      type: "number",
+      headerAlign: "left",
+      align: "left",
+      flex: 0.9,
     },
     {
       field: "accessLevel",
       headerName: "Access Level",
-      flex: 1,
+      headerAlign: "center",
+      flex: 0.8,
       renderCell: ({ row: { access } }) => {
         return (
           <Box
@@ -100,7 +156,7 @@ const Team = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataTeam} columns={columns} />
+        <DataGrid rows={mockDataTeam} columns={columns} />
       </Box>
     </Box>
   );

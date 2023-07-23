@@ -60,8 +60,8 @@ const TestReports = () => {
       ),
     },
     {
-      field: "resultDetails",
-      headerName: "resultDetails",
+      field: "type",
+      headerName: "Type",
       flex: 1,
     },
     {
