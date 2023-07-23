@@ -7,9 +7,9 @@ import Topbar from "./layout/Topbar";
 import Sidebar from "./layout/Sidebar";
 import Dashboard from "./layout/dashboard";
 import Team from "./layout/team";
-import Invoices from "./layout/invoices";
-import Contacts from "./layout/contacts";
-import Bar from "./layout/bar";
+import BugReports from "./layout/BugReports";
+import TestReports from "./layout/TestReports";
+import DomainChart from "./layout/bar";
 import Form from "./layout/form";
 import Line from "./layout/line";
 import Pie from "./layout/pie";
@@ -61,9 +61,9 @@ function MainPageContainer() {
                 <Routes>
                   <Route path="/" element={<Dashboard />} />
                   <Route path="/team" element={<Team />} />
-                  <Route path="/invoices" element={<Invoices />} />
-                  <Route path="/contacts" element={<Contacts />} />
-                  <Route path="/bar" element={<Bar />} />
+                  <Route path="/bugReports" element={<BugReports />} />
+                  <Route path="/testReports" element={<TestReports />} />
+                  <Route path="/domain" element={<DomainChart />} />
                   <Route path="/form" element={<Form />} />
                   <Route path="/line" element={<Line />} />
                   <Route path="/pie" element={<Pie />} />
