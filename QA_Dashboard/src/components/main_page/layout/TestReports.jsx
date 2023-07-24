@@ -11,13 +11,13 @@ const TestReports = () => {
   const columns = [
     { field: "id", headerName: "Test ID", flex: 0.1 },
     {
-      field: "testName",
+      field: "name",
       headerName: "Test Name",
       flex: 0.5,
       cellClassName: "name-column--cell",
     },
     {
-      field: "testDescription",
+      field: "description",
       headerName: "Test Discretion",
       flex: 1.5,
       cellClassName: "name-column--cell",
@@ -33,7 +33,7 @@ const TestReports = () => {
       flex: 0.5,
     },
     {
-      field: "lastRunningTime",
+      field: "lastTestRunStatus",
       headerName: "Last Running Time",
       flex: 1,
     },
@@ -44,7 +44,7 @@ const TestReports = () => {
     },
 
     {
-      field: "lastStatus",
+      field: "lastTestRunStatus",
       headerName: "Last status",
       flex: 0.5,
       renderCell: (params) => (
