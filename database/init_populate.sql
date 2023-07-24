@@ -1,3 +1,33 @@
+-- Populating Users table
+INSERT INTO
+    Users (name, username, email, address)
+VALUES
+    ('John Doe', 'johndoe', 'johndoe@example.com', '123 Main St'),
+    ('Jane Smith', 'janesmith', 'janesmith@example.com', '456 Elm St'),
+    ('Michael Johnson', 'michaelj', 'michaelj@example.com', '789 Oak St'),
+    ('Sarah Wilson', 'sarahw', 'sarahw@example.com', '321 Maple Ave'),
+    ('David Brown', 'davidb', 'davidb@example.com', '987 Pine St'),
+    ('Emily Davis', 'emilyd', 'emilyd@example.com', '654 Cedar Rd'),
+    ('James Lee', 'jamesl', 'jamesl@example.com', '788 Pine St'),
+    ('Jessica Thomas', 'jessicat', 'jessicat@example.com', '457 Elm St'),
+    ('Daniel Clark', 'danielc', 'danielc@example.com', '124 Main St'),
+    ('Olivia Anderson', 'oliviaa', 'oliviaa@example.com', '988 Pine St');
+
+-- Populating Passwords table
+INSERT INTO
+    Passwords (userId, password)
+VALUES
+    (1, 'password1'),
+    (2, 'password2'),
+    (3, 'password3'),
+    (4, 'password4'),
+    (5, 'password5'),
+    (6, 'password6'),
+    (7, 'password7'),
+    (8, 'password8'),
+    (9, 'password9'),
+    (10, 'password10');
+
 -- Populating Tests table (Updated domain values to "Area X")
 INSERT INTO Tests (name, description, expectedResult, configuration, domain, version)
 VALUES
@@ -81,6 +111,31 @@ VALUES
     (10, 10, '2023-07-20 12:00:00'),
     (10, 1, '2023-07-21 12:00:00');
 
+-- Populating UserNotifications table
+INSERT INTO
+    UserNotifications (userId, type, details)
+VALUES
+    (9, 'email', 'Your Login Test scheduled for 2023-07-01 12:00:00 has passed'),
+    (9, 'sms', 'Your Search Test scheduled for 2023-07-02 12:00:00 has failed'),
+    (10, 'email', 'Your Logout Test scheduled for 2023-07-03 12:00:00 is currently running'),
+    (10, 'sms', 'Your Navigation Test scheduled for 2023-07-04 12:00:00 has passed'),
+    (1, 'email', 'Your Form Submission Test scheduled for 2023-07-05 12:00:00 has failed');
+
+-- Populating UserRoles table
+INSERT INTO
+    UserRoles (userId, role)
+VALUES
+    (1, 'admin'),
+    (2, 'tester'),
+    (3, 'tester'),
+    (4, 'admin'),
+    (5, 'tester'),
+    (6, 'admin'),
+    (7, 'tester'),
+    (8, 'admin'),
+    (9, 'tester'),
+    (10, 'admin');
+
 -- Populating BugReports table (Added 20 random bug reports related to the 10 testIds)
 INSERT INTO BugReports (testId, userId, bugDescription, location, version, domain, status, isExcepted)
 VALUES
@@ -89,18 +144,18 @@ VALUES
     (1, 4, 'Login test failed with error: timeout', 'UK', '1.1.0', 'Area C', 'open', 'no'),
     (2, 5, 'Search test failed with error: 404 not found', 'Germany', '2.1.0', 'Area D', 'open', 'no'),
     (2, 6, 'Search test failed with error: server error', 'USA', '1.2.0', 'Area E', 'open', 'no'),
-    (2, 7, 'Search test failed with error: element not found', 'Canada', '2.0.1', 'Area F', 'open', 'no'),
+    (2, 7, 'Search test failed with error: element not found', 'Canada', '2.0.1', 'Area F', 'open', 'yes'),
     (3, 8, 'Logout test failed with error: broken link', 'UK', '1.1.0', 'Area G', 'open', 'no'),
-    (3, 9, 'Logout test failed with error: missing element', 'Germany', '2.1.0', 'Area A', 'open', 'yes'),
+    (3, 9, 'Logout test failed with error: missing element', 'Germany', '2.1.0', 'Area A', 'open', 'no'),
     (3, 10, 'Logout test failed with error: invalid email', 'USA', '1.2.0', 'Area B', 'open', 'no'),
     (4, 1, 'Navigation test failed with error: form validation error', 'Canada', '2.0.1', 'Area C', 'open', 'no'),
     (4, 2, 'Navigation test failed with error: broken link', 'UK', '1.1.0', 'Area D', 'open', 'no'),
-    (4, 3, 'Navigation test failed with error: missing image', 'Germany', '2.1.0', 'Area E', 'open', 'no'),
+    (4, 3, 'Navigation test failed with error: missing image', 'Germany', '2.1.0', 'Area E', 'closed', 'yes'),
     (5, 4, 'Form Submission test failed with error: server error', 'USA', '1.0.0', 'Area F', 'open', 'no'),
-    (5, 5, 'Form Submission test failed with error: form validation error', 'Canada', '2.0.1', 'Area G', 'open', 'yes'),
+    (5, 5, 'Form Submission test failed with error: form validation error', 'Canada', '2.0.1', 'Area G', 'open', 'no'),
     (5, 6, 'Form Submission test failed with error: timeout', 'UK', '1.1.0', 'Area A', 'open', 'no'),
     (6, 7, 'Payment test failed with error: invalid card details', 'Germany', '2.1.0', 'Area B', 'open', 'no'),
     (6, 8, 'Payment test failed with error: payment declined', 'USA', '1.2.0', 'Area C', 'open', 'no'),
     (6, 9, 'Payment test failed with error: server error', 'Canada', '2.0.1', 'Area D', 'open', 'no'),
-    (7, 10, 'User Registration test failed with error: invalid email format', 'UK', '1.1.0', 'Area E', 'open', 'yes'),
+    (7, 10, 'User Registration test failed with error: invalid email format', 'UK', '1.1.0', 'Area E', 'testing', 'yes'),
     (7, 1, 'User Registration test failed with error: invalid password', 'Germany', '2.1.0', 'Area F', 'open', 'no');
