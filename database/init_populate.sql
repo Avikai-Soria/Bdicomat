@@ -137,7 +137,7 @@ VALUES
     (10, 'admin');
 
 -- Populating BugReports table (Added 20 random bug reports related to the 10 testIds)
-INSERT INTO BugReports (testId, userId, bugDescription, location, version, domain, status, isExcepted, date)
+INSERT INTO BugReports (testId, userId, bugDescription, location, version, domain, status, isExcepted, creationDate)
 VALUES
     (1, 2, 'Login page UI alignment issue', 'USA', '1.0.0', 'Area A', 'closed', 'yes', '2023-01-01'),
     (1, 3, 'Login test failed with error: invalid credentials', 'Canada', '2.0.1', 'Area B', 'open', 'no', '2022-02-05'),
