@@ -21,7 +21,7 @@ export default async function apiFetch(route, method, apiKey, body) {
     }
   }
 
-  export default async function apiFetchWithoutAuthor(route, method,  body) {
+  export async function apiFetchWithoutAuthor(route, method,  body) {
     const url = `http://localhost:2999/${route}`;
     try {
       const response = await fetch(url, {

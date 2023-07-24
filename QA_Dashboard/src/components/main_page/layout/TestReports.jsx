@@ -1,12 +1,24 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../../hooks/theme";
-import { mockDataTestReports } from "../data/mockData";
 import Header from "../../../reusable_component/Header.jsx";
+import { useContext, useEffect, useState } from "react";
+import { UserInfoContext } from "../MainPageContainer";
+import apiFetch from "../../../hooks/api";
+
 
 const TestReports = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { userId, apiKey } = useContext(UserInfoContext);
+  const [tests, setTests] = useState([]);
+
+  useEffect(() => {
+    apiFetch(`tests`, "GET", apiKey)
+      .then((response) => setTests(response.data.tests))
+      .catch((err) => alert("Couldn't load tests... Please refresh the page"));
+  }, []);
+
 
   const columns = [
     { field: "id", headerName: "Test ID", flex: 0.1 },
@@ -104,7 +116,7 @@ const TestReports = () => {
         }}
       >
         <DataGrid
-          rows={mockDataTestReports}
+          rows={tests}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
         />

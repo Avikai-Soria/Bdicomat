@@ -19,8 +19,10 @@ import Calendar from "./layout/calendar";
 import NotFound from "./layout/NotFound";
 
 import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { createContext, useState } from "react";
 import SignInSignUpComponent from "../signIn_signUp/SignInSignUpComponent";
+
+export const UserInfoContext = createContext();
 
 function MainPageContainer() {
   const [theme, colorMode] = useMode();
@@ -58,20 +60,23 @@ function MainPageContainer() {
               <Sidebar />
               <main className="content">
                 <Topbar />
-                <Routes>
-                  <Route path="/" element={<Dashboard />} />
-                  <Route path="/team" element={<Team />} />
-                  <Route path="/bugReports" element={<BugReports />} />
-                  <Route path="/test" element={<TestReports />} />
-                  <Route path="/domain" element={<DomainChart />} />
-                  <Route path="/form" element={<Form />} />
-                  <Route path="/line" element={<Line />} />
-                  <Route path="/pie" element={<Pie />} />
-                  <Route path="/faq" element={<FAQ />} />
-                  <Route path="/geography" element={<Geography />} />
-                  <Route path="/calendar" element={<Calendar />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
+                <UserInfoContext.Provider value={userInfo}>
+                  <Routes>
+                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/team" element={<Team />} />
+                    <Route path="/bugReports" element={<BugReports />} />
+                    <Route path="/test" element={<TestReports />} />
+                    <Route path="/domain" element={<DomainChart />} />
+                    <Route path="/form" element={<Form />} />
+                    <Route path="/line" element={<Line />} />
+                    <Route path="/pie" element={<Pie />} />
+                    <Route path="/faq" element={<FAQ />} />
+                    <Route path="/geography" element={<Geography />} />
+                    <Route path="/calendar" element={<Calendar />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </UserInfoContext.Provider>
+
               </main>
             </div>
           </ThemeProvider>
