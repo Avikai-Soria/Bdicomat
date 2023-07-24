@@ -33,7 +33,8 @@ CREATE TABLE `Tests` (
     `expectedResult` TEXT NOT NULL,
     `configuration` TEXT NOT NULL,
     `domain` VARCHAR(255),
-    `version` VARCHAR(20)
+    `version` VARCHAR(20),
+    `type` VARCHAR(50) NOT NULL DEFAULT 'regression'
 );
 
 -- Create the TestRuns table
@@ -62,12 +63,15 @@ CREATE TABLE `ScheduledTests` (
 -- Create the BugReports table
 CREATE TABLE `BugReports` (
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `testId` BIGINT UNSIGNED NOT NULL,
+    `testId` BIGINT UNSIGNED,
     `userId` BIGINT UNSIGNED NOT NULL,
     `bugDescription` TEXT NOT NULL,
+    `location` VARCHAR(255),
+    `version` VARCHAR(20),
+    `domain` VARCHAR(255),
     `status` VARCHAR(50) NOT NULL,
     `isExcepted` ENUM('yes', 'no') NOT NULL,
-    FOREIGN KEY (`testId`) REFERENCES `Tests` (`id`),
+    FOREIGN KEY (`testId`) REFERENCES `Tests` (`id`) ON DELETE CASCADE,
     FOREIGN KEY (`userId`) REFERENCES `Users` (`id`) ON DELETE CASCADE
 );
 

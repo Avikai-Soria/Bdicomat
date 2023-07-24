@@ -1,5 +1,17 @@
 const QUERY = {
-  SELECT_TESTS: "SELECT * FROM Tests",
+  SELECT_TESTS: `
+    SELECT T.*, TR1.result AS lastTestRunStatus, TR1.startTest AS lastTestRunStartTest
+    FROM Tests T
+    LEFT JOIN (
+      SELECT testId, result, startTest
+      FROM TestRuns
+      WHERE id IN (
+        SELECT MAX(id) AS id
+        FROM TestRuns
+        GROUP BY testId
+      )
+    ) TR1 ON T.id = TR1.testId
+  `,
   SELECT_TEST: "SELECT * FROM Tests WHERE id = ?",
   CREATE_TEST:
     "INSERT INTO Tests(name, description, expectedResult, configuration) VALUES (?, ?, ?, ?)",
