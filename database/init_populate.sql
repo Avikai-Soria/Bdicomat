@@ -28,40 +28,88 @@ VALUES
     (9, 'password9'),
     (10, 'password10');
 
--- Populating Tests table
-INSERT INTO
-    Tests (name, description, expectedResult, configuration, domain, version)
+-- Populating Tests table (Updated domain values to "Area X")
+INSERT INTO Tests (name, description, expectedResult, configuration, domain, version)
 VALUES
-    ('Login Test', 'Test the functionality of the login system', 'Successful login with correct credentials', 'Login configuration 1', 'Domain A', '1.0.0'),
-    ('Search Test', 'Test the search functionality', 'Correct items returned from search', 'Search configuration 1', 'Domain B', '2.0.0'),
-    ('Logout Test', 'Test the functionality of the logout system', 'Successful logout', 'Logout configuration 1', 'Domain C', '1.5.0'),
-    ('Navigation Test', 'Test the navigation bar', 'Correct page loaded on click', 'Navigation configuration 1', 'Domain A', '1.0.0'),
-    ('Form Submission Test', 'Test the functionality of form submission', 'Form data saved correctly', 'Form configuration 1', 'Domain B', '2.0.0');
+    ('Login Test', 'Test the functionality of the login system', 'Successful login with correct credentials', 'Login configuration 1', 'Area A', '1.0.0'),
+    ('Search Test', 'Test the search functionality', 'Correct items returned from search', 'Search configuration 1', 'Area B', '2.0.0'),
+    ('Logout Test', 'Test the functionality of the logout system', 'Successful logout', 'Logout configuration 1', 'Area C', '1.5.0'),
+    ('Navigation Test', 'Test the navigation bar', 'Correct page loaded on click', 'Navigation configuration 1', 'Area D', '2.0.0'),
+    ('Form Submission Test', 'Test the functionality of form submission', 'Form data saved correctly', 'Form configuration 1', 'Area E', '1.0.0'),
+    ('Payment Test', 'Test the payment process', 'Successful payment transaction', 'Payment configuration 1', 'Area F', '1.2.0'),
+    ('User Registration Test', 'Test the user registration process', 'New user successfully registered', 'Registration configuration 1', 'Area G', '2.0.0'),
+    ('Product Display Test', 'Test the product display on the website', 'Products displayed correctly', 'Product display configuration 1', 'Area A', '2.1.0'),
+    ('Checkout Process Test', 'Test the checkout process', 'Successful order placement', 'Checkout configuration 1', 'Area B', '1.0.0'),
+    ('Password Reset Test', 'Test the password reset functionality', 'Password reset email sent successfully', 'Password reset configuration 1', 'Area C', '1.1.0');
 
--- Populating TestRuns table
-INSERT INTO
-    TestRuns (testId, userId, result, details, duration)
+-- Populating TestRuns table (Added more test runs for each test)
+INSERT INTO TestRuns (testId, userId, result, details, duration)
 VALUES
     (1, 1, 'pass', 'Login test ran successfully', 10),
-    (2, 1, 'fail', 'Search test failed with error: null pointer exception', 15),
-    (3, 2, 'running', 'Logout test is currently running', 0),
-    (4, 2, 'pass', 'Navigation test ran successfully', 12),
-    (5, 3, 'fail', 'Form Submission test failed with error: 500 internal server error', 25),
-    (1, 3, 'pass', 'Login test ran successfully', 9),
-    (2, 4, 'running', 'Search test is currently running', 0),
-    (3, 4, 'pass', 'Logout test ran successfully', 8),
-    (4, 5, 'fail', 'Navigation test failed with error: element not found', 20),
-    (5, 5, 'pass', 'Form Submission test ran successfully', 30);
+    (1, 2, 'pass', 'Login test ran successfully', 9),
+    (1, 3, 'fail', 'Login test failed with error: invalid credentials', 15),
+    (1, 4, 'pass', 'Login test ran successfully', 12),
+    (2, 5, 'fail', 'Search test failed with error: timeout', 20),
+    (2, 6, 'fail', 'Search test failed with error: 404 not found', 18),
+    (2, 7, 'pass', 'Search test ran successfully', 12),
+    (2, 8, 'fail', 'Search test failed with error: server error', 22),
+    (3, 9, 'running', 'Logout test is currently running', 0),
+    (3, 10, 'running', 'Logout test is currently running', 0),
+    (3, 1, 'pass', 'Logout test ran successfully', 8),
+    (3, 2, 'pass', 'Logout test ran successfully', 10),
+    (4, 3, 'fail', 'Navigation test failed with error: broken link', 20),
+    (4, 4, 'pass', 'Navigation test ran successfully', 12),
+    (4, 5, 'pass', 'Navigation test ran successfully', 10),
+    (4, 6, 'fail', 'Navigation test failed with error: missing element', 22),
+    (5, 7, 'fail', 'Form Submission test failed with error: 500 internal server error', 25),
+    (5, 8, 'pass', 'Form Submission test ran successfully', 30),
+    (5, 9, 'pass', 'Form Submission test ran successfully', 28),
+    (5, 10, 'fail', 'Form Submission test failed with error: form validation error', 26),
+    (6, 1, 'pass', 'Payment test ran successfully', 15),
+    (6, 2, 'pass', 'Payment test ran successfully', 16),
+    (6, 3, 'pass', 'Payment test ran successfully', 17),
+    (6, 4, 'pass', 'Payment test ran successfully', 18),
+    (7, 5, 'running', 'User Registration test is currently running', 0),
+    (7, 6, 'pass', 'User Registration test ran successfully', 14),
+    (7, 7, 'fail', 'User Registration test failed with error: invalid email', 20),
+    (7, 8, 'pass', 'User Registration test ran successfully', 15),
+    (8, 9, 'fail', 'Product Display test failed with error: missing image', 25),
+    (8, 10, 'pass', 'Product Display test ran successfully', 12),
+    (8, 1, 'pass', 'Product Display test ran successfully', 14),
+    (8, 2, 'pass', 'Product Display test ran successfully', 13),
+    (9, 3, 'running', 'Checkout Process test is currently running', 0),
+    (9, 4, 'pass', 'Checkout Process test ran successfully', 10),
+    (9, 5, 'pass', 'Checkout Process test ran successfully', 9),
+    (9, 6, 'pass', 'Checkout Process test ran successfully', 11),
+    (10, 7, 'fail', 'Password Reset test failed with error: invalid token', 25),
+    (10, 8, 'pass', 'Password Reset test ran successfully', 15),
+    (10, 9, 'fail', 'Password Reset test failed with error: expired link', 26),
+    (10, 10, 'pass', 'Password Reset test ran successfully', 16);
 
--- Populating ScheduledTests table
-INSERT INTO
-    ScheduledTests (testId, userId, scheduledTime)
+-- Populating ScheduledTests table (Added more scheduled tests for each test)
+INSERT INTO ScheduledTests (testId, userId, scheduledTime)
 VALUES
-    (1, 6, '2023-07-01 12:00:00'),
-    (2, 6, '2023-07-02 12:00:00'),
-    (3, 7, '2023-07-03 12:00:00'),
-    (4, 7, '2023-07-04 12:00:00'),
-    (5, 8, '2023-07-05 12:00:00');
+    (1, 1, '2023-07-01 12:00:00'),
+    (1, 2, '2023-07-02 12:00:00'),
+    (1, 3, '2023-07-03 12:00:00'),
+    (2, 4, '2023-07-04 12:00:00'),
+    (2, 5, '2023-07-05 12:00:00'),
+    (3, 6, '2023-07-06 12:00:00'),
+    (3, 7, '2023-07-07 12:00:00'),
+    (4, 8, '2023-07-08 12:00:00'),
+    (4, 9, '2023-07-09 12:00:00'),
+    (5, 10, '2023-07-10 12:00:00'),
+    (5, 1, '2023-07-11 12:00:00'),
+    (6, 2, '2023-07-12 12:00:00'),
+    (6, 3, '2023-07-13 12:00:00'),
+    (7, 4, '2023-07-14 12:00:00'),
+    (7, 5, '2023-07-15 12:00:00'),
+    (8, 6, '2023-07-16 12:00:00'),
+    (8, 7, '2023-07-17 12:00:00'),
+    (9, 8, '2023-07-18 12:00:00'),
+    (9, 9, '2023-07-19 12:00:00'),
+    (10, 10, '2023-07-20 12:00:00'),
+    (10, 1, '2023-07-21 12:00:00');
 
 -- Populating UserNotifications table
 INSERT INTO
@@ -88,19 +136,26 @@ VALUES
     (9, 'tester'),
     (10, 'admin');
 
-INSERT INTO
-    BugReports (testId, userId, bugDescription, status, isExcepted)
+-- Populating BugReports table (Added 20 random bug reports related to the 10 testIds)
+INSERT INTO BugReports (testId, userId, bugDescription, location, version, domain, status, isExcepted)
 VALUES
-    (2, 3, 'Search results not displaying correctly', 'open', 'no'),
-    (5, 4, 'Form submission button not clickable', 'open', 'no'),
-    (3, 5, 'Logout not functioning properly', 'open', 'no');
-
-INSERT INTO
-    BugReports (testId, userId, bugDescription, location, version, domain, status, isExcepted)
-VALUES
-    (1, 4, 'Search results not displaying correctly', 'USA', '1.2.0', 'Area A', 'open', 'no'),
-    (3, 2, 'Form submission button not clickable', 'Canada', '2.0.1', 'Area B', 'open', 'yes'),
-    (5, 1, 'Logout not functioning properly', 'UK', '1.1.0', 'Area C', 'open', 'no'),
     (1, 2, 'Login page UI alignment issue', 'USA', '1.0.0', 'Area A', 'closed', 'yes'),
-    (4, 1, 'Navigation menu links broken', 'Germany', '2.1.0', 'Area B', 'open', 'no');
-
+    (1, 3, 'Login test failed with error: invalid credentials', 'Canada', '2.0.1', 'Area B', 'open', 'no'),
+    (1, 4, 'Login test failed with error: timeout', 'UK', '1.1.0', 'Area C', 'open', 'no'),
+    (2, 5, 'Search test failed with error: 404 not found', 'Germany', '2.1.0', 'Area D', 'open', 'no'),
+    (2, 6, 'Search test failed with error: server error', 'USA', '1.2.0', 'Area E', 'open', 'no'),
+    (2, 7, 'Search test failed with error: element not found', 'Canada', '2.0.1', 'Area F', 'open', 'yes'),
+    (3, 8, 'Logout test failed with error: broken link', 'UK', '1.1.0', 'Area G', 'open', 'no'),
+    (3, 9, 'Logout test failed with error: missing element', 'Germany', '2.1.0', 'Area A', 'open', 'no'),
+    (3, 10, 'Logout test failed with error: invalid email', 'USA', '1.2.0', 'Area B', 'open', 'no'),
+    (4, 1, 'Navigation test failed with error: form validation error', 'Canada', '2.0.1', 'Area C', 'open', 'no'),
+    (4, 2, 'Navigation test failed with error: broken link', 'UK', '1.1.0', 'Area D', 'open', 'no'),
+    (4, 3, 'Navigation test failed with error: missing image', 'Germany', '2.1.0', 'Area E', 'closed', 'yes'),
+    (5, 4, 'Form Submission test failed with error: server error', 'USA', '1.0.0', 'Area F', 'open', 'no'),
+    (5, 5, 'Form Submission test failed with error: form validation error', 'Canada', '2.0.1', 'Area G', 'open', 'no'),
+    (5, 6, 'Form Submission test failed with error: timeout', 'UK', '1.1.0', 'Area A', 'open', 'no'),
+    (6, 7, 'Payment test failed with error: invalid card details', 'Germany', '2.1.0', 'Area B', 'open', 'no'),
+    (6, 8, 'Payment test failed with error: payment declined', 'USA', '1.2.0', 'Area C', 'open', 'no'),
+    (6, 9, 'Payment test failed with error: server error', 'Canada', '2.0.1', 'Area D', 'open', 'no'),
+    (7, 10, 'User Registration test failed with error: invalid email format', 'UK', '1.1.0', 'Area E', 'testing', 'yes'),
+    (7, 1, 'User Registration test failed with error: invalid password', 'Germany', '2.1.0', 'Area F', 'open', 'no');
