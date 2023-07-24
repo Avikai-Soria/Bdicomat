@@ -71,6 +71,7 @@ CREATE TABLE `BugReports` (
     `domain` VARCHAR(255),
     `status` VARCHAR(50) NOT NULL,
     `isExcepted` ENUM('yes', 'no') NOT NULL,
+    `date` DATE NOT NULL DEFAULT CURRENT_DATE, -- New 'date' column with default value
     FOREIGN KEY (`testId`) REFERENCES `Tests` (`id`) ON DELETE CASCADE,
     FOREIGN KEY (`userId`) REFERENCES `Users` (`id`) ON DELETE CASCADE
 );

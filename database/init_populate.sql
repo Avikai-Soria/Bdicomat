@@ -137,25 +137,26 @@ VALUES
     (10, 'admin');
 
 -- Populating BugReports table (Added 20 random bug reports related to the 10 testIds)
-INSERT INTO BugReports (testId, userId, bugDescription, location, version, domain, status, isExcepted)
+INSERT INTO BugReports (testId, userId, bugDescription, location, version, domain, status, isExcepted, date)
 VALUES
-    (1, 2, 'Login page UI alignment issue', 'USA', '1.0.0', 'Area A', 'closed', 'yes'),
-    (1, 3, 'Login test failed with error: invalid credentials', 'Canada', '2.0.1', 'Area B', 'open', 'no'),
-    (1, 4, 'Login test failed with error: timeout', 'UK', '1.1.0', 'Area C', 'open', 'no'),
-    (2, 5, 'Search test failed with error: 404 not found', 'Germany', '2.1.0', 'Area D', 'open', 'no'),
-    (2, 6, 'Search test failed with error: server error', 'USA', '1.2.0', 'Area E', 'open', 'no'),
-    (2, 7, 'Search test failed with error: element not found', 'Canada', '2.0.1', 'Area F', 'open', 'yes'),
-    (3, 8, 'Logout test failed with error: broken link', 'UK', '1.1.0', 'Area G', 'open', 'no'),
-    (3, 9, 'Logout test failed with error: missing element', 'Germany', '2.1.0', 'Area A', 'open', 'no'),
-    (3, 10, 'Logout test failed with error: invalid email', 'USA', '1.2.0', 'Area B', 'open', 'no'),
-    (4, 1, 'Navigation test failed with error: form validation error', 'Canada', '2.0.1', 'Area C', 'open', 'no'),
-    (4, 2, 'Navigation test failed with error: broken link', 'UK', '1.1.0', 'Area D', 'open', 'no'),
-    (4, 3, 'Navigation test failed with error: missing image', 'Germany', '2.1.0', 'Area E', 'closed', 'yes'),
-    (5, 4, 'Form Submission test failed with error: server error', 'USA', '1.0.0', 'Area F', 'open', 'no'),
-    (5, 5, 'Form Submission test failed with error: form validation error', 'Canada', '2.0.1', 'Area G', 'open', 'no'),
-    (5, 6, 'Form Submission test failed with error: timeout', 'UK', '1.1.0', 'Area A', 'open', 'no'),
-    (6, 7, 'Payment test failed with error: invalid card details', 'Germany', '2.1.0', 'Area B', 'open', 'no'),
-    (6, 8, 'Payment test failed with error: payment declined', 'USA', '1.2.0', 'Area C', 'open', 'no'),
-    (6, 9, 'Payment test failed with error: server error', 'Canada', '2.0.1', 'Area D', 'open', 'no'),
-    (7, 10, 'User Registration test failed with error: invalid email format', 'UK', '1.1.0', 'Area E', 'testing', 'yes'),
-    (7, 1, 'User Registration test failed with error: invalid password', 'Germany', '2.1.0', 'Area F', 'open', 'no');
+    (1, 2, 'Login page UI alignment issue', 'USA', '1.0.0', 'Area A', 'closed', 'yes', '2023-01-01'),
+    (1, 3, 'Login test failed with error: invalid credentials', 'Canada', '2.0.1', 'Area B', 'open', 'no', '2022-02-05'),
+    (1, 4, 'Login test failed with error: timeout', 'UK', '1.1.0', 'Area C', 'open', 'no', '2021-03-12'),
+    (2, 5, 'Search test failed with error: 404 not found', 'Germany', '2.1.0', 'Area D', 'open', 'no', '2014-04-15'),
+    (2, 6, 'Search test failed with error: server error', 'USA', '1.2.0', 'Area E', 'open', 'no', '2023-05-20'),
+    (2, 7, 'Search test failed with error: element not found', 'Canada', '2.0.1', 'Area F', 'open', 'yes', '2023-06-25'),
+    (3, 8, 'Logout test failed with error: broken link', 'UK', '1.1.0', 'Area G', 'open', 'no', '2023-07-03'),
+    (3, 9, 'Logout test failed with error: missing element', 'Germany', '2.1.0', 'Area A', 'open', 'no', '2016-08-08'),
+    (3, 10, 'Logout test failed with error: invalid email', 'USA', '1.2.0', 'Area B', 'open', 'no', '2023-09-11'),
+    (4, 1, 'Navigation test failed with error: form validation error', 'Canada', '2.0.1', 'Area C', 'open', 'no', '2023-10-17'),
+    (4, 2, 'Navigation test failed with error: broken link', 'UK', '1.1.0', 'Area D', 'open', 'no', '2023-11-22'),
+    (4, 3, 'Navigation test failed with error: missing image', 'Germany', '2.1.0', 'Area E', 'closed', 'yes', '2023-12-29'),
+    (5, 4, 'Form Submission test failed with error: server error', 'USA', '1.0.0', 'Area F', 'open', 'no', '2011-01-03'),
+    (5, 5, 'Form Submission test failed with error: form validation error', 'Canada', '2.0.1', 'Area G', 'open', 'no', '2017-02-05'),
+    (5, 6, 'Form Submission test failed with error: timeout', 'UK', '1.1.0', 'Area A', 'open', 'no', '2013-03-09'),
+    (6, 7, 'Payment test failed with error: invalid card details', 'Germany', '2.1.0', 'Area B', 'open', 'no', '2021-04-12'),
+    (6, 8, 'Payment test failed with error: payment declined', 'USA', '1.2.0', 'Area C', 'open', 'no', '2015-05-16'),
+    (6, 9, 'Payment test failed with error: server error', 'Canada', '2.0.1', 'Area D', 'open', 'no', '2012-06-20'),
+    (7, 10, 'User Registration test failed with error: invalid email format', 'UK', '1.1.0', 'Area E', 'testing', 'yes', '2019-07-25'),
+    (7, 1, 'User Registration test failed with error: invalid password', 'Germany', '2.1.0', 'Area F', 'open', 'no', '2011-08-30');
+
