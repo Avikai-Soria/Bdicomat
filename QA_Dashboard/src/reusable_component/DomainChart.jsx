@@ -1,14 +1,9 @@
 import { useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../hooks/theme";
-import { useContext, useEffect, useState } from "react";
-import { UserInfoContext } from "../components/main_page/MainPageContainer";
-import apiFetch from "../hooks/api";
-
 
 
 const convertKeys = (data) => {
-  // data = JSON.parse(data);
   data.forEach((element) => {
     element["running tests"] = element["testsRunning"] || "";
     element["tests failed"] = element["testsFailed"] || "";
@@ -16,22 +11,17 @@ const convertKeys = (data) => {
     element["bug excepted"] = element["bugsExpected"] || "";
     element["bug not excepted"] = element["bugsUnexpected"] || "";
   });
-  console.log(data);
   return data;
 };
 
-const BarChart = ({ isDashboard = false }) => {
+const BarChart = ({ isDashboard = false, domainStats }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { userId, apiKey } = useContext(UserInfoContext);
-  const [domainStats, setDomainStats] = useState([]);
 
-  useEffect(() => {
-    apiFetch(`domainstat`, "GET", apiKey)
-      .then((response) => setDomainStats(response.data.domainStats))
-      .catch((err) => alert("Couldn't load domain's stats... Please refresh the page"));
-  }, []);
-
+  if (!domainStats) {
+    // If domainStats is undefined, return null or any placeholder you want
+    return null;
+  }
 
   return (
     <ResponsiveBar

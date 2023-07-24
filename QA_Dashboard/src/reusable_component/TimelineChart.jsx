@@ -1,300 +1,291 @@
 import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "@mui/material";
 import { tokens } from "../hooks/theme";
-import { UserInfoContext } from "../components/main_page/MainPageContainer";
-import apiFetch from "../hooks/api";
-import { useContext, useEffect, useState } from "react";
 
-const LineChart = ({ isDashboard = false }) => {
+const LineData = (data) => {
+  return [
+    {
+      id: "Running tests",
+      color: tokens("dark").greenAccent[500],
+      data: [
+        {
+          x: "Jan.",
+          y: data[0].testsRunning,
+        },
+        {
+          x: "Feb.",
+          y: data[1].testsRunning,
+        },
+        {
+          x: "Mar.",
+          y: data[2].testsRunning,
+        },
+        {
+          x: "Apr.",
+          y: data[3].testsRunning,
+        },
+        {
+          x: "May",
+          y: data[4].testsRunning,
+        },
+        {
+          x: "Jun.",
+          y: data[5].testsRunning,
+        },
+        {
+          x: "Jul.",
+          y: data[6].testsRunning,
+        },
+        {
+          x: "Aug.",
+          y: data[7].testsRunning,
+        },
+        {
+          x: "Sept.",
+          y: data[8].testsRunning,
+        },
+        {
+          x: "Oct.",
+          y: data[9].testsRunning,
+        },
+        {
+          x: "Nov.",
+          y: data[10].testsRunning,
+        },
+        {
+          x: "Dec.",
+          y: data[11].testsRunning,
+        },
+      ],
+    },
+    {
+      id: "failed tests",
+      color: tokens("dark").blueAccent[300],
+      data: [
+        {
+          x: "Jan.",
+          y: data[0].testsFailed,
+        },
+        {
+          x: "Feb.",
+          y: data[1].testsFailed,
+        },
+        {
+          x: "Mar.",
+          y: data[2].testsFailed,
+        },
+        {
+          x: "Apr.",
+          y: data[3].testsFailed,
+        },
+        {
+          x: "May",
+          y: data[4].testsFailed,
+        },
+        {
+          x: "Jun.",
+          y: data[5].testsFailed,
+        },
+        {
+          x: "Jul.",
+          y: data[6].testsFailed,
+        },
+        {
+          x: "Aug.",
+          y: data[7].testsFailed,
+        },
+        {
+          x: "Sept.",
+          y: data[8].testsFailed,
+        },
+        {
+          x: "Oct.",
+          y: data[9].testsFailed,
+        },
+        {
+          x: "Nov.",
+          y: data[10].testsFailed,
+        },
+        {
+          x: "Dec.",
+          y: data[11].testsFailed,
+        },
+      ],
+    },
+    {
+      id: "pass tests",
+      color: tokens("dark").redAccent[200],
+      data: [
+        {
+          x: "Jan.",
+          y: data[0].testsPassed,
+        },
+        {
+          x: "Feb.",
+          y: data[1].testsPassed,
+        },
+        {
+          x: "Mar.",
+          y: data[2].testsPassed,
+        },
+        {
+          x: "Apr.",
+          y: data[3].testsPassed,
+        },
+        {
+          x: "May",
+          y: data[4].testsPassed,
+        },
+        {
+          x: "Jun.",
+          y: data[5].testsPassed,
+        },
+        {
+          x: "Jul.",
+          y: data[6].testsPassed,
+        },
+        {
+          x: "Aug.",
+          y: data[7].testsPassed,
+        },
+        {
+          x: "Sept.",
+          y: data[8].testsPassed,
+        },
+        {
+          x: "Oct.",
+          y: data[9].testsPassed,
+        },
+        {
+          x: "Nov.",
+          y: data[10].testsPassed,
+        },
+        {
+          x: "Dec.",
+          y: data[11].testsPassed,
+        },
+      ],
+    },
+    {
+      id: "excepted bugs",
+      color: tokens("dark").redAccent[200],
+      data: [
+        {
+          x: "Jan.",
+          y: data[0].bugsExpected,
+        },
+        {
+          x: "Feb.",
+          y: data[1].bugsExpected,
+        },
+        {
+          x: "Mar.",
+          y: data[2].bugsExpected,
+        },
+        {
+          x: "Apr.",
+          y: data[3].bugsExpected,
+        },
+        {
+          x: "May",
+          y: data[4].bugsExpected,
+        },
+        {
+          x: "Jun.",
+          y: data[5].bugsExpected,
+        },
+        {
+          x: "Jul.",
+          y: data[6].bugsExpected,
+        },
+        {
+          x: "Aug.",
+          y: data[7].bugsExpected,
+        },
+        {
+          x: "Sept.",
+          y: data[8].bugsExpected,
+        },
+        {
+          x: "Oct.",
+          y: data[9].bugsExpected,
+        },
+        {
+          x: "Nov.",
+          y: data[10].bugsExpected,
+        },
+        {
+          x: "Dec.",
+          y: data[11].bugsExpected,
+        },
+      ],
+    },
+    {
+      id: "Not excepted bugs",
+      color: tokens("dark").redAccent[200],
+      data: [
+        {
+          x: "Jan.",
+          y: data[0].bugsUnexpected,
+        },
+        {
+          x: "Feb.",
+          y: data[1].bugsUnexpected,
+        },
+        {
+          x: "Mar.",
+          y: data[2].bugsUnexpected,
+        },
+        {
+          x: "Apr.",
+          y: data[3].bugsUnexpected,
+        },
+        {
+          x: "May",
+          y: data[4].bugsUnexpected,
+        },
+        {
+          x: "Jun.",
+          y: data[5].bugsUnexpected,
+        },
+        {
+          x: "Jul.",
+          y: data[6].bugsUnexpected,
+        },
+        {
+          x: "Aug.",
+          y: data[7].bugsUnexpected,
+        },
+        {
+          x: "Sept.",
+          y: data[8].bugsUnexpected,
+        },
+        {
+          x: "Oct.",
+          y: data[9].bugsUnexpected,
+        },
+        {
+          x: "Nov.",
+          y: data[10].bugsUnexpected,
+        },
+        {
+          x: "Dec.",
+          y: data[11].bugsUnexpected,
+        },
+      ],
+    },
+  ];
+};
+
+
+const LineChart = ({ isDashboard = false, monthlyStats }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const { userId, apiKey } = useContext(UserInfoContext);
-  const [monthlyStats, setMonthlyStats] = useState([]);
-
-  useEffect(() => {
-    apiFetch(`monthlystat`, "GET", apiKey)
-      .then((response) => setMonthlyStats(response.data.monthlyStats))
-      .catch((err) =>
-        alert("Couldn't load monthly Stats... Please refresh the page")
-      );
-    console.log(monthlyStats);
-  }, []);
-
-  const LineData = (data) => {
-    [
-      {
-        id: "Running tests",
-        color: tokens("dark").greenAccent[500],
-        data: [
-          {
-            x: "Jan.",
-            y: data[0].testsRunning,
-          },
-          {
-            x: "Feb.",
-            y: data[1].testsRunning,
-          },
-          {
-            x: "Mar.",
-            y: data[2].testsRunning,
-          },
-          {
-            x: "Apr.",
-            y: data[3].testsRunning,
-          },
-          {
-            x: "May",
-            y: data[4].testsRunning,
-          },
-          {
-            x: "Jun.",
-            y: data[5].testsRunning,
-          },
-          {
-            x: "Jul.",
-            y: data[6].testsRunning,
-          },
-          {
-            x: "Aug.",
-            y: data[7].testsRunning,
-          },
-          {
-            x: "Sept.",
-            y: data[8].testsRunning,
-          },
-          {
-            x: "Oct.",
-            y: data[9].testsRunning,
-          },
-          {
-            x: "Nov.",
-            y: data[10].testsRunning,
-          },
-          {
-            x: "Dec.",
-            y: data[11].testsRunning,
-          },
-        ],
-      },
-      {
-        id: "failed tests",
-        color: tokens("dark").blueAccent[300],
-        data: [
-          {
-            x: "Jan.",
-            y: data[0].testsFailed,
-          },
-          {
-            x: "Feb.",
-            y: data[1].testsFailed,
-          },
-          {
-            x: "Mar.",
-            y: data[2].testsFailed,
-          },
-          {
-            x: "Apr.",
-            y: data[3].testsFailed,
-          },
-          {
-            x: "May",
-            y: data[4].testsFailed,
-          },
-          {
-            x: "Jun.",
-            y: data[5].testsFailed,
-          },
-          {
-            x: "Jul.",
-            y: data[6].testsFailed,
-          },
-          {
-            x: "Aug.",
-            y: data[7].testsFailed,
-          },
-          {
-            x: "Sept.",
-            y: data[8].testsFailed,
-          },
-          {
-            x: "Oct.",
-            y: data[9].testsFailed,
-          },
-          {
-            x: "Nov.",
-            y: data[10].testsFailed,
-          },
-          {
-            x: "Dec.",
-            y: data[11].testsFailed,
-          },
-        ],
-      },
-      {
-        id: "pass tests",
-        color: tokens("dark").redAccent[200],
-        data: [
-          {
-            x: "Jan.",
-            y: data[0].testsPassed,
-          },
-          {
-            x: "Feb.",
-            y: data[1].testsPassed,
-          },
-          {
-            x: "Mar.",
-            y: data[2].testsPassed,
-          },
-          {
-            x: "Apr.",
-            y: data[3].testsPassed,
-          },
-          {
-            x: "May",
-            y: data[4].testsPassed,
-          },
-          {
-            x: "Jun.",
-            y: data[5].testsPassed,
-          },
-          {
-            x: "Jul.",
-            y: data[6].testsPassed,
-          },
-          {
-            x: "Aug.",
-            y: data[7].testsPassed,
-          },
-          {
-            x: "Sept.",
-            y: data[8].testsPassed,
-          },
-          {
-            x: "Oct.",
-            y: data[9].testsPassed,
-          },
-          {
-            x: "Nov.",
-            y: data[10].testsPassed,
-          },
-          {
-            x: "Dec.",
-            y: data[11].testsPassed,
-          },
-        ],
-      },
-      {
-        id: "excepted bugs",
-        color: tokens("dark").redAccent[200],
-        data: [
-          {
-            x: "Jan.",
-            y: data[0].bugsExpected,
-          },
-          {
-            x: "Feb.",
-            y: data[1].bugsExpected,
-          },
-          {
-            x: "Mar.",
-            y: data[2].bugsExpected,
-          },
-          {
-            x: "Apr.",
-            y: data[3].bugsExpected,
-          },
-          {
-            x: "May",
-            y: data[4].bugsExpected,
-          },
-          {
-            x: "Jun.",
-            y: data[5].bugsExpected,
-          },
-          {
-            x: "Jul.",
-            y: data[6].bugsExpected,
-          },
-          {
-            x: "Aug.",
-            y: data[7].bugsExpected,
-          },
-          {
-            x: "Sept.",
-            y: data[8].bugsExpected,
-          },
-          {
-            x: "Oct.",
-            y: data[9].bugsExpected,
-          },
-          {
-            x: "Nov.",
-            y: data[10].bugsExpected,
-          },
-          {
-            x: "Dec.",
-            y: data[11].bugsExpected,
-          },
-        ],
-      },
-      {
-        id: "Not excepted bugs",
-        color: tokens("dark").redAccent[200],
-        data: [
-          {
-            x: "Jan.",
-            y: data[0].bugsUnexpected,
-          },
-          {
-            x: "Feb.",
-            y: data[1].bugsUnexpected,
-          },
-          {
-            x: "Mar.",
-            y: data[2].bugsUnexpected,
-          },
-          {
-            x: "Apr.",
-            y: data[3].bugsUnexpected,
-          },
-          {
-            x: "May",
-            y: data[4].bugsUnexpected,
-          },
-          {
-            x: "Jun.",
-            y: data[5].bugsUnexpected,
-          },
-          {
-            x: "Jul.",
-            y: data[6].bugsUnexpected,
-          },
-          {
-            x: "Aug.",
-            y: data[7].bugsUnexpected,
-          },
-          {
-            x: "Sept.",
-            y: data[8].bugsUnexpected,
-          },
-          {
-            x: "Oct.",
-            y: data[9].bugsUnexpected,
-          },
-          {
-            x: "Nov.",
-            y: data[10].bugsUnexpected,
-          },
-          {
-            x: "Dec.",
-            y: data[11].bugsUnexpected,
-          },
-        ],
-      },
-    ];
-  };
+  if (!monthlyStats) {
+    // If domainStats is undefined, return null or any placeholder you want
+    return null;
+  }
 
   return (
     <ResponsiveLine
