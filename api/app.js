@@ -5,11 +5,6 @@ import HttpStatus from "./util/http-status.js";
 import database from "./config/mysql.config.js";
 import apikeyRoutes from "./route/apikey.route.js";
 import userRoutes from "./route/user.route.js";
-import postRoutes from "./route/post.route.js";
-import commentRoutes from "./route/comment.route.js";
-import todoRoutes from "./route/todo.route.js";
-import albumRoutes from "./route/album.route.js";
-import photoRoutes from "./route/photo.route.js";
 
 import testRoutes from "./route/test.route.js";
 
@@ -20,12 +15,7 @@ app.use(cors());
 
 app.use("/apikeys", apikeyRoutes);
 app.use("/users", userRoutes);
-app.use("/posts", postRoutes);
 app.use("/tests", testRoutes);
-app.use("/comments", commentRoutes);
-app.use("/todos", todoRoutes);
-app.use("/albums", albumRoutes);
-app.use("/photos", photoRoutes);
 
 app.get("/", (req, res) =>
   database.query("SELECT * FROM Passwords", function (err, results) {
