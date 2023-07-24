@@ -3,9 +3,11 @@ import React, { useContext, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { formatDate } from "@fullcalendar/core";
-import { Stack } from "@mui/material";
+import { Paper, Stack } from "@mui/material";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+
+import "../../../style_files/calender.css";
 
 function renderEventContent(eventInfo) {
   return (
@@ -77,30 +79,14 @@ const Calendar = () => {
 
   return (
     <Stack direction={"row"}>
-      <div className="demo-app-sidebar">
+      <Paper className="demo-app-sidebar">
         <div className="demo-app-sidebar-section">
-          <h2>Instructions</h2>
-          <ul>
-            <li>Select dates and you will be prompted to create a new event</li>
-            <li>Drag, drop, and resize events</li>
-            <li>Click an event to delete it</li>
-          </ul>
-        </div>
-        <div className="demo-app-sidebar-section">
-          <label>
-            <input
-              type="checkbox"
-              checked={weekendsVisible}
-              onChange={handleWeekendsToggle}
-            ></input>
-            toggle weekends
-          </label>
-        </div>
-        <div className="demo-app-sidebar-section">
-          <h2>All Events ({currentEvents.length})</h2>
+          <h2 style={{ textAlign: "center" }}>
+            All Events ({currentEvents.length})
+          </h2>
           <ul>{currentEvents.map(renderSidebarEvent)}</ul>
         </div>
-      </div>
+      </Paper>
 
       <div className="demo-app-main">
         <FullCalendar
@@ -127,6 +113,16 @@ const Calendar = () => {
                eventRemove={function(){}}
                */
         />
+        <div className="demo-app-sidebar-section">
+          <label>
+            <input
+              type="checkbox"
+              checked={weekendsVisible}
+              onChange={handleWeekendsToggle}
+            ></input>
+            toggle weekends
+          </label>
+        </div>
       </div>
     </Stack>
   );

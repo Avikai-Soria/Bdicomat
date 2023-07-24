@@ -289,7 +289,7 @@ const LineChart = ({ isDashboard = false, monthlyStats }) => {
 
   return (
     <ResponsiveLine
-      data={data}
+      data={LineData(monthlyStats)}
       theme={{
         axis: {
           domain: {
