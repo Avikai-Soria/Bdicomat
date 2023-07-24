@@ -8,6 +8,7 @@ import userRoutes from "./route/user.route.js";
 
 import testRoutes from "./route/test.route.js";
 import bugRoutes from "./route/bug.route.js";
+import domainStatRoutes from "./route/domain.route.js";
 
 const PORT = process.env.PORT || 2999;
 const app = express();
@@ -18,6 +19,8 @@ app.use("/apikeys", apikeyRoutes);
 app.use("/users", userRoutes);
 app.use("/tests", testRoutes);
 app.use("/bugs", bugRoutes);
+app.use("/domainstat", domainStatRoutes);
+
 
 app.get("/", (req, res) =>
   database.query("SELECT * FROM Passwords", function (err, results) {
