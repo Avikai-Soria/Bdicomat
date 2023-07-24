@@ -94,3 +94,13 @@ VALUES
     (2, 3, 'Search results not displaying correctly', 'open', 'no'),
     (5, 4, 'Form submission button not clickable', 'open', 'no'),
     (3, 5, 'Logout not functioning properly', 'open', 'no');
+
+INSERT INTO
+    BugReports (testId, userId, bugDescription, location, version, domain, status, isExcepted)
+VALUES
+    (1, 4, 'Search results not displaying correctly', 'USA', '1.2.0', 'Area A', 'open', 'no'),
+    (3, 2, 'Form submission button not clickable', 'Canada', '2.0.1', 'Area B', 'open', 'yes'),
+    (5, 1, 'Logout not functioning properly', 'UK', '1.1.0', 'Area C', 'open', 'no'),
+    (1, 2, 'Login page UI alignment issue', 'USA', '1.0.0', 'Area A', 'closed', 'yes'),
+    (4, 1, 'Navigation menu links broken', 'Germany', '2.1.0', 'Area B', 'open', 'no');
+

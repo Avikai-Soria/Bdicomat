@@ -1,12 +1,26 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../../hooks/theme";
-import { mockDataBugReports } from "../data/mockData";
 import Header from "../../../reusable_component/Header.jsx";
+import { useContext, useEffect, useState } from "react";
+import { UserInfoContext } from "../MainPageContainer";
+import apiFetch from "../../../hooks/api";
+
 
 const BugReports = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const { userId, apiKey } = useContext(UserInfoContext);
+  const [bugs, setBugs] = useState([]);
+
+  useEffect(() => {
+    apiFetch(`bugs`, "GET", apiKey)
+      .then((response) => setBugs(response.data.bugs))
+      .catch((err) => alert("Couldn't load bugs... Please refresh the page"));
+  }, []);
+
+
   const columns = [
     { field: "id", headerName: "Bug ID", flex: 0.5 },
     {
@@ -95,7 +109,7 @@ const BugReports = () => {
           },
         }}
       >
-        <DataGrid rows={mockDataBugReports} columns={columns} />
+        <DataGrid rows={bugs} columns={columns} />
       </Box>
     </Box>
   );
