@@ -3,6 +3,7 @@ import { useTheme } from "@mui/material";
 import { tokens } from "../hooks/theme";
 import { UserInfoContext } from "../components/main_page/MainPageContainer";
 import apiFetch from "../hooks/api";
+import { useContext, useEffect, useState } from "react";
 
 const LineChart = ({ isDashboard = false }) => {
   const theme = useTheme();
@@ -17,7 +18,9 @@ const LineChart = ({ isDashboard = false }) => {
       .catch((err) =>
         alert("Couldn't load monthly Stats... Please refresh the page")
       );
+      console.log(monthlyStats);
   }, []);
+  
 
   const LineData = [
     {
