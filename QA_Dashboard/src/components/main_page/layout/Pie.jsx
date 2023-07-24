@@ -2,6 +2,8 @@ import { Box } from "@mui/material";
 import Header from "../../../reusable_component/Header.jsx";
 import PieChart from "../../../reusable_component/CoverageChart.jsx";
 
+import { mockPieData as data } from "../..//main_page/data/mockData.js";
+
 const Pie = () => {
   return (
     <Box m="20px">
@@ -12,8 +14,8 @@ const Pie = () => {
         alignItems="center"
         height="35vh"
       >
-        <PieChart />
-        <PieChart />
+        <PieChart data={data} title={"Negative:"}/>
+        <PieChart data={data} title={"Functional:"}/>
       </Box>
       <Box
         display="flex"
@@ -21,8 +23,8 @@ const Pie = () => {
         alignItems="center"
         height="35vh"
       >
-        <PieChart />
-        <PieChart />
+        <PieChart data={data} title={"remember:"}/>
+        <PieChart data={data} title={"remember:"}/>
       </Box>
     </Box>
   );
