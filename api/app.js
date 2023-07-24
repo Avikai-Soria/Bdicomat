@@ -7,6 +7,7 @@ import apikeyRoutes from "./route/apikey.route.js";
 import userRoutes from "./route/user.route.js";
 
 import testRoutes from "./route/test.route.js";
+import bugRoutes from "./route/bug.route.js";
 
 const PORT = process.env.PORT || 2999;
 const app = express();
@@ -16,6 +17,7 @@ app.use(cors());
 app.use("/apikeys", apikeyRoutes);
 app.use("/users", userRoutes);
 app.use("/tests", testRoutes);
+app.use("/bugs", bugRoutes);
 
 app.get("/", (req, res) =>
   database.query("SELECT * FROM Passwords", function (err, results) {
