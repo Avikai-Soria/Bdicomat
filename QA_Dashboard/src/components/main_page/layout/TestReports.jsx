@@ -11,8 +11,8 @@ const TestReports = () => {
   const columns = [
     { field: "id", headerName: "Test ID", flex: 0.1 },
     {
-      field: "userName",
-      headerName: "User Name",
+      field: "testName",
+      headerName: "Test Name",
       flex: 0.5,
       cellClassName: "name-column--cell",
     },
@@ -33,8 +33,8 @@ const TestReports = () => {
       flex: 0.5,
     },
     {
-      field: "startRunningTime",
-      headerName: "Start Running Time",
+      field: "lastRunningTime",
+      headerName: "Last Running Time",
       flex: 1,
     },
     {
@@ -44,20 +44,20 @@ const TestReports = () => {
     },
 
     {
-      field: "status",
-      headerName: "status",
+      field: "lastStatus",
+      headerName: "Last status",
       flex: 0.5,
       renderCell: (params) => (
         <Typography
           color={
-            params.row.status === "pass"
+            params.row.lastStatus === "pass"
               ? colors.greenAccent[500]
-              : params.row.status === "fail"
+              : params.row.lastStatus === "fail"
               ? colors.redAccent[500]
               : colors.grey[500]
           }
         >
-          {params.row.status}
+          {params.row.lastStatus}
         </Typography>
       ),
     },
@@ -66,19 +66,11 @@ const TestReports = () => {
       headerName: "Type",
       flex: 1,
     },
-    {
-      field: "duration",
-      headerName: "Duration",
-      flex: 1,
-    },
   ];
 
   return (
     <Box m="20px">
-      <Header
-        title="Test Reports"
-        subtitle="List of All <Username> Test Reports"
-      />
+      <Header title="Tests" subtitle="List of All <Username> Tests" />
       <Box
         m="40px 0 0 0"
         height="75vh"

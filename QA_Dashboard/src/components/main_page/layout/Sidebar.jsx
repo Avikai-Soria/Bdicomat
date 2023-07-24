@@ -126,8 +126,8 @@ const Sidebar = () => {
               Actions
             </Typography>
             <Item
-              title="Test Reports"
-              to="/TestReports"
+              title="Test"
+              to="/Test"
               icon={<GradingIcon />}
               selected={selected}
               setSelected={setSelected}
