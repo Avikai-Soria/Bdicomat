@@ -9,6 +9,7 @@ import userRoutes from "./route/user.route.js";
 import testRoutes from "./route/test.route.js";
 import bugRoutes from "./route/bug.route.js";
 import domainStatRoutes from "./route/domain.route.js";
+import monthlyStatRoutes from "./route/monthly.route.js";
 
 const PORT = process.env.PORT || 2999;
 const app = express();
@@ -20,6 +21,7 @@ app.use("/users", userRoutes);
 app.use("/tests", testRoutes);
 app.use("/bugs", bugRoutes);
 app.use("/domainstat", domainStatRoutes);
+app.use("/monthlystat", monthlyStatRoutes);
 
 
 app.get("/", (req, res) =>
