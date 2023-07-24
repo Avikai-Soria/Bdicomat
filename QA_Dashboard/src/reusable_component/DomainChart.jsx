@@ -3,13 +3,25 @@ import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../hooks/theme";
 import { mockBarData as data } from "../components/main_page/data/mockData";
 
+const convertKeys = (data) => {
+  // data = JSON.parse(data);
+  data.forEach((element) => {
+    element["running tests"] = element["testsRunning"] || "";
+    element["tests failed"] = element["testsFailed"] || "";
+    element["tests pass"] = element["testsPassed"] || "";
+    element["bug excepted"] = element["bugExpected"] || "";
+    element["bug not excepted"] = element["bugUnexpected"] || "";
+  });
+  return data;
+};
+
 const BarChart = ({ isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   return (
     <ResponsiveBar
-      data={data}
+      data={convertKeys(data)}
       theme={{
         // added
         axis: {
@@ -39,7 +51,13 @@ const BarChart = ({ isDashboard = false }) => {
           },
         },
       }}
-      keys={["pending tests","tests failed", "tests pass", "bug excepted", "bug not excepted"]}
+      keys={[
+        "running tests",
+        "tests failed",
+        "tests pass",
+        "bug excepted",
+        "bug not excepted",
+      ]}
       indexBy="domain"
       margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
       padding={0.3}
