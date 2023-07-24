@@ -11,12 +11,17 @@ import {
 } from "../util/handles.js";
 import generateQuery from "../query/queryUtils.js";
 
-// Expecting to get object of [name, description, expectedResult, configuration]
+// Expecting to get object of [name, description, expectedResult, configuration, domain, version, type]
 const testSchema = Joi.object({
   name: Joi.string().min(1).required(),
   description: Joi.string().required(),
   expectedResult: Joi.string().required(),
   configuration: Joi.string().required(),
+  domain: Joi.string().allow(null), // Assuming domain can be optional (null)
+  version: Joi.string().allow(null), // Assuming version can be optional (null)
+  type: Joi.string()
+    .valid("regression", "smoke", "functional", "load")
+    .required(), // Update the validation for type
 });
 
 export const getTests = (req, res) => {
@@ -32,22 +37,22 @@ export const getTests = (req, res) => {
 
   const query = generateQuery(QUERY.SELECT_TESTS, conditions, limit, page);
 
-  database.query(query, (error, results) => {
+  database.query(query, async (error, results) => {
     if (error) {
       console.error("Error getting tests:", error.message);
       return handleInternalError(res);
     }
 
-    res
-      .status(HttpStatus.OK.code)
-      .send(
-        new Response(
-          HttpStatus.OK.code,
-          HttpStatus.OK.status,
-          "Tests retrieved",
-          { tests: results }
-        )
-      );
+    res.status(HttpStatus.OK.code).send(
+      new Response(
+        HttpStatus.OK.code,
+        HttpStatus.OK.status,
+        "Tests retrieved",
+        {
+          tests: results,
+        }
+      )
+    );
   });
 };
 
@@ -61,11 +66,19 @@ export const createTest = (req, res) => {
     return handleBadRequest(res, error.details[0].message);
   }
 
-  const { name, description, expectedResult, configuration } = req.body;
+  const {
+    name,
+    description,
+    expectedResult,
+    configuration,
+    domain,
+    version,
+    type,
+  } = req.body;
 
   database.query(
     QUERY.CREATE_TEST,
-    [name, description, expectedResult, configuration],
+    [name, description, expectedResult, configuration, domain, version, type], // Include 'type' in the query
     (error, results) => {
       if (error) {
         console.error("Error creating test:", error.message);
@@ -80,6 +93,9 @@ export const createTest = (req, res) => {
         description,
         expectedResult,
         configuration,
+        domain,
+        version,
+        type, // Include 'type' in the response
       };
 
       res
@@ -132,11 +148,28 @@ export const updateTest = (req, res) => {
   }
 
   const { id } = req.params;
-  const { name, description, expectedResult, configuration } = req.body;
+  const {
+    name,
+    description,
+    expectedResult,
+    configuration,
+    domain,
+    version,
+    type,
+  } = req.body;
 
   database.query(
     QUERY.UPDATE_TEST,
-    [name, description, expectedResult, configuration, id],
+    [
+      name,
+      description,
+      expectedResult,
+      configuration,
+      domain,
+      version,
+      type,
+      id,
+    ], // Include 'type' in the query
     (error, results) => {
       if (error) {
         console.error("Error updating test:", error.message);
@@ -150,6 +183,9 @@ export const updateTest = (req, res) => {
           description,
           expectedResult,
           configuration,
+          domain,
+          version,
+          type, // Include 'type' in the response
         })
       );
     }
