@@ -1,7 +1,11 @@
 import { useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../hooks/theme";
-import { mockBarData as data } from "../components/main_page/data/mockData";
+import { useContext, useEffect, useState } from "react";
+import { UserInfoContext } from "../components/main_page/MainPageContainer";
+import apiFetch from "../hooks/api";
+
+
 
 const convertKeys = (data) => {
   // data = JSON.parse(data);
@@ -9,19 +13,29 @@ const convertKeys = (data) => {
     element["running tests"] = element["testsRunning"] || "";
     element["tests failed"] = element["testsFailed"] || "";
     element["tests pass"] = element["testsPassed"] || "";
-    element["bug excepted"] = element["bugExpected"] || "";
-    element["bug not excepted"] = element["bugUnexpected"] || "";
+    element["bug excepted"] = element["bugsExpected"] || "";
+    element["bug not excepted"] = element["bugsUnexpected"] || "";
   });
+  console.log(data);
   return data;
 };
 
 const BarChart = ({ isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { userId, apiKey } = useContext(UserInfoContext);
+  const [domainStats, setDomainStats] = useState([]);
+
+  useEffect(() => {
+    apiFetch(`domainstat`, "GET", apiKey)
+      .then((response) => setDomainStats(response.data.domainStats))
+      .catch((err) => alert("Couldn't load domain's stats... Please refresh the page"));
+  }, []);
+
 
   return (
     <ResponsiveBar
-      data={convertKeys(data)}
+      data={convertKeys(domainStats)}
       theme={{
         // added
         axis: {
