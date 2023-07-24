@@ -28,19 +28,19 @@ VALUES
     (9, 'password9'),
     (10, 'password10');
 
--- Populating Tests table (Updated domain values to "Area X")
-INSERT INTO Tests (name, description, expectedResult, configuration, domain, version)
+-- Populating Tests table (Updated domain values to "Area X" and randomized test types)
+INSERT INTO Tests (name, description, expectedResult, configuration, domain, version, type)
 VALUES
-    ('Login Test', 'Test the functionality of the login system', 'Successful login with correct credentials', 'Login configuration 1', 'Area A', '1.0.0'),
-    ('Search Test', 'Test the search functionality', 'Correct items returned from search', 'Search configuration 1', 'Area B', '2.0.0'),
-    ('Logout Test', 'Test the functionality of the logout system', 'Successful logout', 'Logout configuration 1', 'Area C', '1.5.0'),
-    ('Navigation Test', 'Test the navigation bar', 'Correct page loaded on click', 'Navigation configuration 1', 'Area D', '2.0.0'),
-    ('Form Submission Test', 'Test the functionality of form submission', 'Form data saved correctly', 'Form configuration 1', 'Area E', '1.0.0'),
-    ('Payment Test', 'Test the payment process', 'Successful payment transaction', 'Payment configuration 1', 'Area F', '1.2.0'),
-    ('User Registration Test', 'Test the user registration process', 'New user successfully registered', 'Registration configuration 1', 'Area G', '2.0.0'),
-    ('Product Display Test', 'Test the product display on the website', 'Products displayed correctly', 'Product display configuration 1', 'Area A', '2.1.0'),
-    ('Checkout Process Test', 'Test the checkout process', 'Successful order placement', 'Checkout configuration 1', 'Area B', '1.0.0'),
-    ('Password Reset Test', 'Test the password reset functionality', 'Password reset email sent successfully', 'Password reset configuration 1', 'Area C', '1.1.0');
+    ('Login Test', 'Test the functionality of the login system', 'Successful login with correct credentials', 'Login configuration 1', 'Area A', '1.0.0', 'Functional'),
+    ('Search Test', 'Test the search functionality', 'Correct items returned from search', 'Search configuration 1', 'Area B', '2.0.0', 'Negative'),
+    ('Logout Test', 'Test the functionality of the logout system', 'Successful logout', 'Logout configuration 1', 'Area C', '1.5.0', 'End to end'),
+    ('Navigation Test', 'Test the navigation bar', 'Correct page loaded on click', 'Navigation configuration 1', 'Area D', '2.0.0', 'Performance'),
+    ('Form Submission Test', 'Test the functionality of form submission', 'Form data saved correctly', 'Form configuration 1', 'Area E', '1.0.0', 'Functional'),
+    ('Payment Test', 'Test the payment process', 'Successful payment transaction', 'Payment configuration 1', 'Area F', '1.2.0', 'Performance'),
+    ('User Registration Test', 'Test the user registration process', 'New user successfully registered', 'Registration configuration 1', 'Area G', '2.0.0', 'End to end'),
+    ('Product Display Test', 'Test the product display on the website', 'Products displayed correctly', 'Product display configuration 1', 'Area A', '2.1.0', 'Functional'),
+    ('Checkout Process Test', 'Test the checkout process', 'Successful order placement', 'Checkout configuration 1', 'Area B', '1.0.0', 'End to end'),
+    ('Password Reset Test', 'Test the password reset functionality', 'Password reset email sent successfully', 'Password reset configuration 1', 'Area C', '1.1.0', 'Functional');
 
 -- Populating TestRuns table (Added more test runs for each test)
 INSERT INTO TestRuns (testId, userId, result, details, duration)
