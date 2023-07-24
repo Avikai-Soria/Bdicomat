@@ -466,7 +466,7 @@ export const mockDataBugReports = [
   {
     id: "1",
     testId: "2",
-    testName: "Jon Snow",
+    userName: "Jon Snow",
     bugDescription: "Test description for id 2 and userId 8",
     domain: "area B",
     location: "USA",
@@ -477,7 +477,7 @@ export const mockDataBugReports = [
   {
     id: "2",
     testId: "5",
-    testName: "Daenerys Targaryen",
+    userName: "Daenerys Targaryen",
     bugDescription: "Test description for id 1 and userId 5",
     domain: "area A",
     location: "USA",
@@ -488,7 +488,7 @@ export const mockDataBugReports = [
   {
     id: "3",
     testId: "3",
-    testName: "Tyrion Lannister",
+    userName: "Tyrion Lannister",
     bugDescription: "Test description for id 3 and userId 12",
     domain: "area B",
     location: "USA",
@@ -499,7 +499,7 @@ export const mockDataBugReports = [
   {
     id: "4",
     testId: "6",
-    testName: "Ever Melisandre",
+    userName: "Ever Melisandre",
     bugDescription: "Test description for id 6 and userId 25",
     domain: "area B",
     location: "USA",
@@ -510,7 +510,7 @@ export const mockDataBugReports = [
   {
     id: "5",
     testId: "7",
-    testName: "Ferrara Clifford",
+    userName: "Ferrara Clifford",
     bugDescription: "Test description for id 7 and userId 28",
     domain: "area B",
     location: "USA",
@@ -521,7 +521,7 @@ export const mockDataBugReports = [
   {
     id: "6",
     testId: "8",
-    testName: "Rossini Frances",
+    userName: "Rossini Frances",
     bugDescription: "Test description for id 8 and userId 31",
     domain: "area B",
     location: "USA",
@@ -532,7 +532,7 @@ export const mockDataBugReports = [
   {
     id: "7",
     testId: "9",
-    testName: "Harvey Roxie",
+    userName: "Harvey Roxie",
     bugDescription: "Test description for id 9 and userId 35",
     domain: "area B",
     location: "USA",
@@ -543,7 +543,7 @@ export const mockDataBugReports = [
   {
     id: "8",
     testId: "10",
-    testName: "Jon Snow",
+    userName: "Jon Snow",
     bugDescription: "Test description for id 2 and userId 8",
     domain: "area B",
     location: "USA",
@@ -554,7 +554,7 @@ export const mockDataBugReports = [
   {
     id: "9",
     testId: "11",
-    testName: "Jon Snow",
+    userName: "Jon Snow",
     bugDescription: "Test description for id 2 and userId 8",
     domain: "area B",
     location: "USA",
@@ -565,7 +565,7 @@ export const mockDataBugReports = [
   {
     id: "10",
     testId: "12",
-    testName: "Jon Snow",
+    userName: "Jon Snow",
     bugDescription: "Test description for id 2 and userId 8",
     domain: "area B",
     location: "USA",
@@ -576,7 +576,7 @@ export const mockDataBugReports = [
   {
     id: "11",
     testId: "13",
-    testName: "Jon Snow",
+    userName: "Jon Snow",
     bugDescription: "Test description for id 2 and userId 8",
     domain: "area B",
     location: "USA",
@@ -587,7 +587,7 @@ export const mockDataBugReports = [
   {
     id: "12",
     testId: "14",
-    testName: "Jon Snow",
+    userName: "Jon Snow",
     bugDescription: "Test description for id 2 and userId 8",
     domain: "area B",
     location: "USA",
@@ -598,7 +598,7 @@ export const mockDataBugReports = [
   {
     id: "13",
     testId: "15",
-    testName: "Jon Snow",
+    userName: "Jon Snow",
     bugDescription: "Test description for id 2 and userId 8",
     domain: "area B",
     location: "USA",
@@ -609,7 +609,7 @@ export const mockDataBugReports = [
   {
     id: "14",
     testId: "16",
-    testName: "Jon Snow",
+    userName: "Jon Snow",
     bugDescription: "Test description for id 2 and userId 8",
     domain: "area B",
     location: "USA",
@@ -620,7 +620,7 @@ export const mockDataBugReports = [
   {
     id: "15",
     testId: "17",
-    testName: "Jon Snow",
+    userName: "Jon Snow",
     bugDescription: "Test description for id 2 and userId 8",
     domain: "area B",
     location: "USA",
@@ -631,7 +631,7 @@ export const mockDataBugReports = [
   {
     id: "16",
     testId: "18",
-    testName: "Jon Snow",
+    userName: "Jon Snow",
     bugDescription: "Test description for id 2 and userId 8",
     domain: "area B",
     location: "USA",
@@ -642,7 +642,7 @@ export const mockDataBugReports = [
   {
     id: "17",
     testId: "19",
-    testName: "Jon Snow",
+    userName: "Jon Snow",
     bugDescription: "Test description for id 1 and userId 5",
     domain: "area B",
     location: "USA",
@@ -653,7 +653,7 @@ export const mockDataBugReports = [
   {
     id: "18",
     testId: "20",
-    testName: "Tyrion Lannister",
+    userName: "Tyrion Lannister",
     bugDescription: "Test description for id 3 and userId 12",
     domain: "area B",
     location: "USA",
@@ -664,7 +664,7 @@ export const mockDataBugReports = [
   {
     id: "19",
     testId: "21",
-    testName: "Ever Melisandre",
+    userName: "Ever Melisandre",
     bugDescription: "Test description for id 6 and userId 25",
     domain: "area B",
     location: "USA",
@@ -675,7 +675,7 @@ export const mockDataBugReports = [
   {
     id: "20",
     testId: "22",
-    testName: "Ferrara Clifford",
+    userName: "Ferrara Clifford",
     bugDescription: "Test description for id 7 and userId 28",
     domain: "area B",
     location: "USA",
@@ -686,7 +686,7 @@ export const mockDataBugReports = [
   {
     id: "21",
     testId: "23",
-    testName: "Rossini Frances",
+    userName: "Rossini Frances",
     bugDescription: "Test description for id 8 and userId 31",
     domain: "area B",
     location: "USA",
@@ -697,7 +697,7 @@ export const mockDataBugReports = [
   {
     id: "22",
     testId: "24",
-    testName: "Harvey Roxie",
+    userName: "Harvey Roxie",
     bugDescription: "Test description for id 9 and userId 35",
     domain: "area B",
     location: "USA",
@@ -708,7 +708,7 @@ export const mockDataBugReports = [
   {
     id: "23",
     testId: "25",
-    testName: "Jon Snow",
+    userName: "Jon Snow",
     bugDescription: "Test description for id 2 and userId 8",
     domain: "area B",
     location: "USA",
@@ -719,7 +719,7 @@ export const mockDataBugReports = [
   {
     id: "24",
     testId: "26",
-    testName: "Jon Snow",
+    userName: "Jon Snow",
     bugDescription: "Test description for id 2 and userId 8",
     domain: "area B",
     location: "USA",
@@ -730,7 +730,7 @@ export const mockDataBugReports = [
   {
     id: "25",
     testId: "27",
-    testName: "Jon Snow",
+    userName: "Jon Snow",
     bugDescription: "Test description for id 2 and userId 8",
     domain: "area B",
     location: "USA",
@@ -741,7 +741,7 @@ export const mockDataBugReports = [
   {
     id: "26",
     testId: "28",
-    testName: "Jon Snow",
+    userName: "Jon Snow",
     bugDescription: "Test description for id 2 and userId 8",
     domain: "area B",
     location: "USA",
