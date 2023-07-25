@@ -24,6 +24,7 @@ const Dashboard = () => {
   const { userId, apiKey } = useContext(UserInfoContext);
   const [domainStats, setDomainStats] = useState([]);
   const [monthlyStats, setMonthlyStats] = useState([]);
+  const [geoStats, setGeoStats] = useState([]);
 
 
   useEffect(() => {
@@ -40,6 +41,11 @@ const Dashboard = () => {
       );
   }, []);
 
+  useEffect(() => {
+    apiFetch(`geographicstat`, "GET", apiKey)
+      .then((response) => setGeoStats(response.data.geographicStats))
+      .catch((err) => alert("Couldn't load geographic's stats... Please refresh the page"));
+  }, []);
 
   return (
     <Box m="20px">
@@ -294,7 +300,7 @@ const Dashboard = () => {
             Geography Based Traffic
           </Typography>
           <Box height="200px">
-            <GeographyChart isDashboard={true} />
+            {geoStats ? <GeographyChart isDashboard={true} geoStats={geoStats} /> : <p>Waiting...</p>}
           </Box>
         </Box>
       </Box>
