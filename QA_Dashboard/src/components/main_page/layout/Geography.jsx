@@ -15,7 +15,7 @@ const Geography = () => {
 
   useEffect(() => {
     apiFetch(`geographicstat`, "GET", apiKey)
-      .then((response) => setGeoStats(response.data.domainStats))
+      .then((response) => setGeoStats(response.data.geographicStats))
       .catch((err) => alert("Couldn't load geographic's stats... Please refresh the page"));
   }, []);
 

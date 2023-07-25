@@ -20,7 +20,7 @@ const BarChart = ({ isDashboard = false, domainStats }) => {
 
   if (!domainStats) {
     // If domainStats is undefined, return null or any placeholder you want
-    return null;
+    return <>loading...</>;
   }
 
   return (

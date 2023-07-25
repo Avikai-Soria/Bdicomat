@@ -15,6 +15,11 @@ const convertKeys = (data) => {
 const GeographyChart = ({ isDashboard = false, geoStats }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  if (!geoStats) {
+    // If geoStats is undefined, return null or any placeholder you want
+    return <>loading...</>;
+  }
+
   return (
     <ResponsiveChoropleth
       data={convertKeys(geoStats)}
@@ -48,7 +53,7 @@ const GeographyChart = ({ isDashboard = false, geoStats }) => {
       }}
       features={geoFeatures.features}
       margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
-      domain={[0, 100]}
+      domain={[0, 5]}
       unknownColor="#666666"
       label="properties.name"
       valueFormat=".2s"
