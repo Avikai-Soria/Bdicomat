@@ -12,10 +12,34 @@ import GeographyChart from "../../../reusable_component/GeographyChart";
 import BarChart from "../../../reusable_component/DomainChart.jsx";
 import StatBox from "../../../reusable_component/StatBox";
 import ProgressCircle from "../../../reusable_component/ProgressCircle";
+import { useContext, useEffect, useState } from "react";
+import { UserInfoContext } from "../MainPageContainer";
+import apiFetch from "../../../hooks/api";
+
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const { userId, apiKey } = useContext(UserInfoContext);
+  const [domainStats, setDomainStats] = useState([]);
+  const [monthlyStats, setMonthlyStats] = useState([]);
+
+
+  useEffect(() => {
+    apiFetch(`domainstat`, "GET", apiKey)
+      .then((response) => setDomainStats(response.data.domainStats))
+      .catch((err) => alert("Couldn't load domain's stats... Please refresh the page"));
+  }, []);
+
+  useEffect(() => {
+    apiFetch(`monthlystat`, "GET", apiKey)
+      .then((response) => setMonthlyStats(response.data.monthlyStats))
+      .catch((err) =>
+        alert("Couldn't load monthly Stats... Please refresh the page")
+      );
+  }, []);
+
 
   return (
     <Box m="20px">
@@ -143,14 +167,7 @@ const Dashboard = () => {
                 fontWeight="600"
                 color={colors.grey[100]}
               >
-                Revenue Generated
-              </Typography>
-              <Typography
-                variant="h3"
-                fontWeight="bold"
-                color={colors.greenAccent[500]}
-              >
-                $59,342.32
+                Tests And Bugs Timeline
               </Typography>
             </Box>
             <Box>
@@ -162,7 +179,11 @@ const Dashboard = () => {
             </Box>
           </Box>
           <Box height="250px" m="-20px 0 0 0">
-            <LineChart isDashboard={true} />
+            {monthlyStats.length > 0 ? (
+              <LineChart isDashboard={true} monthlyStats={monthlyStats} />
+            ) : (
+              <p>Loading...</p>
+            )}
           </Box>
         </Box>
         <Box
@@ -253,10 +274,10 @@ const Dashboard = () => {
             fontWeight="600"
             sx={{ padding: "30px 30px 0 30px" }}
           >
-            Sales Quantity
+            Domain Chart
           </Typography>
           <Box height="250px" mt="-20px">
-            <BarChart isDashboard={true} />
+            {domainStats ? <BarChart isDashboard={true} domainStats={domainStats} /> : <p>Loading...</p>}
           </Box>
         </Box>
         <Box
