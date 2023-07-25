@@ -23,8 +23,8 @@ const Pie = () => {
         alignItems="center"
         height="35vh"
       >
-        <PieChart data={data} title={"remember:"}/>
-        <PieChart data={data} title={"remember:"}/>
+        <PieChart data={data} title={"End to end:"}/>
+        <PieChart data={data} title={"Performance:"}/>
       </Box>
     </Box>
   );
