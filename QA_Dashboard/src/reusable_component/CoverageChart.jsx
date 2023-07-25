@@ -3,6 +3,9 @@ import { tokens } from "../hooks/theme";
 import { Box, useTheme } from "@mui/material";
 
 const PieChart = ({ data , title}) => {
+  console.log(data);
+  delete data['type']
+  console.log(data);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return <> <label>{title}</label> 
