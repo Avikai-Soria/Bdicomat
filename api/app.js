@@ -11,6 +11,7 @@ import bugRoutes from "./route/bug.route.js";
 import domainStatRoutes from "./route/domain.route.js";
 import monthlyStatRoutes from "./route/monthly.route.js";
 import geographyStatRoutes from "./route/geography.route.js";
+import typeStatRoutes from "./route/type.route.js";
 
 const PORT = process.env.PORT || 2999;
 const app = express();
@@ -24,6 +25,7 @@ app.use("/bugs", bugRoutes);
 app.use("/domainstat", domainStatRoutes);
 app.use("/monthlystat", monthlyStatRoutes);
 app.use("/geographicstat", geographyStatRoutes);
+app.use("/typestat", typeStatRoutes);
 
 
 app.get("/", (req, res) =>
