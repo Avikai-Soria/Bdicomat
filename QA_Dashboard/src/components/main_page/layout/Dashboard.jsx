@@ -12,6 +12,7 @@ import GeographyChart from "../../../reusable_component/GeographyChart";
 import BarChart from "../../../reusable_component/DomainChart.jsx";
 import StatBox from "../../../reusable_component/StatBox";
 import ProgressCircle from "../../../reusable_component/ProgressCircle";
+import RecentTests from "../../../reusable_component/RecentTests";
 import { useContext, useEffect, useState } from "react";
 import { UserInfoContext } from "../MainPageContainer";
 import apiFetch from "../../../hooks/api";
@@ -198,6 +199,7 @@ const Dashboard = () => {
           backgroundColor={colors.primary[400]}
           overflow="auto"
         >
+          <RecentTests tests={mockTransactions}></RecentTests>
           <Box
             display="flex"
             justifyContent="space-between"
