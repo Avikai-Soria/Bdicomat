@@ -1,10 +1,12 @@
-// queryUtils.js
-
-const generateQuery = (baseQuery, conditions = [], limit, page) => {
+const generateQuery = (baseQuery, conditions = [], limit, page, orderBy = null) => {
   let query = baseQuery;
 
   if (conditions.length > 0) {
     query += ` WHERE ${conditions.join(" AND ")}`;
+  }
+
+  if (orderBy) {
+    query += ` ORDER BY ${orderBy}`;
   }
 
   if (limit) {
@@ -19,5 +21,3 @@ const generateQuery = (baseQuery, conditions = [], limit, page) => {
 };
 
 export default generateQuery;
-
-//TODO Protection against SQL injection

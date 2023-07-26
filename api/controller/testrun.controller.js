@@ -25,7 +25,7 @@ export const getTestRuns = (req, res) => {
     conditions.push(`id=${testRunId}`);
   }
 
-  const query = generateQuery(QUERY.SELECT_TEST_RUNS, conditions, limit, page);
+  const query = generateQuery(QUERY.SELECT_TEST_RUNS, conditions, limit, page, 'startTest DESC');
 
   database.query(query, async (error, results) => {
     if (error) {
