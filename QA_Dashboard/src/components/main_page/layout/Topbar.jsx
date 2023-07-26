@@ -15,6 +15,10 @@ function Topbar({ handleLogout }) {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
 
+  const handleNotImplemented = () => {
+    alert("This feature is not implemented yet.")
+  }
+
   const handleLogoutWithConfirmation = () => {
     const confirmLogout = window.confirm("Are you sure you want to log out?");
     if (confirmLogout) {
@@ -34,13 +38,13 @@ function Topbar({ handleLogout }) {
           )}
         </IconButton>
         <IconButton>
-          <NotificationsOutlinedIcon />
+          <NotificationsOutlinedIcon onClick={handleNotImplemented}/>
         </IconButton>
         <IconButton>
-          <SettingsOutlinedIcon />
+          <SettingsOutlinedIcon onClick={handleNotImplemented}/>
         </IconButton>
         <IconButton>
-          <PersonOutlinedIcon />
+          <PersonOutlinedIcon onClick={handleNotImplemented}/>
         </IconButton>
         <IconButton>
           <ExitToAppOutlinedIcon onClick={handleLogoutWithConfirmation}/>
