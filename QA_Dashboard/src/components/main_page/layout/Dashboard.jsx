@@ -12,6 +12,7 @@ import GeographyChart from "../../../reusable_component/GeographyChart";
 import BarChart from "../../../reusable_component/DomainChart.jsx";
 import StatBox from "../../../reusable_component/StatBox";
 import ProgressCircle from "../../../reusable_component/ProgressCircle";
+import RecentTests from "../../../reusable_component/RecentTests";
 import { useContext, useEffect, useState } from "react";
 import { UserInfoContext } from "../MainPageContainer";
 import apiFetch from "../../../hooks/api";
@@ -25,27 +26,35 @@ const Dashboard = () => {
   const [domainStats, setDomainStats] = useState([]);
   const [monthlyStats, setMonthlyStats] = useState([]);
   const [geoStats, setGeoStats] = useState([]);
+  const [recentTests, setRecentTests] = useState([]);
 
 
   useEffect(() => {
     apiFetch(`domainstat`, "GET", apiKey)
       .then((response) => setDomainStats(response.data.domainStats))
-      .catch((err) => alert("Couldn't load domain's stats... Please refresh the page"));
+      .catch((err) => console.log("Couldn't load domain's stats..."));
   }, []);
 
   useEffect(() => {
     apiFetch(`monthlystat`, "GET", apiKey)
       .then((response) => setMonthlyStats(response.data.monthlyStats))
       .catch((err) =>
-        alert("Couldn't load monthly Stats... Please refresh the page")
+        console.log("Couldn't load monthly Stats...")
       );
   }, []);
 
   useEffect(() => {
     apiFetch(`geographicstat`, "GET", apiKey)
       .then((response) => setGeoStats(response.data.geographicStats))
-      .catch((err) => alert("Couldn't load geographic's stats... Please refresh the page"));
+      .catch((err) => console.log("Couldn't load geographic's stats..."));
   }, []);
+
+  useEffect(() => {
+    apiFetch(`testruns?limit=10`, "GET", apiKey)
+      .then((response) => setRecentTests(response.data.testRuns))
+      .catch((err) => console.log("Couldn't load recent tests..."));
+  }, []);
+
 
   return (
     <Box m="20px">
@@ -198,49 +207,11 @@ const Dashboard = () => {
           backgroundColor={colors.primary[400]}
           overflow="auto"
         >
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            borderBottom={`4px solid ${colors.primary[500]}`}
-            colors={colors.grey[100]}
-            p="15px"
-          >
-            <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Recent Transactions
-            </Typography>
-          </Box>
-          {mockTransactions.map((transaction, i) => (
-            <Box
-              key={`${transaction.txId}-${i}`}
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              borderBottom={`4px solid ${colors.primary[500]}`}
-              p="15px"
-            >
-              <Box>
-                <Typography
-                  color={colors.greenAccent[500]}
-                  variant="h5"
-                  fontWeight="600"
-                >
-                  {transaction.txId}
-                </Typography>
-                <Typography color={colors.grey[100]}>
-                  {transaction.user}
-                </Typography>
-              </Box>
-              <Box color={colors.grey[100]}>{transaction.date}</Box>
-              <Box
-                backgroundColor={colors.greenAccent[500]}
-                p="5px 10px"
-                borderRadius="4px"
-              >
-                ${transaction.cost}
-              </Box>
-            </Box>
-          ))}
+          {recentTests.length > 0 ? (
+            <RecentTests tests={recentTests}></RecentTests>
+          ) : (
+            <p>Loading...</p>
+          )}
         </Box>
 
         {/* ROW 3 */}

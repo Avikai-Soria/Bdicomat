@@ -1,6 +1,11 @@
 const QUERY = {
   SELECT_USERS: "SELECT * FROM Users",
-  SELECT_USER_BY_ID: "SELECT * FROM Users WHERE id = ?",
+  SELECT_USER_BY_ID: `
+  SELECT U.*, UR.role AS userRole
+  FROM Users U
+  LEFT JOIN UserRoles UR ON U.id = UR.userId
+  WHERE U.id = ?
+`,
   SELECT_USER_BY_USERNAME: "SELECT * FROM Users WHERE username = ?",
   SELECT_USER_BY_USERNAME_OR_EMAIL:
     "SELECT * FROM Users WHERE username = ? OR email = ?",

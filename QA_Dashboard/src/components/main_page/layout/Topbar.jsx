@@ -8,13 +8,26 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 
-function Topbar() {
+
+function Topbar({ handleLogout }) {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
 
+  const handleNotImplemented = () => {
+    alert("This feature is not implemented yet.")
+  }
+
+  const handleLogoutWithConfirmation = () => {
+    const confirmLogout = window.confirm("Are you sure you want to log out?");
+    if (confirmLogout) {
+      handleLogout();
+    }
+  };
+
   return (
-    <Box display="flex" justifyContent="space-between" p={2}>
+    <Box display="flex" justifyContent="flex-end" p={2}>
       {/* ICONS */}
       <Box display="flex">
         <IconButton onClick={colorMode.toggleColorMode}>
@@ -24,14 +37,17 @@ function Topbar() {
             <LightModeOutlinedIcon />
           )}
         </IconButton>
-        <IconButton>
-          <NotificationsOutlinedIcon />
+        <IconButton onClick={handleNotImplemented}>
+          <NotificationsOutlinedIcon/>
         </IconButton>
-        <IconButton>
-          <SettingsOutlinedIcon />
+        <IconButton onClick={handleNotImplemented}>
+          <SettingsOutlinedIcon/>
         </IconButton>
-        <IconButton>
-          <PersonOutlinedIcon />
+        <IconButton onClick={handleNotImplemented}>
+          <PersonOutlinedIcon/>
+        </IconButton>
+        <IconButton onClick={handleLogoutWithConfirmation}>
+          <ExitToAppOutlinedIcon/>
         </IconButton>
       </Box>
     </Box>
