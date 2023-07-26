@@ -47,7 +47,7 @@ function MainPageContainer() {
   function handleLogout() {
     setUserInfo(null);
     localStorage.clear();
-    navigate("/Login");
+    navigate("/");
   }
 
   return (
@@ -60,7 +60,7 @@ function MainPageContainer() {
             <UserInfoContext.Provider value={userInfo}>
               <Sidebar />
               <main className="content">
-                <Topbar />
+                <Topbar handleLogout={handleLogout}/>
                   <Routes>
                     <Route path="/" element={<Dashboard />} />
                     <Route path="/team" element={<Team />} />

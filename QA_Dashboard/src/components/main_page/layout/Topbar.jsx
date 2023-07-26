@@ -8,13 +8,22 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 
-function Topbar() {
+
+function Topbar({ handleLogout }) {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
 
+  const handleLogoutWithConfirmation = () => {
+    const confirmLogout = window.confirm("Are you sure you want to log out?");
+    if (confirmLogout) {
+      handleLogout();
+    }
+  };
+
   return (
-    <Box display="flex" justifyContent="space-between" p={2}>
+    <Box display="flex" justifyContent="flex-end" p={2}>
       {/* ICONS */}
       <Box display="flex">
         <IconButton onClick={colorMode.toggleColorMode}>
@@ -32,6 +41,9 @@ function Topbar() {
         </IconButton>
         <IconButton>
           <PersonOutlinedIcon />
+        </IconButton>
+        <IconButton>
+          <ExitToAppOutlinedIcon onClick={handleLogoutWithConfirmation}/>
         </IconButton>
       </Box>
     </Box>
