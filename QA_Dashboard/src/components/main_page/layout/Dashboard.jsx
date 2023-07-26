@@ -32,27 +32,27 @@ const Dashboard = () => {
   useEffect(() => {
     apiFetch(`domainstat`, "GET", apiKey)
       .then((response) => setDomainStats(response.data.domainStats))
-      .catch((err) => alert("Couldn't load domain's stats... Please refresh the page"));
+      .catch((err) => console.log("Couldn't load domain's stats..."));
   }, []);
 
   useEffect(() => {
     apiFetch(`monthlystat`, "GET", apiKey)
       .then((response) => setMonthlyStats(response.data.monthlyStats))
       .catch((err) =>
-        alert("Couldn't load monthly Stats... Please refresh the page")
+        console.log("Couldn't load monthly Stats...")
       );
   }, []);
 
   useEffect(() => {
     apiFetch(`geographicstat`, "GET", apiKey)
       .then((response) => setGeoStats(response.data.geographicStats))
-      .catch((err) => alert("Couldn't load geographic's stats... Please refresh the page"));
+      .catch((err) => console.log("Couldn't load geographic's stats..."));
   }, []);
 
   useEffect(() => {
     apiFetch(`testruns?limit=10`, "GET", apiKey)
       .then((response) => setRecentTests(response.data.testRuns))
-      .catch((err) => alert("Couldn't load recent tests... Please refresh the page"));
+      .catch((err) => console.log("Couldn't load recent tests..."));
   }, []);
 
 
