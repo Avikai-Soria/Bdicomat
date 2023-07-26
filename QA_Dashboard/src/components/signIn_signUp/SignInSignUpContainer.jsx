@@ -87,6 +87,7 @@ function SignInSignUpContainer({ onLogin }) {
         console.log("User created:", data);
 
         alert("User was created successfully");
+        window.location.reload();
       })
       .catch((error) => {
         // Handle any errors

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -18,10 +18,14 @@ import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import BugReportIcon from "@mui/icons-material/BugReport";
 import TerminalIcon from "@mui/icons-material/Terminal";
 import GradingIcon from "@mui/icons-material/Grading";
+import { UserInfoContext } from "../MainPageContainer";
+import apiFetch from "../../../hooks/api";
+
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   return (
     <MenuItem
       active={selected === title}
@@ -40,6 +44,25 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { userId, apiKey } = useContext(UserInfoContext);
+  const [user, setUser] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    apiFetch(`users/${userId}`, "GET", apiKey)
+      .then((response) => setUser(response.data))
+      .catch((err) =>
+        alert("Couldn't load user... Please refresh the page")
+      );
+  }, []);
+
+  useEffect(() => {
+    console.log("User Object:", user);
+    if (user.userRole === "admin")
+      setIsAdmin(true);
+  }, [user]); // Run this effect whenever the "user" object changes
+
+
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
 
@@ -81,8 +104,8 @@ const Sidebar = () => {
                 alignItems="center"
                 ml="15px"
               >
-                <Typography variant="h3" color={colors.grey[100]}>
-                  USER_ROLE
+                <Typography variant="h3" color={colors.grey[100]} style={{ textTransform: 'capitalize' }}>
+                  {user && user.userRole ? user.userRole : "Loading role..."}
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -100,10 +123,10 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  FULL NAME
+                  {user && user.name ? user.name : "Loading name..."}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  TITLE & ADD IMAGE?
+                  The Bdicomat
                 </Typography>
               </Box>
             </Box>

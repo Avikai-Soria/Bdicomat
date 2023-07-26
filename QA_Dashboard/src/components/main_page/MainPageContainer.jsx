@@ -57,10 +57,10 @@ function MainPageContainer() {
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <div className="app">
+            <UserInfoContext.Provider value={userInfo}>
               <Sidebar />
               <main className="content">
                 <Topbar />
-                <UserInfoContext.Provider value={userInfo}>
                   <Routes>
                     <Route path="/" element={<Dashboard />} />
                     <Route path="/team" element={<Team />} />
@@ -75,9 +75,8 @@ function MainPageContainer() {
                     <Route path="/calendar" element={<Calendar />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
-                </UserInfoContext.Provider>
-
               </main>
+              </UserInfoContext.Provider>
             </div>
           </ThemeProvider>
         </ColorModeContext.Provider>
