@@ -20,12 +20,16 @@ const scheduledTestSchema = Joi.object({
 export const getScheduledTests = (req, res) => {
   console.log(`${req.method} ${req.originalUrl}, fetching scheduled tests...`);
 
-  const { scheduledTestId, limit, page } = req.query;
+  const { scheduledTestId, userId, limit, page } = req.query;
 
   const conditions = [];
 
   if (scheduledTestId) {
     conditions.push(`id=${scheduledTestId}`);
+  }
+
+  if (userId) {
+    conditions.push(`userId=${userId}`);
   }
 
   const query = generateQuery(

@@ -37,17 +37,17 @@ function Topbar({ handleLogout }) {
             <LightModeOutlinedIcon />
           )}
         </IconButton>
-        <IconButton>
-          <NotificationsOutlinedIcon onClick={handleNotImplemented}/>
+        <IconButton onClick={handleNotImplemented}>
+          <NotificationsOutlinedIcon/>
         </IconButton>
-        <IconButton>
-          <SettingsOutlinedIcon onClick={handleNotImplemented}/>
+        <IconButton onClick={handleNotImplemented}>
+          <SettingsOutlinedIcon/>
         </IconButton>
-        <IconButton>
-          <PersonOutlinedIcon onClick={handleNotImplemented}/>
+        <IconButton onClick={handleNotImplemented}>
+          <PersonOutlinedIcon/>
         </IconButton>
-        <IconButton>
-          <ExitToAppOutlinedIcon onClick={handleLogoutWithConfirmation}/>
+        <IconButton onClick={handleLogoutWithConfirmation}>
+          <ExitToAppOutlinedIcon/>
         </IconButton>
       </Box>
     </Box>
