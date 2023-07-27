@@ -15,6 +15,7 @@ import RecentTests from "../../../reusable_component/RecentTests";
 import { useContext, useEffect, useState } from "react";
 import { UserInfoContext } from "../MainPageContainer";
 import apiFetch from "../../../hooks/api";
+import useWindowSize from "../../../hooks/useWindowSize";
 
 
 const Dashboard = () => {
@@ -26,6 +27,10 @@ const Dashboard = () => {
   const [monthlyStats, setMonthlyStats] = useState([]);
   const [geoStats, setGeoStats] = useState([]);
   const [recentTests, setRecentTests] = useState([]);
+  const size = useWindowSize();
+
+  const isMobile = size.width <= 768;
+
 
 
   useEffect(() => {
@@ -69,6 +74,8 @@ const Dashboard = () => {
               fontSize: "14px",
               fontWeight: "bold",
               padding: "10px 20px",
+              transform: isMobile ? 'scale(0.8)' : 'scale(1)',
+              transformOrigin: 'top left',
             }}
           >
             <DownloadOutlinedIcon sx={{ mr: "10px" }} />
@@ -80,13 +87,13 @@ const Dashboard = () => {
       {/* GRID & CHARTS */}
       <Box
         display="grid"
-        gridTemplateColumns="repeat(12, 1fr)"
-        gridAutoRows="140px"
+        gridTemplateColumns={{ xs: "1fr", md: "repeat(12, 1fr)" }}
+        gridAutoRows={{ xs: "auto", md: "140px" }}
         gap="20px"
       >
         {/* ROW 1 */}
         <Box
-          gridColumn="span 3"
+          gridColumn={isMobile ? "span 1" : "span 3"}
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -105,7 +112,7 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 3"
+          gridColumn={isMobile ? "span 1" : "span 3"}
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -124,7 +131,7 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 3"
+          gridColumn={isMobile ? "span 1" : "span 3"}
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -143,7 +150,7 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 3"
+          gridColumn={isMobile ? "span 1" : "span 3"}
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -164,8 +171,8 @@ const Dashboard = () => {
 
         {/* ROW 2 */}
         <Box
-          gridColumn="span 8"
-          gridRow="span 2"
+          gridColumn={isMobile ? "span 1" : "span 8"}
+          gridRow={isMobile ? "span 1" : "span 2"}
           backgroundColor={colors.primary[400]}
         >
           <Box
@@ -201,8 +208,8 @@ const Dashboard = () => {
           </Box>
         </Box>
         <Box
-          gridColumn="span 4"
-          gridRow="span 2"
+          gridColumn={isMobile ? "span 1" : "span 4"}
+          gridRow={isMobile ? "span 1" : "span 2"}
           backgroundColor={colors.primary[400]}
           overflow="auto"
         >
@@ -215,8 +222,8 @@ const Dashboard = () => {
 
         {/* ROW 3 */}
         <Box
-          gridColumn="span 4"
-          gridRow="span 2"
+          gridColumn={isMobile ? "span 1" : "span 4"}
+          gridRow={isMobile ? "span 1" : "span 2"}
           backgroundColor={colors.primary[400]}
           p="30px"
         >
@@ -241,8 +248,8 @@ const Dashboard = () => {
           </Box>
         </Box>
         <Box
-          gridColumn="span 4"
-          gridRow="span 2"
+          gridColumn={isMobile ? "span 1" : "span 4"}
+          gridRow={isMobile ? "span 1" : "span 2"}
           backgroundColor={colors.primary[400]}
         >
           <Typography
@@ -257,8 +264,8 @@ const Dashboard = () => {
           </Box>
         </Box>
         <Box
-          gridColumn="span 4"
-          gridRow="span 2"
+          gridColumn={isMobile ? "span 1" : "span 4"}
+          gridRow={isMobile ? "span 1" : "span 2"}
           backgroundColor={colors.primary[400]}
           padding="30px"
         >
