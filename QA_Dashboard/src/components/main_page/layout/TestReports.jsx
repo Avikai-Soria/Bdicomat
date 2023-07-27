@@ -5,6 +5,8 @@ import Header from "../../../reusable_component/Header.jsx";
 import { useContext, useEffect, useState } from "react";
 import { UserInfoContext } from "../MainPageContainer";
 import apiFetch from "../../../hooks/api";
+import { IconButton } from "@mui/material";
+import { PlayArrowOutlined } from "@mui/icons-material";
 
 const TestReports = () => {
   const theme = useTheme();
@@ -19,11 +21,11 @@ const TestReports = () => {
   }, []);
 
   const columns = [
-    { field: "id", headerName: "Test ID", flex: 0.1 },
+    { field: "id", headerName: "Test ID", flex: 0.3 },
     {
       field: "name",
       headerName: "Test Name",
-      flex: 0.5,
+      flex: 1,
       cellClassName: "name-column--cell",
     },
     {
@@ -50,7 +52,7 @@ const TestReports = () => {
     {
       field: "expectedResult",
       headerName: "Excepted Result",
-      flex: 1,
+      flex: 1.5,
     },
 
     {
@@ -63,8 +65,8 @@ const TestReports = () => {
             params.row.lastTestRunStatus === "pass"
               ? colors.greenAccent[500]
               : params.row.lastTestRunStatus === "fail"
-              ? colors.redAccent[500]
-              : colors.blueAccent[300]
+                ? colors.redAccent[500]
+                : colors.blueAccent[300]
           }
         >
           {params.row.lastTestRunStatus}
@@ -76,7 +78,41 @@ const TestReports = () => {
       headerName: "Type",
       flex: 1,
     },
+    {
+      field: "runButton",
+      headerName: "Run",
+      flex: 1,
+      renderCell: (params) => (
+        <IconButton
+          onClick={() => handleRunButtonClick(params.row.id)}
+          color="primary"
+          style={{ backgroundColor: "green" }}
+        >
+          <PlayArrowOutlined />
+        </IconButton>
+      ),
+    },
   ];
+
+  const handleRunButtonClick = async (testId) => {
+    const body = {
+      testId: testId,
+      userId: userId,
+    };
+
+    try {
+      const response = await apiFetch(`testruns`, "POST", apiKey, body);
+
+      if (response.statusCode === 201) {
+        alert("Test run succeeded. Results can be viewed in the dashboard.");
+      } else {
+        alert("Test run failed. Please try again later.");
+      }
+    } catch (error) {
+      console.error("Error running the test:", error);
+      alert("An error occurred while running the test. Please try again later.");
+    }
+  };
 
   return (
     <Box m="20px">
