@@ -40,34 +40,15 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 
-const Sidebar = () => {
+const Sidebar = ({ userName, userRole, isAdmin, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const size = useWindowSize();
-  const { userId, apiKey } = useContext(UserInfoContext);
-  const [user, setUser] = useState([]);
-  const [isAdmin, setIsAdmin] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(size.width < 768);
-  const [selected, setSelected] = useState("Dashboard");
 
   useEffect(() => {
     setIsCollapsed(size.width < 768);
   }, [size]);
-
-  useEffect(() => {
-    apiFetch(`users/${userId}`, "GET", apiKey)
-      .then((response) => setUser(response.data))
-      .catch((err) =>
-        alert("Couldn't load user... Please refresh the page")
-      );
-  }, []);
-
-  useEffect(() => {
-    console.log("User Object:", user);
-    if (user.userRole === "admin")
-      setIsAdmin(true);
-  }, [user]); // Run this effect whenever the "user" object changes
-
 
   return (
     <Box
@@ -108,7 +89,7 @@ const Sidebar = () => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]} style={{ textTransform: 'capitalize' }}>
-                  {user && user.userRole ? user.userRole : "Loading role..."}
+                  {userRole}
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -126,7 +107,7 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  {user && user.name ? user.name : "Loading name..."}
+                  {userName}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
                   The Bdicomat

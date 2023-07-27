@@ -19,18 +19,35 @@ import Calendar from "./layout/calendar";
 import NotFound from "./layout/NotFound";
 
 import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import SignInSignUpComponent from "../signIn_signUp/SignInSignUpComponent";
+import MobileMenu from "./layout/MobileMenu";
+import apiFetch from "../../hooks/api";
+import useWindowSize from "../../hooks/useWindowSize";
 
 export const UserInfoContext = createContext();
 
 function MainPageContainer() {
   const [theme, colorMode] = useMode();
 
+  // USER INFO STATE
   const [userInfo, setUserInfo] = useState(() =>
     JSON.parse(localStorage.getItem("UserInfo"))
   );
+  const [userDataFetched, setUserDataFetched] = useState(false); // New state variable
+  const [user, setUser] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  // NAVIGATION STATE
+
+  const [selected, setSelected] = useState("/");
+
   const navigate = useNavigate();
+
+  // SCREEN STATE
+  const size = useWindowSize();
+  const isMobile = size.width < 768;
+
 
   function handleLogin(newUserId, newApiKey) {
     const newUserInfo = {
@@ -41,8 +58,26 @@ function MainPageContainer() {
     // Store the userInfoString in local storage
     localStorage.setItem("UserInfo", JSON.stringify(newUserInfo));
     setUserInfo(newUserInfo);
+    setUserDataFetched(false); // Reset the user data fetched state
     navigate("/");
   }
+
+  useEffect(() => {
+    // Check if the user is logged in and the user data has not been fetched yet
+    if (userInfo && !userDataFetched) {
+      apiFetch(`users/${userInfo.userId}`, "GET", userInfo.apiKey)
+        .then((response) => {
+          setUser(response.data);
+          setUserDataFetched(true);
+        })
+        .catch((err) => alert("Couldn't load user... Please refresh the page"));
+    }
+  }, [userInfo, userDataFetched]);
+
+  useEffect(() => {
+    if (user.userRole === "admin") setIsAdmin(true);
+    else setIsAdmin(false);
+  }, [user]);
 
   function handleLogout() {
     setUserInfo(null);
@@ -57,10 +92,25 @@ function MainPageContainer() {
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <div className="app">
-            <UserInfoContext.Provider value={userInfo}>
-              <Sidebar />
-              <main className="content">
-                <Topbar handleLogout={handleLogout}/>
+              <UserInfoContext.Provider value={userInfo}>
+                {!isMobile ? (
+                  <Sidebar
+                    userName={user && user.name ? user.name : "Loading name..."}
+                    userRole={user && user.userRole ? user.userRole : "Loading role..."}
+                    isAdmin={isAdmin}
+                    selected={selected}
+                    setSelected={setSelected}
+                  />
+                ) : (<></>)}
+                <main className="content">
+                  <Topbar handleLogout={handleLogout} />
+                  {isMobile ? (
+                    <MobileMenu
+                      isAdmin={isAdmin}
+                      selected={selected}
+                      setSelected={setSelected}
+                    />
+                  ) : (<></>)}
                   <Routes>
                     <Route path="/" element={<Dashboard />} />
                     <Route path="/team" element={<Team />} />
@@ -75,7 +125,7 @@ function MainPageContainer() {
                     <Route path="/calendar" element={<Calendar />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
-              </main>
+                </main>
               </UserInfoContext.Provider>
             </div>
           </ThemeProvider>
