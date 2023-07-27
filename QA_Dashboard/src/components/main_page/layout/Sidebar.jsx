@@ -6,7 +6,6 @@ import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../../hooks/theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
-import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
@@ -16,10 +15,10 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import BugReportIcon from "@mui/icons-material/BugReport";
-import TerminalIcon from "@mui/icons-material/Terminal";
 import GradingIcon from "@mui/icons-material/Grading";
 import { UserInfoContext } from "../MainPageContainer";
 import apiFetch from "../../../hooks/api";
+import useWindowSize from "../../../hooks/useWindowSize";
 
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -44,9 +43,16 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const size = useWindowSize();
   const { userId, apiKey } = useContext(UserInfoContext);
   const [user, setUser] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(size.width < 768);
+  const [selected, setSelected] = useState("Dashboard");
+
+  useEffect(() => {
+    setIsCollapsed(size.width < 768);
+  }, [size]);
 
   useEffect(() => {
     apiFetch(`users/${userId}`, "GET", apiKey)
@@ -62,9 +68,6 @@ const Sidebar = () => {
       setIsAdmin(true);
   }, [user]); // Run this effect whenever the "user" object changes
 
-
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [selected, setSelected] = useState("Dashboard");
 
   return (
     <Box
