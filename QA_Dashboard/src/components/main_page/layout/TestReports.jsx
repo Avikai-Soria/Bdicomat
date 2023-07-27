@@ -116,7 +116,7 @@ const TestReports = () => {
 
   return (
     <Box m="20px">
-      <Header title="Tests" subtitle="List of All <Username> Tests" />
+      <Header title="Tests" subtitle="List of All Tests" />
       <Box
         m="40px 0 0 0"
         height="75vh"

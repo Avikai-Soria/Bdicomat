@@ -79,7 +79,7 @@ const BugReports = () => {
 
   return (
     <Box m="20px">
-      <Header title="Bug Reports" subtitle="List of All <Username> Bug Reports" />
+      <Header title="Bug Reports" subtitle="List of All Bug Reports" />
       <Box
         m="40px 0 0 0"
         height="75vh"
