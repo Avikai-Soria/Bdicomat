@@ -114,8 +114,8 @@ function MainPageContainer() {
                   <Routes>
                     <Route path="/" element={<Dashboard />} />
                     <Route path="/team" element={<Team />} />
-                    <Route path="/bugReports" element={<BugReports />} />
-                    <Route path="/test" element={<TestReports />} />
+                    <Route path="/bugReports" element={<BugReports isMobile={isMobile} />} />
+                    <Route path="/test" element={<TestReports isMobile={isMobile} />} />
                     <Route path="/domain" element={<DomainChart />} />
                     <Route path="/form" element={<Form />} />
                     <Route path="/line" element={<Line />} />

@@ -7,7 +7,7 @@ import { UserInfoContext } from "../MainPageContainer";
 import apiFetch from "../../../hooks/api";
 
 
-const BugReports = () => {
+const BugReports = ({ isMobile }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -21,7 +21,7 @@ const BugReports = () => {
   }, []);
 
 
-  const columns = [
+  const desktopColumns = [
     { field: "id", headerName: "Bug ID", flex: 0.5 },
     {
       field: "testId",
@@ -76,6 +76,39 @@ const BugReports = () => {
       ),
     },
   ];
+
+  const mobileColumns = [
+    {
+      field: "userName",
+      headerName: "Name",
+      flex: 1,
+      cellClassName: "name-column--cell",
+    },
+    {
+      field: "bugDescription",
+      headerName: "Bug Description",
+      flex: 3,
+    },
+    {
+      field: "isExcepted",
+      headerName: "Excepted?",
+      flex: 1,
+      renderCell: (params) => (
+        <Typography
+          color={
+            params.row.isExcepted === "yes"
+              ? colors.greenAccent[500]
+              : colors.redAccent[500]
+          }
+        >
+          {params.row.isExcepted}
+        </Typography>
+      ),
+    },
+  ];
+
+
+  const columns = isMobile ? mobileColumns : desktopColumns;
 
   return (
     <Box m="20px">

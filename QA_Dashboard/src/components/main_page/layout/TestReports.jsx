@@ -8,7 +8,7 @@ import apiFetch from "../../../hooks/api";
 import { IconButton } from "@mui/material";
 import { PlayArrowOutlined } from "@mui/icons-material";
 
-const TestReports = () => {
+const TestReports = ({ isMobile }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { userId, apiKey } = useContext(UserInfoContext);
@@ -20,7 +20,7 @@ const TestReports = () => {
       .catch((err) => alert("Couldn't load tests... Please refresh the page"));
   }, []);
 
-  const columns = [
+  const desktopColumns = [
     { field: "id", headerName: "Test ID", flex: 0.3 },
     {
       field: "name",
@@ -94,6 +94,50 @@ const TestReports = () => {
     },
   ];
 
+  const mobileColumns = [
+    {
+      field: "name",
+      headerName: "Test Name",
+      flex: 1.5,
+      cellClassName: "name-column--cell",
+    },
+    
+    {
+      field: "lastTestRunStatus",
+      headerName: "Last status",
+      flex: 1,
+      renderCell: (params) => (
+        <Typography
+          color={
+            params.row.lastTestRunStatus === "pass"
+              ? colors.greenAccent[500]
+              : params.row.lastTestRunStatus === "fail"
+                ? colors.redAccent[500]
+                : colors.blueAccent[300]
+          }
+        >
+          {params.row.lastTestRunStatus}
+        </Typography>
+      ),
+    },
+    {
+      field: "runButton",
+      headerName: "Run",
+      flex: 1,
+      renderCell: (params) => (
+        <IconButton
+          onClick={() => handleRunButtonClick(params.row.id)}
+          color="primary"
+          style={{ backgroundColor: "green" }}
+        >
+          <PlayArrowOutlined />
+        </IconButton>
+      ),
+    },
+  ];
+
+  const columns = isMobile ? mobileColumns : desktopColumns;
+
   const handleRunButtonClick = async (testId) => {
     const body = {
       testId: testId,
@@ -152,7 +196,9 @@ const TestReports = () => {
         <DataGrid
           rows={tests}
           columns={columns}
-          components={{ Toolbar: GridToolbar }}
+          componentsProp={{
+            Toolbar: GridToolbar,
+          }}
         />
       </Box>
     </Box>
