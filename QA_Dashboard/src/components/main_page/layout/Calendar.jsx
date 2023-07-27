@@ -12,9 +12,9 @@ import apiFetch from "../../../hooks/api";
 import "../../../style_files/calender.css";
 
 function renderEventContent(eventInfo) {
+  eventInfo.timeText = "";
   return (
     <>
-      <b>{eventInfo.timeText}</b>
       <i>{eventInfo.event.title}</i>
     </>
   );
@@ -24,7 +24,7 @@ function renderSidebarEvent(event) {
   return (
     <li key={event.id}>
       <b>
-        {formatDate(event.start, {
+        {formatDate(event.date, {
           year: "numeric",
           month: "short",
           day: "numeric",
@@ -34,6 +34,17 @@ function renderSidebarEvent(event) {
     </li>
   );
 }
+
+// Utility function to format date string and extract date (YYYY-MM-DD) without the time
+const formatDateWithoutTime = (dateString) => {
+  if (!dateString) {
+    return "";
+  }
+
+  // Split the date string at 'T' and get the first part (date part)
+  const dateParts = dateString.split("T");
+  return dateParts[0];
+};
 
 const Calendar = () => {
   const [weekendsVisible, setWeekendsVisible] = useState(true);
@@ -49,7 +60,7 @@ const Calendar = () => {
         const mappedEvents = response.data.scheduledTests.map((scheduledTest) => ({
           id: scheduledTest.id,
           title: scheduledTest.testName, // Replace with the appropriate title property from your data
-          start: scheduledTest.scheduledTime, // Replace with the appropriate property for scheduledTime
+          date: formatDateWithoutTime(scheduledTest.scheduledTime), // Replace with the appropriate property for scheduledTime
           allDay: false, // You can adjust this based on whether the event is an all-day event or not
         }));
         setCurrentEvents(mappedEvents);
@@ -99,10 +110,10 @@ const Calendar = () => {
   };
 
   const handleEvents = (events) => {
-    setCurrentEvents(events);
+    // Leave it for later maybe... need to map all events into currentEvents somehow
   };
 
-  if(!currentEvents)
+  if (!currentEvents)
     return <p>Loading events...</p>
 
   return (
@@ -130,16 +141,16 @@ const Calendar = () => {
           selectMirror={true}
           dayMaxEvents={true}
           weekends={weekendsVisible}
-          initialEvents={currentEvents} // alternatively, use the `events` setting to fetch from a feed
+          events={currentEvents}
           select={handleDateSelect}
           eventContent={renderEventContent} // custom render function
           eventClick={handleEventClick}
-          // eventsSet={handleEvents} // called after events are initialized/added/changed/removed
-          /* you can update a remote database when these fire:
-               eventAdd={function(){}}
-               eventChange={function(){}}
-               eventRemove={function(){}}
-               */
+          eventsSet={handleEvents} // called after events are initialized/added/changed/removed
+        /* you can update a remote database when these fire:
+             eventAdd={function(){}}
+             eventChange={function(){}}
+             eventRemove={function(){}}
+             */
         />
         <div className="demo-app-sidebar-section">
           <label>
