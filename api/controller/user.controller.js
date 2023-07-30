@@ -82,7 +82,7 @@ export const getAllUsers = async (req, res) => {
           HttpStatus.OK.code,
           HttpStatus.OK.status,
           "All users retrieved",
-          results[0].map((user) => filterUserFields(res.locals.userId, user))
+          results[0]
         )
       );
   } catch (error) {
