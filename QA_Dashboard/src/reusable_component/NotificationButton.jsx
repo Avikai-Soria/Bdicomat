@@ -6,7 +6,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 
-function NotificationButton() {
+function NotificationButton({ notifications }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleNotImplemented = (event) => {
@@ -19,13 +19,6 @@ function NotificationButton() {
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
-
-  // Mock notifications
-  const notifications = [
-    'Notification 1',
-    'Notification 2',
-    'Notification 3',
-  ];
 
   return (
     <div>
@@ -47,9 +40,9 @@ function NotificationButton() {
         }}
       >
         <List>
-          {notifications.map((notification, index) => (
-            <ListItem button key={index}>
-              <ListItemText primary={notification} />
+          {notifications.map((notification) => (
+            <ListItem button key={notification.id}>
+              <ListItemText primary={notification.details} />
             </ListItem>
           ))}
         </List>
