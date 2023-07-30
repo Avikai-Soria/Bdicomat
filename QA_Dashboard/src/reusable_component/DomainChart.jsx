@@ -10,6 +10,9 @@ const convertKeys = (data) => {
     element["tests pass"] = element["testsPassed"] || "";
     element["bug excepted"] = element["bugsExpected"] || "";
     element["bug not excepted"] = element["bugsUnexpected"] || "";
+
+    // Replace "null" with "General" for the "domain" property
+    element["domain"] = element["domain"] || "General";
   });
   return data;
 };
