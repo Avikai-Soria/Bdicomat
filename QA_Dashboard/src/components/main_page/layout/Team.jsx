@@ -4,10 +4,11 @@ import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../../hooks/theme";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../../reusable_component/Header.jsx";
 import apiFetch from "../../../hooks/api";
 import { UserInfoContext } from "../MainPageContainer";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 const Team = () => {
   const theme = useTheme();
@@ -23,6 +24,35 @@ const Team = () => {
       .catch((err) => alert("Couldn't load users... Please refresh the page"));
   }, []);
 
+  const handleUpgradeUser = (id) => {
+    const confirmUpgrade = window.confirm(`Are you sure you want to make this user with ID ${id} an admin?`);
+    if (confirmUpgrade) {
+      // Implement the logic to upgrade the user with the given ID to an admin.
+      // You can make an API call to update the user role, for example.
+      // After upgrading the user, you may want to refresh the data.
+
+      // For now, let's show a success alert to indicate the upgrade.
+      alert("User successfully upgraded to admin!");
+    }
+  };
+
+  const handleRemoveUser = (id) => {
+    const confirmRemove = window.confirm(`Are you sure you want to delete the user with ID ${id}?`);
+    if (confirmRemove) {
+      // Call the apiFetch function to delete the user with the given ID
+      apiFetch(`users/${id}`, "DELETE", apiKey)
+        .then((response) => {
+          // Handle the success response here
+          alert("User successfully removed!");
+          // You may want to refresh the data after the user is removed from the database
+        })
+        .catch((error) => {
+          // Handle the error here if the deletion fails
+          alert("Failed to delete user. Please try again.");
+        });
+    }
+  };
+  
   const columns = [
     { field: "id", headerName: "User ID", flex: 0.1 },
     {
@@ -41,7 +71,7 @@ const Team = () => {
       field: "userRole",
       headerName: "User Role",
       headerAlign: "center",
-      flex: 0.8,
+      flex: 0.35,
       renderCell: ({ row: { userRole } }) => {
         return (
           <Box
@@ -64,6 +94,44 @@ const Team = () => {
             </Typography>
           </Box>
         );
+      },
+    },
+    {
+      field: "upgrade",
+      headerName: "Upgrade",
+      flex: 0.25,
+      headerAlign: "left",
+      renderCell: ({ row }) => {
+        if (row.userRole === "tester") {
+          return (
+            <Box display="flex" justifyContent="center" alignItems="center">
+              <ArrowUpwardIcon
+                style={{ cursor: 'pointer' }}
+                onClick={() => handleUpgradeUser(row.id)}
+              />
+            </Box>
+          );
+        }
+        return null;
+      },
+    },
+    {
+      field: "delete",
+      headerName: "Delete",
+      flex: 0.25,
+      headerAlign: "left",
+      renderCell: ({ row }) => {
+        if (row.userRole === "tester") {
+          return (
+            <Box display="flex" justifyContent="center" alignItems="center">
+              <DeleteOutlineIcon
+                style={{ cursor: 'pointer' }}
+                onClick={() => handleRemoveUser(row.id)}
+              />
+            </Box>
+          );
+        }
+        return null;
       },
     },
   ];
