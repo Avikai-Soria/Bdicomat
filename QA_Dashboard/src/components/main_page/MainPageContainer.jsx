@@ -24,6 +24,7 @@ import SignInSignUpComponent from "../signIn_signUp/SignInSignUpComponent";
 import MobileMenu from "./layout/MobileMenu";
 import apiFetch from "../../hooks/api";
 import useWindowSize from "../../hooks/useWindowSize";
+import Profile from "./layout/Profile";
 
 export const UserInfoContext = createContext();
 
@@ -113,13 +114,14 @@ function MainPageContainer() {
                   ) : (<></>)}
                   <Routes>
                     <Route path="/" element={<Dashboard />} />
+                    <Route path="/profile" element={<Profile userData={user} />} />
                     <Route path="/team" element={<Team />} />
                     <Route path="/bugReports" element={<BugReports isMobile={isMobile} />} />
                     <Route path="/test" element={<TestReports isMobile={isMobile} />} />
                     <Route path="/domain" element={<DomainChart />} />
                     <Route path="/form" element={<Form />} />
                     <Route path="/line" element={<Line />} />
-                    <Route path="/pie" element={<Pie isMobile={isMobile}/>} />
+                    <Route path="/pie" element={<Pie isMobile={isMobile} />} />
                     <Route path="/faq" element={<FAQ />} />
                     <Route path="/geography" element={<Geography />} />
                     <Route path="/calendar" element={<Calendar />} />

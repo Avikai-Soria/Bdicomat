@@ -28,7 +28,7 @@ const MobileMenu = ({ isAdmin, selected, setSelected }) => {
                 <MenuItem value="/line">Bugs & Tests Timeline</MenuItem>
                 <MenuItem value="/geography">Bugs By Geography</MenuItem>
                 {isAdmin && <MenuItem value="/team">Manage Team</MenuItem>}
-                {isAdmin && <MenuItem value="/form">User Profile</MenuItem>}
+                {isAdmin && <MenuItem value="/form">Create New User</MenuItem>}
                 <MenuItem value="/faq">Knowledge Center</MenuItem>
             </Select>
         </FormControl>

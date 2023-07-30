@@ -7,11 +7,13 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
+import { useNavigate } from "react-router-dom";
 
 
 function Topbar({ handleLogout }) {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
+  const navigate = useNavigate();
 
   const handleNotImplemented = () => {
     alert("This feature is not implemented yet.")
@@ -22,6 +24,10 @@ function Topbar({ handleLogout }) {
     if (confirmLogout) {
       handleLogout();
     }
+  };
+
+  const handleProfileClick = () => {
+    navigate("/profile");
   };
 
   return (
@@ -41,7 +47,7 @@ function Topbar({ handleLogout }) {
         <IconButton onClick={handleNotImplemented}>
           <SettingsOutlinedIcon/>
         </IconButton>
-        <IconButton onClick={handleNotImplemented}>
+        <IconButton onClick={handleProfileClick}>
           <PersonOutlinedIcon/>
         </IconButton>
         <IconButton onClick={handleLogoutWithConfirmation}>

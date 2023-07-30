@@ -205,7 +205,7 @@ const Sidebar = ({ userName, userRole, isAdmin, selected, setSelected }) => {
                   setSelected={setSelected}
                 />
                 <Item
-                  title="User Profile"
+                  title="Create New User"
                   to="/form"
                   icon={<PersonOutlinedIcon />}
                   selected={selected}
