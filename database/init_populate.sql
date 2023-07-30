@@ -112,14 +112,37 @@ VALUES
     (10, 1, '2023-07-21 12:00:00');
 
 -- Populating UserNotifications table
-INSERT INTO
-    UserNotifications (userId, type, details)
-VALUES
+INSERT INTO UserNotifications (userId, type, details) VALUES
+    (1, 'email', 'Your Login Test scheduled for 2023-07-01 12:00:00 has passed'),
+    (1, 'email', 'Your Search Test scheduled for 2023-07-02 12:00:00 has failed'),
+    (1, 'email', 'Your Logout Test scheduled for 2023-07-03 12:00:00 is currently running'),
+    (2, 'email', 'Your Navigation Test scheduled for 2023-07-04 12:00:00 has passed'),
+    (2, 'email', 'Your Form Submission Test scheduled for 2023-07-05 12:00:00 has failed'),
+    (2, 'email', 'Your Registration Test scheduled for 2023-07-06 12:00:00 has passed'),
+    (3, 'email', 'Your Profile Update Test scheduled for 2023-07-07 12:00:00 has failed'),
+    (3, 'email', 'Your Password Reset Test scheduled for 2023-07-08 12:00:00 is currently running'),
+    (3, 'email', 'Your Cart Checkout Test scheduled for 2023-07-09 12:00:00 has passed'),
+    (4, 'email', 'Your Wishlist Test scheduled for 2023-07-10 12:00:00 has passed'),
+    (4, 'email', 'Your Comment Posting Test scheduled for 2023-07-11 12:00:00 has failed'),
+    (4, 'email', 'Your Rating Test scheduled for 2023-07-12 12:00:00 is currently running'),
+    (5, 'email', 'Your Account Deletion Test scheduled for 2023-07-13 12:00:00 has passed'),
+    (5, 'email', 'Your Order Cancellation Test scheduled for 2023-07-14 12:00:00 has failed'),
+    (5, 'email', 'Your Payment Test scheduled for 2023-07-15 12:00:00 is currently running'),
+    (6, 'email', 'Your Newsletter Subscription Test scheduled for 2023-07-16 12:00:00 has passed'),
+    (6, 'email', 'Your Report Bug Test scheduled for 2023-07-17 12:00:00 has failed'),
+    (6, 'email', 'Your Feedback Submission Test scheduled for 2023-07-18 12:00:00 is currently running'),
+    (7, 'email', 'Your Profile Picture Update Test scheduled for 2023-07-19 12:00:00 has passed'),
+    (7, 'email', 'Your Address Change Test scheduled for 2023-07-20 12:00:00 has failed'),
+    (7, 'email', 'Your Security Settings Test scheduled for 2023-07-21 12:00:00 is currently running'),
+    (8, 'email', 'Your Friends Request Test scheduled for 2023-07-22 12:00:00 has passed'),
+    (8, 'email', 'Your Privacy Settings Test scheduled for 2023-07-23 12:00:00 has failed'),
+    (8, 'email', 'Your Share Content Test scheduled for 2023-07-24 12:00:00 is currently running'),
     (9, 'email', 'Your Login Test scheduled for 2023-07-01 12:00:00 has passed'),
-    (9, 'sms', 'Your Search Test scheduled for 2023-07-02 12:00:00 has failed'),
-    (10, 'email', 'Your Logout Test scheduled for 2023-07-03 12:00:00 is currently running'),
-    (10, 'sms', 'Your Navigation Test scheduled for 2023-07-04 12:00:00 has passed'),
-    (1, 'email', 'Your Form Submission Test scheduled for 2023-07-05 12:00:00 has failed');
+    (9, 'email', 'Your Search Test scheduled for 2023-07-02 12:00:00 has failed'),
+    (9, 'email', 'Your Logout Test scheduled for 2023-07-03 12:00:00 is currently running'),
+    (10, 'email', 'Your Navigation Test scheduled for 2023-07-04 12:00:00 has passed'),
+    (10, 'email', 'Your Form Submission Test scheduled for 2023-07-05 12:00:00 has failed'),
+    (10, 'email', 'Your Registration Test scheduled for 2023-07-06 12:00:00 has passed');
 
 -- Populating UserRoles table
 INSERT INTO
