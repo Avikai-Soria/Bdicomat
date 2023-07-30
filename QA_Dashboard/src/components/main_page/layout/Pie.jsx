@@ -2,21 +2,24 @@ import { Box } from "@mui/material";
 import Header from "../../../reusable_component/Header.jsx";
 import PieChart from "../../../reusable_component/CoverageChart.jsx";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { UserInfoContext } from "../MainPageContainer";
 import apiFetch from "../../../hooks/api";
+import useLocalStorageState from "../../../hooks/useLocalStorageState.js";
 
 const Pie = ({ isMobile }) => {
 
   const { apiKey } = useContext(UserInfoContext);
-  const [typeStats, setTypeStats] = useState([]);
+  const [typeStats, setTypeStats] = useLocalStorageState('typeStats', []);
 
   useEffect(() => {
-    apiFetch(`typestat`, "GET", apiKey)
-      .then((response) => setTypeStats(response.data.typeStats))
-      .catch((err) => alert("Couldn't load type's stats... Please refresh the page"));
+    if (typeStats.length === 0) {
+      apiFetch(`typestat`, "GET", apiKey)
+        .then((response) => setTypeStats(response.data.typeStats))
+        .catch((err) => alert("Couldn't load type's stats... Please refresh the page"));
+    }
   }, []);
-
+  
   if (typeStats === undefined || typeStats.length === 0)
     return <p>Loading...</p>
 

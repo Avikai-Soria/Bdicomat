@@ -2,23 +2,28 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../../hooks/theme";
 import Header from "../../../reusable_component/Header.jsx";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { UserInfoContext } from "../MainPageContainer";
 import apiFetch from "../../../hooks/api";
+import useLocalStorageState from "../../../hooks/useLocalStorageState";
 
 
 const BugReports = ({ isMobile }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const { userId, apiKey } = useContext(UserInfoContext);
-  const [bugs, setBugs] = useState([]);
+  const { apiKey } = useContext(UserInfoContext);
+  const [bugs, setBugs] = useLocalStorageState('bugs', []);
 
   useEffect(() => {
-    apiFetch(`bugs`, "GET", apiKey)
-      .then((response) => setBugs(response.data.bugs))
-      .catch((err) => alert("Couldn't load bugs... Please refresh the page"));
+    // If bugs is the default value (in this case, an empty array), fetch the data
+    if (bugs.length === 0) {
+      apiFetch(`bugs`, "GET", apiKey)
+        .then((response) => setBugs(response.data.bugs))
+        .catch((err) => alert("Couldn't load bugs... Please refresh the page"));
+    }
   }, []);
+  
 
 
   const desktopColumns = [

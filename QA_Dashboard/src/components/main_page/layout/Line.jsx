@@ -4,17 +4,18 @@ import LineChart from "../../../reusable_component/TimelineChart.jsx";
 import { useContext, useEffect, useState } from "react";
 import { UserInfoContext } from "../MainPageContainer";
 import apiFetch from "../../../hooks/api";
+import useLocalStorageState from "../../../hooks/useLocalStorageState.js";
 
 const Line = () => {
-  const { userId, apiKey } = useContext(UserInfoContext);
-  const [monthlyStats, setMonthlyStats] = useState([]);
+  const { apiKey } = useContext(UserInfoContext);
+  const [monthlyStats, setMonthlyStats] = useLocalStorageState('monthlyStats', []);
 
   useEffect(() => {
-    apiFetch(`monthlystat`, "GET", apiKey)
-      .then((response) => setMonthlyStats(response.data.monthlyStats))
-      .catch((err) =>
-        alert("Couldn't load monthly Stats... Please refresh the page")
-      );
+    if (monthlyStats.length === 0) {
+      apiFetch(`monthlystat`, "GET", apiKey)
+        .then((response) => setMonthlyStats(response.data.monthlyStats))
+        .catch((err) => console.log("Couldn't load monthly Stats..."));
+    }
   }, []);
 
   return (

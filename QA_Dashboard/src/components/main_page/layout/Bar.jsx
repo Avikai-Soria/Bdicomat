@@ -1,20 +1,23 @@
 import { Box } from "@mui/material";
 import Header from "../../../reusable_component/Header.jsx";
 import BarChart from "../../../reusable_component/DomainChart.jsx";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { UserInfoContext } from "../MainPageContainer";
 import apiFetch from "../../../hooks/api";
+import useLocalStorageState from "../../../hooks/useLocalStorageState.js";
 
 const DomainChart = () => {
-  const { userId, apiKey } = useContext(UserInfoContext);
-  const [domainStats, setDomainStats] = useState([]);
+  const { apiKey } = useContext(UserInfoContext);
+  const [domainStats, setDomainStats] = useLocalStorageState('domainStats', []);
 
   useEffect(() => {
-    apiFetch(`domainstat`, "GET", apiKey)
-      .then((response) => setDomainStats(response.data.domainStats))
-      .catch((err) => alert("Couldn't load domain's stats... Please refresh the page"));
+    if (domainStats.length === 0) {
+      apiFetch(`domainstat`, "GET", apiKey)
+        .then((response) => setDomainStats(response.data.domainStats))
+        .catch((err) => console.log("Couldn't load domain's stats..."));
+    }
   }, []);
-
+  
   return (
     <Box m="20px">
       <Header

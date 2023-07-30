@@ -16,42 +16,49 @@ import { useContext, useEffect, useState } from "react";
 import { UserInfoContext } from "../MainPageContainer";
 import apiFetch from "../../../hooks/api";
 import useWindowSize from "../../../hooks/useWindowSize";
+import useLocalStorageState from "../../../hooks/useLocalStorageState";
 
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const { userId, apiKey } = useContext(UserInfoContext);
-  const [domainStats, setDomainStats] = useState([]);
-  const [monthlyStats, setMonthlyStats] = useState([]);
-  const [geoStats, setGeoStats] = useState([]);
+  const { apiKey } = useContext(UserInfoContext);
+  const [domainStats, setDomainStats] = useLocalStorageState('domainStats', []);
+  const [monthlyStats, setMonthlyStats] = useLocalStorageState('monthlyStats', []);
+  const [geoStats, setGeoStats] = useLocalStorageState('geoStats', []);
   const [recentTests, setRecentTests] = useState([]);
-  const size = useWindowSize();
 
+  const size = useWindowSize();
   const isMobile = size.width <= 768;
 
 
-
-  useEffect(() => {
+useEffect(() => {
+  if (domainStats.length === 0) {
     apiFetch(`domainstat`, "GET", apiKey)
       .then((response) => setDomainStats(response.data.domainStats))
       .catch((err) => console.log("Couldn't load domain's stats..."));
-  }, []);
+  }
+}, []);
 
-  useEffect(() => {
+useEffect(() => {
+  if (monthlyStats.length === 0) {
     apiFetch(`monthlystat`, "GET", apiKey)
       .then((response) => setMonthlyStats(response.data.monthlyStats))
-      .catch((err) =>
-        console.log("Couldn't load monthly Stats...")
-      );
-  }, []);
+      .catch((err) => console.log("Couldn't load monthly Stats..."));
+  }
+}, []);
 
-  useEffect(() => {
+
+useEffect(() => {
+  if (geoStats.length === 0) {
     apiFetch(`geographicstat`, "GET", apiKey)
       .then((response) => setGeoStats(response.data.geographicStats))
       .catch((err) => console.log("Couldn't load geographic's stats..."));
-  }, []);
+  }
+}, []);
+
+
 
   useEffect(() => {
     apiFetch(`testruns?limit=10`, "GET", apiKey)

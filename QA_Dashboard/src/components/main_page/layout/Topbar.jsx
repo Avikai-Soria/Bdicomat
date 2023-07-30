@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import NotificationButton from "../../../reusable_component/NotificationButton";
 import apiFetch from "../../../hooks/api";
 import { UserInfoContext } from "../MainPageContainer";
+import useLocalStorageState from "../../../hooks/useLocalStorageState";
 
 
 
@@ -17,18 +18,20 @@ function Topbar({ handleLogout }) {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
 
-  const [notifications, setNotifications] = useState([]);
-
   const navigate = useNavigate();
 
   const { apiKey } = useContext(UserInfoContext);
 
-  useEffect(() => {
-    apiFetch(`notifications?limit=10`, "GET", apiKey)
-      .then((response) => setNotifications(response.data.notifications))
-      .catch((err) => console.log("Couldn't load notifications..."));
-  }, []);
+  const [notifications, setNotifications] = useLocalStorageState('notifications', []);
 
+  useEffect(() => {
+    if (notifications.length === 0) {
+      apiFetch(`notifications?limit=10`, "GET", apiKey)
+        .then((response) => setNotifications(response.data.notifications))
+        .catch((err) => console.log("Couldn't load notifications..."));
+    }
+  }, []);
+  
   const handleNotImplemented = () => {
     alert("This feature is not implemented yet.")
   }
