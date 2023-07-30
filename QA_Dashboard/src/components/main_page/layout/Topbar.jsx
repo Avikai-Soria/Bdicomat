@@ -1,18 +1,19 @@
 import { Box, IconButton, useTheme } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ColorModeContext } from "../../../hooks/theme";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 import { useNavigate } from "react-router-dom";
+import NotificationButton from "../../../reusable_component/NotificationButton";
 
 
 function Topbar({ handleLogout }) {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
+
   const navigate = useNavigate();
 
   const handleNotImplemented = () => {
@@ -41,18 +42,21 @@ function Topbar({ handleLogout }) {
             <LightModeOutlinedIcon />
           )}
         </IconButton>
+
+        <NotificationButton />
+
         <IconButton onClick={handleNotImplemented}>
-          <NotificationsOutlinedIcon/>
+          <SettingsOutlinedIcon />
         </IconButton>
-        <IconButton onClick={handleNotImplemented}>
-          <SettingsOutlinedIcon/>
-        </IconButton>
+
         <IconButton onClick={handleProfileClick}>
-          <PersonOutlinedIcon/>
+          <PersonOutlinedIcon />
         </IconButton>
+
         <IconButton onClick={handleLogoutWithConfirmation}>
-          <ExitToAppOutlinedIcon/>
+          <ExitToAppOutlinedIcon />
         </IconButton>
+
       </Box>
     </Box>
   );
