@@ -14,6 +14,7 @@ import geographyStatRoutes from "./route/geography.route.js";
 import typeStatRoutes from "./route/type.route.js";
 import testRunRoutes from "./route/testrun.route.js";
 import scheduledTestRoutes from "./route/scheduledtest.route.js";
+import notificationRoutes from "./route/notification.route.js";
 
 const PORT = process.env.PORT || 2999;
 const app = express();
@@ -30,6 +31,7 @@ app.use("/geographicstat", geographyStatRoutes);
 app.use("/typestat", typeStatRoutes);
 app.use("/testruns", testRunRoutes);
 app.use("/scheduledtests", scheduledTestRoutes);
+app.use("/notifications", notificationRoutes);
 
 
 app.get("/", (req, res) =>
