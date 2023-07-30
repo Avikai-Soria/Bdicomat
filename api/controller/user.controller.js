@@ -64,6 +64,33 @@ export const getUser = async (req, res) => {
   }
 };
 
+export const getAllUsers = async (req, res) => {
+  console.log(`${req.method} ${req.originalUrl}, fetching all users...`);
+
+  try {
+    const results = await databasePr.query(QUERY.SELECT_USERS);
+
+    if (results[0].length === 0) {
+      const message = "No users found";
+      return handleNotFound(res, message);
+    }
+
+    res
+      .status(HttpStatus.OK.code)
+      .send(
+        new Response(
+          HttpStatus.OK.code,
+          HttpStatus.OK.status,
+          "All users retrieved",
+          results[0].map((user) => filterUserFields(res.locals.userId, user))
+        )
+      );
+  } catch (error) {
+    console.error("Error fetching all users:", error.message);
+    return handleInternalError(res);
+  }
+};
+
 const userCreationSchema = Joi.object({
   name: Joi.string().min(1).max(255).required(),
   username: Joi.string().pattern(usernamePattern).min(1).max(255).required(),

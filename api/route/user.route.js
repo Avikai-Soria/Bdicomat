@@ -5,7 +5,8 @@ import {
   deleteUserSelf,
   updateUserSelf,
   deleteUser,
-  updateUser
+  updateUser,
+  getAllUsers
 } from "../controller/user.controller.js";
 
 import { authenticate, authorizeAdmin } from "../controller/apikey.controller.js";
@@ -17,6 +18,7 @@ userRoutes.post("/", createUser);
 userRoutes.use(authenticate);
 
 userRoutes.route("/")
+  .get(authorizeAdmin, getAllUsers)
   .delete(deleteUserSelf)
   .put(updateUserSelf);
 

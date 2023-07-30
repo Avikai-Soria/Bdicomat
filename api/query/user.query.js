@@ -1,5 +1,9 @@
 const QUERY = {
-  SELECT_USERS: "SELECT * FROM Users",
+  SELECT_USERS: `
+  SELECT U.*, UR.role AS userRole
+  FROM Users U
+  LEFT JOIN UserRoles UR ON U.id = UR.userId
+`,
   SELECT_USER_BY_ID: `
   SELECT U.*, UR.role AS userRole
   FROM Users U
