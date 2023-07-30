@@ -119,7 +119,7 @@ function MainPageContainer() {
                     <Route path="/domain" element={<DomainChart />} />
                     <Route path="/form" element={<Form />} />
                     <Route path="/line" element={<Line />} />
-                    <Route path="/pie" element={<Pie />} />
+                    <Route path="/pie" element={<Pie isMobile={isMobile}/>} />
                     <Route path="/faq" element={<FAQ />} />
                     <Route path="/geography" element={<Geography />} />
                     <Route path="/calendar" element={<Calendar />} />

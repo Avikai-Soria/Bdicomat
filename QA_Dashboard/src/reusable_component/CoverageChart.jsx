@@ -27,9 +27,7 @@ const adaptData = (data) => {
 };
 
 const PieChart = ({ data, title }) => {
-  console.log(data);
   delete data["type"];
-  console.log(data);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
