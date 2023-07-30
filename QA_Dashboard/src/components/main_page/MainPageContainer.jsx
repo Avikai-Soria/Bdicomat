@@ -6,7 +6,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import Topbar from "./layout/Topbar";
 import Sidebar from "./layout/Sidebar";
 import Dashboard from "./layout/dashboard";
-import Team from "./layout/team";
+import Team from "./layout/Team";
 import BugReports from "./layout/BugReports";
 import TestReports from "./layout/TestReports";
 import DomainChart from "./layout/bar";
@@ -115,16 +115,18 @@ function MainPageContainer() {
                   <Routes>
                     <Route path="/" element={<Dashboard />} />
                     <Route path="/profile" element={<Profile userData={user} />} />
-                    <Route path="/team" element={<Team />} />
                     <Route path="/bugReports" element={<BugReports isMobile={isMobile} />} />
                     <Route path="/test" element={<TestReports isMobile={isMobile} />} />
                     <Route path="/domain" element={<DomainChart />} />
-                    <Route path="/form" element={<Form />} />
                     <Route path="/line" element={<Line />} />
                     <Route path="/pie" element={<Pie isMobile={isMobile} />} />
                     <Route path="/faq" element={<FAQ />} />
                     <Route path="/geography" element={<Geography />} />
                     <Route path="/calendar" element={<Calendar />} />
+
+                    {isAdmin ? (<Route path="/team" element={<Team />} />) : <></>}
+                    {isAdmin ? (<Route path="/form" element={<Form />} />) : <></>}
+
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </main>

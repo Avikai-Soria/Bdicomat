@@ -1,101 +1,48 @@
+import React, { useContext, useEffect, useState } from "react";
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../../hooks/theme";
-import { mockDataTeam } from "../data/mockData";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../../reusable_component/Header.jsx";
+import apiFetch from "../../../hooks/api";
+import { UserInfoContext } from "../MainPageContainer";
 
 const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const [data, setData] = useState([]);
+
+  const { apiKey } = useContext(UserInfoContext);
+
+  useEffect(() => {
+    apiFetch(`users`, "GET", apiKey)
+      .then((response) => setData(response.data))
+      .catch((err) => alert("Couldn't load users... Please refresh the page"));
+  }, []);
+
   const columns = [
-    { field: "id", headerName: "User ID", flex: 0.1,},
+    { field: "id", headerName: "User ID", flex: 0.1 },
     {
       field: "name",
-      headerName: "User Name",
+      headerName: "Full Name",
       flex: 0.5,
       cellClassName: "name-column--cell",
     },
+    { field: "username", headerName: "Username", flex: 0.5 },
     {
-      field: "testCurrentSprint",
-      headerName: "Tests Current Sprint",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
+      field: "email",
+      headerName: "Email",
       flex: 0.75,
     },
     {
-      field: "testLastSprint",
-      headerName: "Tests Last Sprint",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-      flex: 0.6,
-    },
-    {
-      field: "testBeforeLastSprint",
-      headerName: "Tests Before Last Sprint",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-      flex: 0.8,
-    },
-    {
-      field: "bugCurrentSprint",
-      headerName: "Bugs Current Sprint",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-      flex: 0.7,
-    },
-    {
-      field: "bugLastSprint",
-      headerName: "Bugs Last Sprint",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-      flex: 0.5,
-    },
-    {
-      field: "bugBeforeLastSprint",
-      headerName: "Bugs Before Last Sprint",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-      flex: 0.7,
-    },
-    {
-      field: "exceptedBugCurrentSprint",
-      headerName: "Excepted Bugs Current Sprint",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-      flex: 0.85,
-    },
-    {
-      field: "exceptedBugLastSprint",
-      headerName: "Excepted Bugs Last Sprint",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-      flex: 0.7,
-    },
-    {
-      field: "exceptedBugBeforeLastSprint",
-      headerName: "Excepted Bugs Before Last Sprint",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-      flex: 0.9,
-    },
-    {
-      field: "accessLevel",
-      headerName: "Access Level",
+      field: "userRole",
+      headerName: "User Role",
       headerAlign: "center",
       flex: 0.8,
-      renderCell: ({ row: { access } }) => {
+      renderCell: ({ row: { userRole } }) => {
         return (
           <Box
             width="60%"
@@ -104,19 +51,16 @@ const Team = () => {
             display="flex"
             justifyContent="center"
             backgroundColor={
-              access === "admin"
+              userRole === "admin"
                 ? colors.greenAccent[600]
-                : access === "manager"
-                ? colors.greenAccent[700]
-                : colors.greenAccent[700]
+                : colors.redAccent[600]
             }
             borderRadius="4px"
           >
-            {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
-            {access === "manager" && <SecurityOutlinedIcon />}
-            {access === "user" && <LockOpenOutlinedIcon />}
+            {userRole === "admin" && <AdminPanelSettingsOutlinedIcon />}
+            {userRole === "tester" && <LockOpenOutlinedIcon />}
             <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-              {access}
+              {userRole}
             </Typography>
           </Box>
         );
@@ -156,7 +100,7 @@ const Team = () => {
           },
         }}
       >
-        <DataGrid rows={mockDataTeam} columns={columns} />
+        <DataGrid rows={data} columns={columns} />
       </Box>
     </Box>
   );
