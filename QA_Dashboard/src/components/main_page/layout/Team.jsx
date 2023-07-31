@@ -25,20 +25,29 @@ const Team = () => {
   }, []);
 
   const handleUpgradeUser = (id) => {
-    const confirmUpgrade = window.confirm(`Are you sure you want to make this user with ID ${id} an admin?`);
+    const confirmUpgrade = window.confirm(
+      `Are you sure you want to make this user with ID ${id} an admin?`
+    );
     if (confirmUpgrade) {
       apiFetch(`users/${id}/upgrade`, "PUT", apiKey)
         .then((response) => {
-          // Handle the success response here
-          console.log(response);
           if (response.statusCode === 200) {
             alert("User successfully upgraded to admin!");
+            // Find the user that was upgraded and update their userRole
+            const updatedData = data.map((user) => {
+              if (user.id === id) {
+                return { ...user, userRole: "admin" };
+              }
+              return user;
+            });
+            setData(updatedData);
           } else {
-            alert("Failed to upgrade user to admin. Please contact system admin.");
+            alert(
+              "Failed to upgrade user to admin. Please contact system admin."
+            );
           }
         })
         .catch((error) => {
-          // Handle the error here if the upgrade fails
           console.error("Error upgrading user:", error);
           alert("An error occurred while upgrading user. Please try again.");
         });
@@ -46,18 +55,22 @@ const Team = () => {
   };
 
   const handleRemoveUser = (id) => {
-    const confirmRemove = window.confirm(`Are you sure you want to delete the user with ID ${id}?`);
+    const confirmRemove = window.confirm(
+      `Are you sure you want to delete the user with ID ${id}?`
+    );
     if (confirmRemove) {
       apiFetch(`users/${id}`, "DELETE", apiKey)
         .then((response) => {
-          // Handle the success response here
-          if (response.statusCode === 200)
+          if (response.statusCode === 200) {
             alert("User successfully removed!");
-          else
+            // Remove the user that was deleted from the local data array
+            const updatedData = data.filter((user) => user.id !== id);
+            setData(updatedData);
+          } else {
             alert("User could not be removed. Please contact system admin.");
+          }
         })
         .catch((error) => {
-          // Handle the error here if the deletion fails
           alert("Failed to delete user. Please try again.");
         });
     }
@@ -116,7 +129,7 @@ const Team = () => {
           return (
             <Box display="flex" justifyContent="center" alignItems="center">
               <ArrowUpwardIcon
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: "pointer" }}
                 onClick={() => handleUpgradeUser(row.id)}
               />
             </Box>
@@ -135,7 +148,7 @@ const Team = () => {
           return (
             <Box display="flex" justifyContent="center" alignItems="center">
               <DeleteOutlineIcon
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: "pointer" }}
                 onClick={() => handleRemoveUser(row.id)}
               />
             </Box>
