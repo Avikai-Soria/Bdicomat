@@ -8,23 +8,48 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { UserInfoContext } from "../MainPageContainer";
 import apiFetch from "../../../hooks/api";
+import { INITIAL_EVENTS } from "./event-utils";
 
 import "../../../style_files/calender.css";
 
 function renderEventContent(eventInfo) {
-  eventInfo.timeText = "";
   return (
     <>
+      <b>{eventInfo.timeText}</b>
       <i>{eventInfo.event.title}</i>
     </>
   );
+}
+
+let eventGuid = 0;
+
+function createEventId() {
+  return String(eventGuid++);
+}
+
+function getTodayStr() {
+  return new Date().toISOString().split("T")[0];
+}
+
+function adaptData(originalData) {
+  const transformedData = [];
+  const todayStr = getTodayStr();
+
+  for (const item of originalData) {
+    transformedData.push({
+      id: createEventId(),
+      title: item.testName,
+      start: todayStr, // Use today's date in "YYYY-MM-DD" format
+    });
+  }
+  return transformedData;
 }
 
 function renderSidebarEvent(event) {
   return (
     <li key={event.id}>
       <b>
-        {formatDate(event.date, {
+        {formatDate(event.start, {
           year: "numeric",
           month: "short",
           day: "numeric",
@@ -49,28 +74,18 @@ const formatDateWithoutTime = (dateString) => {
 const Calendar = () => {
   const [weekendsVisible, setWeekendsVisible] = useState(true);
   const [currentEvents, setCurrentEvents] = useState([]);
+  const [initEvents, setInitEvents] = useState([]);
 
   const { userId, apiKey } = useContext(UserInfoContext);
 
   useEffect(() => {
-    // Function to fetch scheduled test data from the backend API
-    const fetchScheduledTests = async () => {
-      try {
-        const response = await apiFetch(`scheduledtests?userId=${userId}`, "GET", apiKey);
-        const mappedEvents = response.data.scheduledTests.map((scheduledTest) => ({
-          id: scheduledTest.id,
-          title: scheduledTest.testName, // Replace with the appropriate title property from your data
-          date: formatDateWithoutTime(scheduledTest.scheduledTime), // Replace with the appropriate property for scheduledTime
-          allDay: false, // You can adjust this based on whether the event is an all-day event or not
-        }));
-        setCurrentEvents(mappedEvents);
-      } catch (error) {
-        console.error("Error fetching scheduled tests:", error);
-      }
-    };
-
-    // Call the fetchScheduledTests function to get the data
-    fetchScheduledTests();
+    if (initEvents.length === 0) {
+      apiFetch(`scheduledtests?userId=${userId}`, "GET", apiKey)
+        .then((response) => {
+          setInitEvents(response.data.scheduledTests);
+        })
+        .catch((err) => console.log("Couldn't load domain's stats..."));
+    }
   }, []);
 
   const handleWeekendsToggle = () => {
@@ -89,8 +104,9 @@ const Calendar = () => {
     calendarApi.unselect(); // clear date selection
 
     if (title) {
+      let id = createEventId();
       calendarApi.addEvent({
-        id: createEventId(),
+        id: id,
         title,
         start: selectInfo.startStr,
         end: selectInfo.endStr,
@@ -110,11 +126,12 @@ const Calendar = () => {
   };
 
   const handleEvents = (events) => {
-    // Leave it for later maybe... need to map all events into currentEvents somehow
+    setCurrentEvents(events);
   };
 
-  if (!currentEvents)
-    return <p>Loading events...</p>
+  if (!currentEvents) return <p>Loading events...</p>;
+  if (!initEvents) return <p>Loading events...</p>;
+  if (initEvents.length === 0) return <p>No events to show...</p>;
 
   return (
     <Stack direction={"row"}>
@@ -128,6 +145,8 @@ const Calendar = () => {
       </Paper>
 
       <div className="demo-app-main">
+        {console.log(adaptData(initEvents), "adaptData(initEvents)")}
+        {console.log(INITIAL_EVENTS, "INITIAL_EVENTS")}
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           headerToolbar={{
@@ -141,16 +160,17 @@ const Calendar = () => {
           selectMirror={true}
           dayMaxEvents={true}
           weekends={weekendsVisible}
-          events={currentEvents}
+          initialEvents={adaptData(initEvents)} // alternatively, use the `events` setting to fetch from a feed
+          // initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
           select={handleDateSelect}
           eventContent={renderEventContent} // custom render function
           eventClick={handleEventClick}
           eventsSet={handleEvents} // called after events are initialized/added/changed/removed
-        /* you can update a remote database when these fire:
-             eventAdd={function(){}}
-             eventChange={function(){}}
-             eventRemove={function(){}}
-             */
+          /* you can update a remote database when these fire:
+               eventAdd={function(){}}
+               eventChange={function(){}}
+               eventRemove={function(){}}
+               */
         />
         <div className="demo-app-sidebar-section">
           <label>
