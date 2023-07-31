@@ -3,21 +3,15 @@ import { Box, Typography, useTheme } from "@mui/material";
 import StatBox from "../../../QA_Dashboard/src/reusable_component/StatBox";
 import { tokens } from "../hooks/theme";
 import RuleIcon from "@mui/icons-material/Rule";
-
-import { io } from 'socket.io-client';
-
-const socket = io('http://localhost:3002');;
-
-socket.on('connect', () => {
-  console.log('Connected to the server');
-});
-
-socket.on('message', (data) => {
-  console.log('Received from Server 1:', data);
-});
-
+import connectToSetUpServer from "../assets/socket/socket_client";
+import { useContext, useEffect, useState } from "react";
 
 const RunningTests = ({ tests, isMobile }) => {
+  const [progress, setProgress] = useState([0]);
+  if (progress == 0) {
+    console.log("connecting to socket");
+    connectToSetUpServer("3002", setProgress);
+  }
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -34,10 +28,10 @@ const RunningTests = ({ tests, isMobile }) => {
             justifyContent="center"
           >
             <StatBox
-              title={test.duration}
+              title={`test id: ${test.id}`}
               subtitle={test.testName}
-              progress="0.50"
-              increase="50%"
+              progress={progress}
+              increase={`%${progress * 100}`}
               icon={
                 <RuleIcon
                   sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
