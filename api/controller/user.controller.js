@@ -328,3 +328,53 @@ const deleteUserById = async (req, res, id) => {
     return handleInternalError(res);
   }
 };
+
+export const upgradeUserToAdmin = async (req, res) => {
+  console.log(`${req.method} ${req.originalUrl}, upgrading user to admin...`);
+  const { id } = req.params;
+
+  try {
+    // Get a connection from the pool
+    const connection = await database.promise().getConnection();
+
+    try {
+      // Start a database transaction
+      await connection.beginTransaction();
+
+      // Check if the user exists
+      const userResult = await connection.query(QUERY.SELECT_USER_BY_ID, [id]);
+
+      if (userResult[0].length === 0) {
+        // Rollback the transaction
+        await connection.rollback();
+
+        return handleNotFound(res, `User with ID ${id} not found`);
+      }
+
+      // Add the 'admin' role to the user
+      await connection.query(QUERY.UPGRADE_USER_TO_ADMIN, [id]);
+
+      // Commit the transaction
+      await connection.commit();
+
+      res.status(HttpStatus.OK.code).send(
+        new Response(HttpStatus.OK.code, HttpStatus.OK.status, "User upgraded to admin", {
+          userId: id,
+          role: 'admin',
+        })
+      );
+    } catch (error) {
+      // Rollback the transaction
+      await connection.rollback();
+
+      console.error("Error upgrading user to admin:", error.message);
+      return handleInternalError(res);
+    } finally {
+      // Release the connection back to the pool
+      connection.release();
+    }
+  } catch (error) {
+    console.error("Error upgrading user to admin:", error.message);
+    return handleInternalError(res);
+  }
+};

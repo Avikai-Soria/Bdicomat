@@ -27,24 +27,34 @@ const Team = () => {
   const handleUpgradeUser = (id) => {
     const confirmUpgrade = window.confirm(`Are you sure you want to make this user with ID ${id} an admin?`);
     if (confirmUpgrade) {
-      // Implement the logic to upgrade the user with the given ID to an admin.
-      // You can make an API call to update the user role, for example.
-      // After upgrading the user, you may want to refresh the data.
-
-      // For now, let's show a success alert to indicate the upgrade.
-      alert("User successfully upgraded to admin!");
+      apiFetch(`users/${id}/upgrade`, "PUT", apiKey)
+        .then((response) => {
+          // Handle the success response here
+          console.log(response);
+          if (response.statusCode === 200) {
+            alert("User successfully upgraded to admin!");
+          } else {
+            alert("Failed to upgrade user to admin. Please contact system admin.");
+          }
+        })
+        .catch((error) => {
+          // Handle the error here if the upgrade fails
+          console.error("Error upgrading user:", error);
+          alert("An error occurred while upgrading user. Please try again.");
+        });
     }
   };
 
   const handleRemoveUser = (id) => {
     const confirmRemove = window.confirm(`Are you sure you want to delete the user with ID ${id}?`);
     if (confirmRemove) {
-      // Call the apiFetch function to delete the user with the given ID
       apiFetch(`users/${id}`, "DELETE", apiKey)
         .then((response) => {
           // Handle the success response here
-          alert("User successfully removed!");
-          // You may want to refresh the data after the user is removed from the database
+          if (response.statusCode === 200)
+            alert("User successfully removed!");
+          else
+            alert("User could not be removed. Please contact system admin.");
         })
         .catch((error) => {
           // Handle the error here if the deletion fails
@@ -52,7 +62,7 @@ const Team = () => {
         });
     }
   };
-  
+
   const columns = [
     { field: "id", headerName: "User ID", flex: 0.1 },
     {

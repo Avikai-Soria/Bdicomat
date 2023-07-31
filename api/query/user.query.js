@@ -26,6 +26,8 @@ const QUERY = {
     "UPDATE Passwords SET password = ? WHERE userId = ? AND password = ?",
   DELETE_PASSWORD: "DELETE FROM Passwords WHERE userId = ?",
   DELETE_APIKEYS: "DELETE FROM ApiKeys WHERE userId = ?",
+  UPGRADE_USER_TO_ADMIN: `
+  UPDATE UserRoles SET role = 'admin' WHERE userId = ? AND role = 'tester'`,
 };
 
 export default QUERY;
