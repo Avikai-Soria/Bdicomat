@@ -1,7 +1,7 @@
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../../hooks/theme";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import RuleIcon from '@mui/icons-material/Rule';
+import RuleIcon from "@mui/icons-material/Rule";
 import Header from "../../../reusable_component/Header.jsx";
 import LineChart from "../../../reusable_component/TimelineChart";
 import GeographyChart from "../../../reusable_component/GeographyChart";
@@ -16,54 +16,51 @@ import apiFetch from "../../../hooks/api";
 import useWindowSize from "../../../hooks/useWindowSize";
 import useLocalStorageState from "../../../hooks/useLocalStorageState";
 
-
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const { apiKey } = useContext(UserInfoContext);
-  const [domainStats, setDomainStats] = useLocalStorageState('domainStats', []);
-  const [monthlyStats, setMonthlyStats] = useLocalStorageState('monthlyStats', []);
-  const [geoStats, setGeoStats] = useLocalStorageState('geoStats', []);
+  const [domainStats, setDomainStats] = useLocalStorageState("domainStats", []);
+  const [monthlyStats, setMonthlyStats] = useLocalStorageState(
+    "monthlyStats",
+    []
+  );
+  const [geoStats, setGeoStats] = useLocalStorageState("geoStats", []);
   const [recentTests, setRecentTests] = useState([]);
 
   const size = useWindowSize();
   const isMobile = size.width <= 768;
 
+  useEffect(() => {
+    if (domainStats.length === 0) {
+      apiFetch(`domainstat`, "GET", apiKey)
+        .then((response) => setDomainStats(response.data.domainStats))
+        .catch((err) => console.log("Couldn't load domain's stats..."));
+    }
+  }, []);
 
-useEffect(() => {
-  if (domainStats.length === 0) {
-    apiFetch(`domainstat`, "GET", apiKey)
-      .then((response) => setDomainStats(response.data.domainStats))
-      .catch((err) => console.log("Couldn't load domain's stats..."));
-  }
-}, []);
+  useEffect(() => {
+    if (monthlyStats.length === 0) {
+      apiFetch(`monthlystat`, "GET", apiKey)
+        .then((response) => setMonthlyStats(response.data.monthlyStats))
+        .catch((err) => console.log("Couldn't load monthly Stats..."));
+    }
+  }, []);
 
-useEffect(() => {
-  if (monthlyStats.length === 0) {
-    apiFetch(`monthlystat`, "GET", apiKey)
-      .then((response) => setMonthlyStats(response.data.monthlyStats))
-      .catch((err) => console.log("Couldn't load monthly Stats..."));
-  }
-}, []);
-
-
-useEffect(() => {
-  if (geoStats.length === 0) {
-    apiFetch(`geographicstat`, "GET", apiKey)
-      .then((response) => setGeoStats(response.data.geographicStats))
-      .catch((err) => console.log("Couldn't load geographic's stats..."));
-  }
-}, []);
-
-
+  useEffect(() => {
+    if (geoStats.length === 0) {
+      apiFetch(`geographicstat`, "GET", apiKey)
+        .then((response) => setGeoStats(response.data.geographicStats))
+        .catch((err) => console.log("Couldn't load geographic's stats..."));
+    }
+  }, []);
 
   useEffect(() => {
     apiFetch(`testruns?limit=10`, "GET", apiKey)
       .then((response) => setRecentTests(response.data.testRuns))
       .catch((err) => console.log("Couldn't load recent tests..."));
   }, []);
-
 
   return (
     <Box m="20px">
@@ -79,8 +76,8 @@ useEffect(() => {
               fontSize: "14px",
               fontWeight: "bold",
               padding: "10px 20px",
-              transform: isMobile ? 'scale(0.8)' : 'scale(1)',
-              transformOrigin: 'top left',
+              transform: isMobile ? "scale(0.8)" : "scale(1)",
+              transformOrigin: "top left",
             }}
           >
             <DownloadOutlinedIcon sx={{ mr: "10px" }} />
@@ -96,10 +93,6 @@ useEffect(() => {
         gridAutoRows={{ xs: "auto", md: "140px" }}
         gap="20px"
       >
-
-
-
-
         {/* ROW 2 */}
         <Box
           gridColumn={isMobile ? "span 1" : "span 8"}
@@ -167,7 +160,7 @@ useEffect(() => {
             alignItems="center"
             mt="25px"
           >
-            <ProgressCircle size="125" progress="0.1"/>
+            <ProgressCircle size="125" progress="0.1" />
             <Typography
               variant="h5"
               color={colors.greenAccent[500]}
@@ -191,7 +184,11 @@ useEffect(() => {
             Domain Chart
           </Typography>
           <Box height="250px" mt="-20px">
-            {domainStats ? <BarChart isDashboard={true} domainStats={domainStats} /> : <p>Loading...</p>}
+            {domainStats ? (
+              <BarChart isDashboard={true} domainStats={domainStats} />
+            ) : (
+              <p>Loading...</p>
+            )}
           </Box>
         </Box>
         <Box
@@ -208,14 +205,22 @@ useEffect(() => {
             Geography Based Traffic
           </Typography>
           <Box height="200px">
-            {geoStats ? <GeographyChart isDashboard={true} geoStats={geoStats} /> : <p>Waiting...</p>}
+            {geoStats ? (
+              <GeographyChart isDashboard={true} geoStats={geoStats} />
+            ) : (
+              <p>Waiting...</p>
+            )}
           </Box>
         </Box>
         {recentTests.length > 0 ? (
-            <RunningTests tests={recentTests}></RunningTests>
-          ) : (
-            <p>Loading...</p>
-          )}
+          recentTests
+            .filter((test) => test.result === "running")
+            .map((test, i) => {
+              return <RunningTests test={test} index={i} isMobile = {isMobile} />;
+            })
+        ) : (
+          <p>Loading...</p>
+        )}
       </Box>
     </Box>
   );
