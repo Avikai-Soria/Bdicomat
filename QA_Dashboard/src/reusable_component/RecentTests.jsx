@@ -29,8 +29,8 @@ const RecentTests = ({ tests: tests }) => {
               test.result === "pass"
                 ? colors.greenAccent[500]
                 : test.result === "fail"
-                  ? "red" // You can replace "red" with the desired red color code
-                  : "blue" // You can replace "blue" with the desired blue color code
+                  ? "red" 
+                  : "blue"
             }
             p="5px 10px"
             borderRadius="4px"
