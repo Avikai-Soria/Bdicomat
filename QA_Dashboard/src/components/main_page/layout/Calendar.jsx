@@ -39,7 +39,7 @@ function adaptData(originalData) {
     transformedData.push({
       id: createEventId(),
       title: item.testName,
-      start: todayStr, // Use today's date in "YYYY-MM-DD" format
+      start: item.scheduledTime, // Use today's date in "YYYY-MM-DD" format
     });
   }
   return transformedData;
