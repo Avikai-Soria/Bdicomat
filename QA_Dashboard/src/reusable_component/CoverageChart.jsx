@@ -27,7 +27,15 @@ const adaptData = (data) => {
 };
 
 const PieChart = ({ data, title }) => {
-  delete data["type"];
+  // If data doesn't exist, return "Loading"
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
+  // Check if "type" key exists in data before trying to delete it
+  if (data.hasOwnProperty("type")) {
+    delete data["type"];
+  }
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
