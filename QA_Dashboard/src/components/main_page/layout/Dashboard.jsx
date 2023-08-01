@@ -172,7 +172,7 @@ const Dashboard = () => {
             alignItems="center"
             mt="25px"
           ></Box>
-          <PieChart data={typeStats[0]} title={typeStats[0].type} />
+          <PieChart data={typeStats[0]} title={""} />
         </Box>
         <Box
           gridColumn={isMobile ? "span 1" : "span 4"}
