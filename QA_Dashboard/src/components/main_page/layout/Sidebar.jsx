@@ -211,6 +211,13 @@ const Sidebar = ({ userName, userRole, isAdmin, selected, setSelected }) => {
                   selected={selected}
                   setSelected={setSelected}
                 />
+                <Item
+                  title="Create New Test"
+                  to="/create-test"
+                  icon={<PersonOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
 
               </>)
             }
