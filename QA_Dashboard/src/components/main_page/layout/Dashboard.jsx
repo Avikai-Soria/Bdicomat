@@ -7,6 +7,7 @@ import LineChart from "../../../reusable_component/TimelineChart";
 import GeographyChart from "../../../reusable_component/GeographyChart";
 import BarChart from "../../../reusable_component/DomainChart.jsx";
 import StatBox from "../../../reusable_component/StatBox";
+import PieChart from "../../../reusable_component/CoverageChart";
 import ProgressCircle from "../../../reusable_component/ProgressCircle";
 import RecentTests from "../../../reusable_component/RecentTests";
 import RunningTests from "../../../reusable_component/RunningTests";
@@ -28,6 +29,7 @@ const Dashboard = () => {
   );
   const [geoStats, setGeoStats] = useLocalStorageState("geoStats", []);
   const [recentTests, setRecentTests] = useState([]);
+  const [typeStats, setTypeStats] = useLocalStorageState("typeStats", []);
 
   const size = useWindowSize();
   const isMobile = size.width <= 768;
@@ -60,6 +62,16 @@ const Dashboard = () => {
     apiFetch(`testruns?limit=10`, "GET", apiKey)
       .then((response) => setRecentTests(response.data.testRuns))
       .catch((err) => console.log("Couldn't load recent tests..."));
+  }, []);
+
+  useEffect(() => {
+    if (typeStats.length === 0) {
+      apiFetch(`typestat`, "GET", apiKey)
+        .then((response) => setTypeStats(response.data.typeStats))
+        .catch((err) =>
+          alert("Couldn't load type's stats... Please refresh the page")
+        );
+    }
   }, []);
 
   return (
@@ -152,24 +164,15 @@ const Dashboard = () => {
           p="30px"
         >
           <Typography variant="h5" fontWeight="600">
-            Campaign
+            Code Coverage
           </Typography>
           <Box
             display="flex"
             flexDirection="column"
             alignItems="center"
             mt="25px"
-          >
-            <ProgressCircle size="125" progress="0.1" />
-            <Typography
-              variant="h5"
-              color={colors.greenAccent[500]}
-              sx={{ mt: "15px" }}
-            >
-              $48,352 revenue generated
-            </Typography>
-            <Typography>Includes extra misc expenditures and costs</Typography>
-          </Box>
+          ></Box>
+          <PieChart data={typeStats[0]} title={typeStats[0].type} />
         </Box>
         <Box
           gridColumn={isMobile ? "span 1" : "span 4"}
@@ -216,7 +219,7 @@ const Dashboard = () => {
           recentTests
             .filter((test) => test.result === "running")
             .map((test, i) => {
-              return <RunningTests test={test} index={i} isMobile = {isMobile} />;
+              return <RunningTests test={test} index={i} isMobile={isMobile} />;
             })
         ) : (
           <p>Loading...</p>

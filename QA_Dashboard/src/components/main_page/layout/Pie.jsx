@@ -25,7 +25,7 @@ const Pie = ({ isMobile }) => {
 
   return (
     <Box m="20px">
-      <Header title="Pie Chart" subtitle="Simple Pie Chart" />
+      <Header title="Coverage Chart" subtitle="Simple Pie Chart" />
       {isMobile ? (
         // If isMobile is true, show only one chart per row
         typeStats.map((data) => (

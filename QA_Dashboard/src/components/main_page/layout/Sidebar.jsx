@@ -168,7 +168,7 @@ const Sidebar = ({ userName, userRole, isAdmin, selected, setSelected }) => {
               setSelected={setSelected}
             />
             <Item
-              title="Pie Chart"
+              title="Coverage Chart"
               to="/pie"
               icon={<PieChartOutlineOutlinedIcon />}
               selected={selected}
