@@ -5,7 +5,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 
 import Topbar from "./layout/Topbar";
 import Sidebar from "./layout/Sidebar";
-import Dashboard from "./layout/dashboard";
+import Dashboard from "./layout/Dashboard";
 import Team from "./layout/Team";
 import BugReports from "./layout/BugReports";
 import TestReports from "./layout/TestReports";
@@ -25,6 +25,7 @@ import MobileMenu from "./layout/MobileMenu";
 import apiFetch from "../../hooks/api";
 import useWindowSize from "../../hooks/useWindowSize";
 import Profile from "./layout/Profile";
+import CreateTest from "./layout/CreateTest";
 
 export const UserInfoContext = createContext();
 
@@ -126,6 +127,7 @@ function MainPageContainer() {
 
                     {isAdmin ? (<Route path="/team" element={<Team />} />) : <></>}
                     {isAdmin ? (<Route path="/form" element={<Form />} />) : <></>}
+                    {isAdmin ? (<Route path="/Create-Test" element={<CreateTest />} />) : <></>}
 
                     <Route path="*" element={<NotFound />} />
                   </Routes>
